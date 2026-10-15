@@ -39,10 +39,13 @@
           <i class="fa-solid fa-store ml-1"></i> سوق وطلبات القطع
         </button>
         <button onclick="switchTab('cars-tab')" id="btn-cars-tab" class="tab-btn px-4 py-2 rounded-lg transition bg-slate-800 text-slate-300 hover:bg-slate-700">
-          <i class="fa-solid fa-car ml-1"></i> دليل السيارات
+          <i class="fa-solid fa-car ml-1"></i> دليل السيارات الشامل
         </button>
         <button onclick="switchTab('shops-tab')" id="btn-shops-tab" class="tab-btn px-4 py-2 rounded-lg transition bg-slate-800 text-slate-300 hover:bg-slate-700">
-          <i class="fa-solid fa-wrench ml-1"></i> مناطق ومحلات الصيانة
+          <i class="fa-solid fa-wrench ml-1"></i> محلات وورش الصيانة
+        </button>
+        <button onclick="switchTab('admin-tab')" id="btn-admin-tab" class="tab-btn px-4 py-2 rounded-lg transition bg-slate-800 text-amber-400 hover:bg-slate-700">
+          <i class="fa-solid fa-lock ml-1"></i> لوحة الإدارة
         </button>
       </nav>
     </div>
@@ -109,9 +112,7 @@
         <h3 class="text-lg font-bold text-blue-700 mb-3 flex items-center gap-2">
           <i class="fa-solid fa-stethoscope"></i> نتيجة التشخيص والاقتراحات:
         </h3>
-        <div id="ai-result-content" class="text-slate-700 leading-relaxed space-y-3 whitespace-pre-wrap text-sm">
-          <!-- AI Output injected here -->
-        </div>
+        <div id="ai-result-content" class="text-slate-700 leading-relaxed space-y-3 whitespace-pre-wrap text-sm"></div>
       </div>
     </section>
 
@@ -120,7 +121,7 @@
       <div class="flex flex-wrap justify-between items-center gap-4">
         <div>
           <h2 class="text-2xl font-extrabold text-slate-900">سوق وطلبات قطع الغيار</h2>
-          <p class="text-sm text-slate-500">اطلب القطعة الناقصة لسيارتك أو اعرض قطعاً للبيع ليتواصل معك المستخدمون</p>
+          <p class="text-sm text-slate-500">اطلب القطعة الناقصة لسيارتك أو اعرض قطعاً للبيع</p>
         </div>
         <button onclick="openModal('add-part-modal')" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center gap-2">
           <i class="fa-solid fa-plus"></i> إضافة طلب / عرض قطعة
@@ -136,20 +137,18 @@
         </select>
       </div>
 
-      <div id="parts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Dynamic Cards Inserted Here -->
-      </div>
+      <div id="parts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
     <!-- 3. CAR CATALOG TAB -->
     <section id="cars-tab" class="tab-content hidden space-y-6">
       <div>
-        <h2 class="text-2xl font-extrabold text-slate-900">دليل ومواصفات السيارات</h2>
-        <p class="text-sm text-slate-500">مواصفات السيارات الأكثر انتشاراً في سوريا والمنطقة العربية ومدى توفر قطعها</p>
+        <h2 class="text-2xl font-extrabold text-slate-900">دليل ومواصفات السيارات الشامل</h2>
+        <p class="text-sm text-slate-500">قاعدة بيانات موسعة لأبرز السيارات المنتشرة في سورية والمنطقة العربية مع توفر القطع</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="text" id="car-search-input" oninput="renderCarCatalog()" placeholder="ابحث باسم السيارة (مثل: شام، سيراتو، لانسر)..." class="p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <input type="text" id="car-search-input" oninput="renderCarCatalog()" placeholder="ابحث باسم السيارة أو المحرك..." class="p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
         <select id="car-origin-filter" onchange="renderCarCatalog()" class="p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
           <option value="ALL">جميع المنشآت</option>
           <option value="كوري">كوري</option>
@@ -157,109 +156,126 @@
           <option value="فرنسي / إيراني / محلي">فرنسي / محلي / إيراني</option>
           <option value="ألماني / أوروبي">ألماني / أوروبي</option>
           <option value="صيني">صيني</option>
+          <option value="أمريكي">أمريكي</option>
         </select>
       </div>
 
-      <div id="cars-catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Dynamic Car Catalog -->
-      </div>
+      <div id="cars-catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
     <!-- 4. SHOPS & MAINTENANCE LOCATIONS TAB -->
     <section id="shops-tab" class="tab-content hidden space-y-6">
-      <div>
-        <h2 class="text-2xl font-extrabold text-slate-900">مناطق قطع الغيار والصيانة المشهورة</h2>
-        <p class="text-sm text-slate-500">أبرز التجمعات الصناعية والأسواق لقطع الغيار والصيانة في المحافظات السورية والمنطقة</p>
+      <div class="flex flex-wrap justify-between items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900">محلات وورش الصيانة وقطع الغيار</h2>
+          <p class="text-sm text-slate-500">دليل التجمعات والمحلات المعتمدة (يمكنك إضافة محلك ليتم مراجعته ونشره)</p>
+        </div>
+        <button onclick="openModal('add-shop-modal')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center gap-2">
+          <i class="fa-solid fa-store"></i> إضافـة محل أو ورشة
+        </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <div class="text-blue-600 font-bold text-lg mb-2"><i class="fa-solid fa-location-dot ml-1"></i> حلب - المنطقة الصناعية بالراموسة</div>
-          <p class="text-xs text-slate-600 mb-3">مركز تجميع قطع الغيار المستعملة (الكرك) والجديدة، ومحلات الميكانيك الخفيف والثقيل وتجليس السيارات.</p>
-          <span class="inline-block bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">تخصص: مستعمل وجديد + صيانة شاملة</span>
-        </div>
+      <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
 
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <div class="text-blue-600 font-bold text-lg mb-2"><i class="fa-solid fa-location-dot ml-1"></i> دمشق - حرستا والحوش والقدم</div>
-          <p class="text-xs text-slate-600 mb-3">أسواق واسعة لمختلف أنواع قطع السيارات الكورية واليابانية والأوروبية وتوريد المحركات وعلب السرعة.</p>
-          <span class="inline-block bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">تخصص: محركات + محلات جملة</span>
-        </div>
+    <!-- 5. ADMIN DASHBOARD TAB -->
+    <section id="admin-tab" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-xl font-extrabold text-slate-900 mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-amber-500"></i> لوحة تحكم المسؤول (المراجعة والاعتماد)
+        </h2>
+        <p class="text-sm text-slate-500 mb-6">الطلبات المرسلة من الزوار لإضافة محلات أو ورش جديدة تنتظر موافقتك لتظهر في الموقع.</p>
 
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <div class="text-blue-600 font-bold text-lg mb-2"><i class="fa-solid fa-location-dot ml-1"></i> حمص - المنطقة الصناعية طريق حماة</div>
-          <p class="text-xs text-slate-600 mb-3">تضم ورشات صيانة متخصصة للكهرباء والحساسات والدوزان بالإضافة لموزعي قطع الغيار الكورية والألمانية.</p>
-          <span class="inline-block bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">تخصص: ورشات كهرباء ودوزان</span>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <div class="text-blue-600 font-bold text-lg mb-2"><i class="fa-solid fa-location-dot ml-1"></i> اللاذقية - المنطقة الصناعية</div>
-          <p class="text-xs text-slate-600 mb-3">تتوفر فيها قطع الغيار الأصلية والتجارية، وخبراء تكييف وصيانة الميكانيك العام.</p>
-          <span class="inline-block bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">تخصص: تكييف وصيانة عامة</span>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <div class="text-blue-600 font-bold text-lg mb-2"><i class="fa-solid fa-location-dot ml-1"></i> حماة - المنطقة الصناعية</div>
-          <p class="text-xs text-slate-600 mb-3">مراكز خردة وسكراب متخصصة لقطع السيارات الأوروبية واليابانية المستعملة ورخيص الثمن.</p>
-          <span class="inline-block bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">تخصص: قطع مستعملة وسكراب</span>
+        <div id="pending-shops-container" class="space-y-4">
+          <!-- Pending items injected here -->
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Modal: Add New Listing/Request -->
+  <!-- Modal: Add Part -->
   <div id="add-part-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-xl relative">
-      <button onclick="closeModal('add-part-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
+      <button onclick="closeModal('add-part-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="text-xl font-bold text-slate-900 mb-4">إضافة طلب أو عرض قطعة غيار</h3>
-
       <form onsubmit="handleAddPart(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">نوع الإعلان *</label>
           <select id="new-type" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-            <option value="طلب">مطلوب قطعة (أنا أبحث عن قطعة)</option>
-            <option value="عرض">معروض للبيع (عندي قطعة للبيع)</option>
+            <option value="طلب">مطلوب قطعة</option>
+            <option value="عرض">معروض للبيع</option>
           </select>
         </div>
-
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">اسم القطعة المطلوبة / المعروضة *</label>
-          <input type="text" id="new-title" required placeholder="مثال: حساس أكسجين / طرمبة بنزين / غطاء محرك" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          <label class="block text-xs font-bold text-slate-700 mb-1">اسم القطعة *</label>
+          <input type="text" id="new-title" required placeholder="مثال: حساس أكسجين / طرمبة بنزين" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
         </div>
-
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">نوع وموديل السيارة *</label>
-            <input type="text" id="new-car" required placeholder="مثال: كيا سيراتو 2009" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+            <label class="block text-xs font-bold text-slate-700 mb-1">نوع السيارة *</label>
+            <input type="text" id="new-car" required placeholder="كيا سيراتو 2009" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">المدينة / المحافظة *</label>
-            <input type="text" id="new-city" required placeholder="مثال: حلب / دمشق" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+            <label class="block text-xs font-bold text-slate-700 mb-1">المدينة *</label>
+            <input type="text" id="new-city" required placeholder="حلب / دمشق" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
           </div>
         </div>
-
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">السعر / الميزانية (اختياري)</label>
-            <input type="text" id="new-price" placeholder="مثال: 150,000 ل.س أو حسب الاتفاق" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+            <label class="block text-xs font-bold text-slate-700 mb-1">السعر (اختياري)</label>
+            <input type="text" id="new-price" placeholder="150,000 ل.س" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">رقم التواصل / واتساب *</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">رقم واتساب *</label>
             <input type="text" id="new-phone" required placeholder="09xxxxxxxx" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
           </div>
         </div>
-
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">تفاصيل إضافية</label>
-          <textarea id="new-desc" rows="3" placeholder="ملاحظات، حالة القطعة (جديدة / مستعملة)، أو تفاصيل العطل..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
+          <textarea id="new-desc" rows="2" placeholder="ملاحظات..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
         </div>
+        <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition">نشر الإعلان</button>
+      </form>
+    </div>
+  </div>
 
-        <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition">
-          نشر الإعلان
-        </button>
+  <!-- Modal: Add Shop / Workshop (Pending Approval) -->
+  <div id="add-shop-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-xl relative">
+      <button onclick="closeModal('add-shop-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="text-xl font-bold text-slate-900 mb-2">إضافة محل أو ورشة صيانة</h3>
+      <p class="text-xs text-slate-500 mb-4">سيتم إرسال الطلب للمسؤول للمراجعة والنشر الفوري.</p>
+      <form onsubmit="handleSubmitsShop(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">اسم المحل أو الورشة *</label>
+          <input type="text" id="shop-name" required placeholder="مثال: مركز الأمان لصيانة السيارات" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">المحافظة / المنطقة *</label>
+            <input type="text" id="shop-city" required placeholder="حلب - الراموسة" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">التخصص *</label>
+            <input type="text" id="shop-spec" required placeholder="ميكانيك عام / كهرباء / قطع غيار" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">اسم المسؤول / المالك</label>
+            <input type="text" id="shop-owner" placeholder="أبو أحمد" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">رقم الهاتف / واتساب *</label>
+            <input type="text" id="shop-phone" required placeholder="09xxxxxxxx" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">نبذة أو عنوان تفصيلي</label>
+          <textarea id="shop-desc" rows="2" placeholder="شارع الصناعة الرئيسي، قرب كراج..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow transition">إرسال للمسؤول للموافقة</button>
       </form>
     </div>
   </div>
@@ -274,104 +290,46 @@
 
   <!-- Script Logic -->
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      renderParts();
-      renderCarCatalog();
-    });
-
+    // Expanded Car Catalog Database
     const CAR_CATALOG = [
-      {
-        name: "سيراتو (Cerato) - كيا",
-        origin: "كوري",
-        years: "2005 - 2022",
-        engine: "1.6L / 2.0L بنزين",
-        availability: "ممتازة جداً (متوفرة بجميع المحافظات)",
-        priceCategory: "متوسطة إلى اقتصادية",
-        pros: "اعتمادية عالية، قطع غيار رخيصة ومتوفرة بكثرة، صيانة سهلة.",
-        cons: "العزل الصوتي متوسط في السرعات العالية."
-      },
-      {
-        name: "شام (Sham) / سايبا",
-        origin: "فرنسي / إيراني / محلي",
-        years: "2007 - 2018",
-        engine: "1.6L / 1.8L بنزين",
-        availability: "متوفرة بكثرة وبأسعار رخيصة",
-        priceCategory: "اقتصادية جداً",
-        pros: "هيكل قوي، تكلفة صيانة منخفضة جداً، قطع غيار متوفرة بكل مكان.",
-        cons: "استهلاك البنزين مرتفع نسبياً مقارنة بالحجم، التكييف متوسط."
-      },
-      {
-        name: "أفانتي / إيلانترا - هيونداي",
-        origin: "كوري",
-        years: "2002 - 2023",
-        engine: "1.6L / 2.0L بنزين",
-        availability: "ممتازة جداً",
-        priceCategory: "متوسطة",
-        pros: "ثبات ممتاز، هادئة، قطع غيار متوفرة تجارية وأصلية.",
-        cons: "حساسية بعض الحساسات الكهربائية للحرارة."
-      },
-      {
-        name: "لانسر (Lancer) - ميتسوبيشي",
-        origin: "ياباني",
-        years: "2000 - 2017",
-        engine: "1.3L / 1.6L / 2.0L",
-        availability: "جيدة جداً",
-        priceCategory: "متوسطة",
-        pros: "محرك قوي واقتصادي، ثبات عالي، محرك يتحمل ظروف الطرقات.",
-        cons: "أسعار القطع الأصلية أعلى قليلاً من الكوري."
-      },
-      {
-        name: "بيجو 206 / 207",
-        origin: "فرنسي / إيراني / محلي",
-        years: "2001 - 2014",
-        engine: "1.4L / 1.6L",
-        availability: "جيدة",
-        priceCategory: "اقتصادية",
-        pros: "حجم مدمج، اقتصادية بالوقود، قيادة سلسة داخل المدينة.",
-        cons: "الكمبيوتر والحساسات الكهربائية تتطلب كهربائي مختص."
-      },
-      {
-        name: "مازدا 3 (Mazda 3)",
-        origin: "ياباني",
-        years: "2005 - 2020",
-        engine: "1.6L / 2.0L",
-        availability: "جيدة في الأسواق الرئيسية",
-        priceCategory: "متوسطة",
-        pros: "تصميم أنيق، ثبات ممتاز وتوجيه دقيق.",
-        cons: "قطع الهيكل الخارجي مرتفعة السعر أحياناً."
-      }
+      { name: "سيراتو (Cerato) - كيا", origin: "كوري", years: "2005 - 2022", engine: "1.6L / 2.0L بنزين", availability: "ممتازة جداً (بجميع المحافظات)", priceCategory: "متوسطة", pros: "اعتمادية عالية، قطع رخيصة ومتوفرة، صيانة سهلة.", cons: "العزل الصوتي متوسط." },
+      { name: "شام (Sham) / سايبا", origin: "فرنسي / إيراني / محلي", years: "2007 - 2018", engine: "1.6L بنزين", availability: "متوفرة بكثرة وبأسعار رخيصة", priceCategory: "اقتصادية جداً", pros: "هيكل قوي، تكلفة صيانة منخفضة، قطع متوفرة.", cons: "استهلاك الوقود مرتفع نسبياً." },
+      { name: "إيلانترا / أفانتي - هيونداي", origin: "كوري", years: "2002 - 2024", engine: "1.6L / 2.0L", availability: "ممتازة جداً", priceCategory: "متوسطة", pros: "ثبات ممتاز، هادئة، قطع غيار أصلية وتجارية.", cons: "حساسية بعض الحساسات الكهربائية." },
+      { name: "لانسر (Lancer) - ميتسوبيشي", origin: "ياباني", years: "2000 - 2017", engine: "1.3L / 1.6L / 2.0L", availability: "جيدة جداً", priceCategory: "متوسطة", pros: "محرك قوي واقتصادي، تحمل عالي للطرقات.", cons: "أسعار القطع الأصلية أعلى قليلاً." },
+      { name: "بيجو 206 / 207 / 307", origin: "فرنسي / إيراني", years: "2001 - 2015", engine: "1.4L / 1.6L", availability: "جيدة", priceCategory: "اقتصادية", pros: "قيادة سلسة، ممتازة داخل المدن.", cons: "تحتاج كهربائي سيارات مختص بالفرنسي." },
+      { name: "مازدا 3 (Mazda 3)", origin: "ياباني", years: "2005 - 2022", engine: "1.6L / 2.0L", availability: "جيدة في المدن الرئيسية", priceCategory: "متوسطة", pros: "تصميم رياضي، ثبات وتوجيه دقيق.", cons: "أسعار أجزاء الهيكل الخارجي مرتفعة." },
+      { name: "رينو ميجان / سانديرو", origin: "فرنسي", years: "2004 - 2020", engine: "1.6L", availability: "مقبولة", priceCategory: "اقتصادية إلى متوسطة", pros: "راحة عالية في السفر، أمان ممتاز.", cons: "تعقيد في الأنظمة الكهربائية." },
+      { name: "تويوتا كورولا (Corolla)", origin: "ياباني", years: "1998 - 2024", engine: "1.3L / 1.6L / 1.8L", availability: "ممتازة جداً", priceCategory: "متوسطة إلى مرتفعة", pros: "اعتمادية أسطورية، لا تهبط قيمتها عند البيع.", cons: "سعر الشراء مرتفع مقارنة بالمنافسين." },
+      { name: "هوندا سيفيك (Civic)", origin: "ياباني", years: "2000 - 2022", engine: "1.6L / 1.8L", availability: "جيدة", priceCategory: "متوسطة", pros: "محركات جبارة، أداء رياضي ممتع.", cons: "قطع التعديل والأصلية نادرة أحياناً." },
+      { name: "فولكس فاجن جتا / جولف", origin: "ألماني / أوروبي", years: "2001 - 2019", engine: "1.6L / 2.0L", availability: "مقبولة", priceCategory: "متوسطة إلى مرتفعة", pros: "متانة ألمانية، ثبات على السرعات العالية.", cons: "تكلفة قطع الغيار وصيانتها مرتفعة." },
+      { name: "شيري أريزو / تيجو", origin: "صيني", years: "2015 - 2024", engine: "1.5L أسرع / توربو", availability: "جيدة ومتنامية", priceCategory: "اقتصادية", pros: "مواصفات حديثة وكماليات كثيرة بسعر مناسب.", cons: "انخفاض السعر نسبياً عند إعادة البيع." }
     ];
 
     let partsData = JSON.parse(localStorage.getItem('syria_auto_parts')) || [
-      {
-        id: 1,
-        type: "طلب",
-        title: "حساس أكسجين (بيئة) سينسور",
-        car: "كيا سيراتو 2008",
-        city: "حلب",
-        price: "حسب الاتفاق",
-        phone: "0991234567",
-        desc: "أبحث عن حساس أكسجين علوي أصلية نظيفة مستعملة أو جديدة.",
-        date: "2026-10-12"
-      },
-      {
-        id: 2,
-        type: "عرض",
-        title: "مرش وستارتر محرك",
-        car: "بيجو 206 / شام",
-        city: "دمشق",
-        price: "350,000 ل.س",
-        phone: "0933887766",
-        desc: "مرش محرك فرنسا أصلية مجدد ومجرب يعمل بكفاءة عالية.",
-        date: "2026-10-14"
-      }
+      { id: 1, type: "طلب", title: "حساس أكسجين (بيئة)", car: "كيا سيراتو 2008", city: "حلب", price: "حسب الاتفاق", phone: "0991234567", desc: "أبحث عن حساس أكسجين أصلي نظيف.", date: "2026-10-12" },
+      { id: 2, type: "عرض", title: "مارش وستارتر محرك", car: "بيجو 206 / شام", city: "دمشق", price: "350,000 ل.س", phone: "0933887766", desc: "مارش أصلي مجدد بحالة ممتازة.", date: "2026-10-14" }
     ];
+
+    // Shops Data: Approved & Pending
+    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [
+      { id: 1, name: "حلب - المنطقة الصناعية بالراموسة", city: "حلب", spec: "مستعمل وجديد + صيانة شاملة", owner: "تجمع ورش الراموسة", phone: "0911111111", desc: "مركز تجميع قطع الغيار والكرك ومحلات الميكانيك." },
+      { id: 2, name: "دمشق - حرستا والحوش", city: "دمشق", spec: "محركات + محلات جملة", owner: "سوق الجملة", phone: "0922222222", desc: "أسواق واسعة لمختلف قطع الكوري والياباني والأوروبي." }
+    ];
+
+    let pendingShops = JSON.parse(localStorage.getItem('pending_shops')) || [];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderParts();
+      renderCarCatalog();
+      renderApprovedShops();
+      renderPendingShops();
+    });
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('bg-blue-600', 'text-white', 'shadow');
-        btn.classList.add('bg-slate-800', 'text-slate-300');
+        if(!btn.id.includes('admin')) btn.classList.add('bg-slate-800', 'text-slate-300');
       });
 
       document.getElementById(tabId).classList.remove('hidden');
@@ -385,10 +343,9 @@
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // Smart Local Diagnostic Engine - Fast, Zero-Config, Works on GitHub Pages 100%
+    // AI Diagnostic Engine
     function handleAiDiagnose(e) {
       e.preventDefault();
-
       const carModel = document.getElementById('car-model').value.trim();
       const carFuel = document.getElementById('car-fuel').value;
       const carSystem = document.getElementById('car-system').value;
@@ -399,7 +356,7 @@
       const resultContent = document.getElementById('ai-result-content');
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري تحليل العطل واقتراح الحلول...`;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري تحليل العطل بالذكاء الاصطناعي...`;
       resultBox.classList.add('hidden');
 
       setTimeout(() => {
@@ -407,43 +364,40 @@
         let parts = [];
         const prob = carProblem.toLowerCase();
 
-        if (prob.includes('رجة') || prob.includes('رجفة') || prob.includes('هزاز')) {
-          causes = ["تلف أو اهتراء كراسي المحرك أو الجير.", "ضعف في اشتعال البواجي أو الأسلاك.", "اتساخ أو انسداد جزئي في بخاخات الوقود."];
-          parts = ["كراسي محرك أصلية", "طقم بواجي جديدة", "تنظيف وفحص البخاخات"];
-        } else if (prob.includes('تقطيع') || prob.includes('تفتفة') || prob.includes('عزم')) {
-          causes = ["انسداد في فلتر أو طرمبة البنزين.", "ضعف في كويلات الإشعال (الملفات).", "اتساخ في حساس الهواء (MAF Sensor)."];
-          parts = ["فلتر بنزين جديد", "كويل إشعال", "بخاخ تنظيف الحساسات"];
-        } else if (prob.includes('صوت') || prob.includes('طقطقة') || prob.includes('صكصكة')) {
-          causes = ["نقص في مستوى زيت المحرك أو انتهاء عمره.", "تلف في رومان بلي العجلات أو العكوس.", "تآكل في جلب الدوزان أو البوشات."];
-          parts = ["زيت محرك وفلتر جديد", "عكوس أو رؤوس عكوس", "طقم بوشات ودوزان"];
+        if (prob.includes('رجة') || prob.includes('رجفة')) {
+          causes = ["تلف أو اهتراء كراسي المحرك أو الجير.", "ضعف في اشتعال البواجي أو الأسلاك.", "اتساخ في بخاخات الوقود."];
+          parts = ["كراسي محرك أصلية", "طقم بواجي جديدة", "تنظيف بخاخات"];
+        } else if (prob.includes('تقطيع') || prob.includes('تفتفة')) {
+          causes = ["انسداد في فلتر أو طرمبة البنزين.", "ضعف في كويلات الإشعال.", "اتساخ في حساس الهواء (MAF)."];
+          parts = ["فلتر بنزين جديد", "كويل إشعال", "بخاخ تنظيف حساسات"];
+        } else if (prob.includes('صوت') || prob.includes('طقطقة')) {
+          causes = ["نقص في زيت المحرك.", "تلف في العكوس أو رومان البلي.", "تآكل في جلانات الدوزان."];
+          parts = ["زيت محرك وفلتر جديد", "رؤوس عكوس", "طقم بوشات ودوزان"];
         } else if (prob.includes('حرارة') || prob.includes('سخونة')) {
-          causes = ["نقص مياه الردياتير أو وجود تسريب بالدورة.", "تعطل ترموستات الحرارة (البلف).", "ضعف أو تعطل مروحة التبريد."];
-          parts = ["بلف حرارة جديد", "مانع تسريب أو إصلاح الردياتير", "حساس حرارة"];
+          causes = ["نقص مياه الردياتير أو تسريب بالدورة.", "تعطل ترموستات الحرارة (البلف).", "تعطل مروحة التبريد."];
+          parts = ["بلف حرارة جديد", "إصلاح الردياتير", "حساس حرارة"];
         } else {
-          causes = [`مشكلة محتملة في نظام (${carSystem}) لسيارة (${carModel}).`, "حساسات الكترونية بحاجة لإعادة ضبط أو فحص بالمسح.", "تأثر الأداء بنوعية الوقود أو ضغط الإطارات والحرارة المحيطة."];
-          parts = ["فحص شامل بالكمبيوتر (Scanner)", "حساسات أصلية حسب التقرير"];
+          causes = [`مشكلة محتملة في نظام (${carSystem}) لسيارة (${carModel}).`, "حساسات الكترونية بحاجة لإعادة ضبط بالمسح.", "تأثر الأداء بنوعية الوقود."];
+          parts = ["فحص شامل بالكمبيوتر (Scanner)", "حساسات أصلية حسب الفحص"];
         }
 
-        let outputText = `📌 **تشخيص مبدئي لعطل (${carModel}) - قسم (${carSystem}):**\n\n` +
-          `🔍 **الأسباب المحتملة بناءً على وصف الأعراض:**\n` +
-          causes.map((c, i) => `${i + 1}. ${c}`).join('\n') + `\n\n` +
-          `🛠️ **القطع الواجب فحصها أو استبدالها:**\n` +
-          parts.map(p => `• ${p}`).join('\n') + `\n\n` +
-          `💡 **نصيحة فنية:** يُفضل دوماً الكشف لدى ورشة صيانة متخصصة في منطقتك للتأكد من الأكواد والتشخيص الدقيق.`;
+        let outputText = `📌 **تشخيص عطل (${carModel}) - نظام (${carSystem}):**\n\n` +
+          `🔍 **الأسباب المحتملة:**\n` + causes.map((c, i) => `${i + 1}. ${c}`).join('\n') + `\n\n` +
+          `🛠️ **القطع الواجب فحصها أو تبديلها:**\n` + parts.map(p => `• ${p}`).join('\n') + `\n\n` +
+          `💡 **نصيحة فنية:** يُفضل الكشف لدى ورشة صيانة متخصصة في منطقتك.`;
 
         resultContent.textContent = outputText;
         resultBox.classList.remove('hidden');
-
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> تشخيص العطل بواسطة الذكاء الاصطناعي`;
       }, 700);
     }
 
+    // Parts Market
     function renderParts() {
       const search = document.getElementById('part-search').value.toLowerCase();
       const filterType = document.getElementById('part-filter-type').value;
       const container = document.getElementById('parts-container');
-
       const filtered = partsData.filter(p => {
         const matchesSearch = p.title.toLowerCase().includes(search) || p.car.toLowerCase().includes(search) || p.city.toLowerCase().includes(search);
         const matchesType = filterType === 'ALL' || p.type === filterType;
@@ -488,22 +442,22 @@
         city: document.getElementById('new-city').value,
         price: document.getElementById('new-price').value || 'حسب الاتفاق',
         phone: document.getElementById('new-phone').value,
-        desc: document.getElementById('new-desc').value || 'لا يوجد وصف إضافي',
+        desc: document.getElementById('new-desc').value || 'لا يوجد وصف',
         date: new Date().toISOString().split('T')[0]
       };
-
       partsData.unshift(newPart);
       localStorage.setItem('syria_auto_parts', JSON.stringify(partsData));
       renderParts();
       closeModal('add-part-modal');
       e.target.reset();
+      alert('تم إضافة الإعلان بنجاح!');
     }
 
+    // Car Catalog
     function renderCarCatalog() {
       const search = document.getElementById('car-search-input').value.toLowerCase();
       const filterOrigin = document.getElementById('car-origin-filter').value;
       const container = document.getElementById('cars-catalog-container');
-
       const filtered = CAR_CATALOG.filter(c => {
         const matchesSearch = c.name.toLowerCase().includes(search) || c.engine.toLowerCase().includes(search);
         const matchesOrigin = filterOrigin === 'ALL' || c.origin === filterOrigin;
@@ -511,21 +465,21 @@
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد نتائج مطابقة للبحث في دليل السيارات.</div>`;
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد نتائج مطابقة للبحث.</div>`;
         return;
       }
 
       container.innerHTML = filtered.map(c => `
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
           <div class="flex justify-between items-center">
-            <h3 class="font-bold text-slate-900 text-lg">${c.name}</h3>
+            <h3 class="font-bold text-slate-900 text-base">${c.name}</h3>
             <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-full font-bold">${c.origin}</span>
           </div>
           <div class="text-xs space-y-1 text-slate-600">
-            <p><strong>سنوات الانتاج:</strong> ${c.years}</p>
+            <p><strong>الإنتاج:</strong> ${c.years}</p>
             <p><strong>المحرك:</strong> ${c.engine}</p>
-            <p><strong>توفر قطع الغيار:</strong> <span class="text-emerald-700 font-semibold">${c.availability}</span></p>
-            <p><strong>الفئة السعرية للقطع:</strong> ${c.priceCategory}</p>
+            <p><strong>توفر القطع:</strong> <span class="text-emerald-700 font-semibold">${c.availability}</span></p>
+            <p><strong>الفئة السعرية:</strong> ${c.priceCategory}</p>
           </div>
           <div class="pt-2 border-t border-slate-100 text-xs space-y-1">
             <p class="text-emerald-700"><i class="fa-solid fa-thumbs-up ml-1"></i> <strong>المميزات:</strong> ${c.pros}</p>
@@ -534,6 +488,96 @@
         </div>
       `).join('');
     }
+
+    // Shops & Workshops logic with Admin Approval
+    function handleSubmitsShop(e) {
+      e.preventDefault();
+      const shop = {
+        id: Date.now(),
+        name: document.getElementById('shop-name').value,
+        city: document.getElementById('shop-city').value,
+        spec: document.getElementById('shop-spec').value,
+        owner: document.getElementById('shop-owner').value || 'غير محدد',
+        phone: document.getElementById('shop-phone').value,
+        desc: document.getElementById('shop-desc').value || 'لا يوجد تفاصيل إضافية'
+      };
+
+      pendingShops.push(shop);
+      localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
+      renderPendingShops();
+      closeModal('add-shop-modal');
+      e.target.reset();
+      alert('تم إرسال محلك بنجاح! سيظهر في الموقع فور موافقة المسؤول.');
+    }
+
+    function renderApprovedShops() {
+      const container = document.getElementById('approved-shops-container');
+      if (approvedShops.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد محلات معتمدة حالياً.</div>`;
+        return;
+      }
+      container.innerHTML = approvedShops.map(s => `
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-slate-900 text-base">${s.name}</h3>
+              <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">${s.city}</span>
+            </div>
+            <p class="text-xs text-blue-600 font-bold mb-2"><i class="fa-solid fa-wrench ml-1"></i> التخصص: ${s.spec}</p>
+            <p class="text-xs text-slate-600 mb-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">${s.desc}</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+            <span class="text-slate-500"><i class="fa-solid fa-user ml-1"></i> ${s.owner}</span>
+            <a href="https://wa.me/${s.phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition flex items-center gap-1">
+              <i class="fa-brands fa-whatsapp"></i> تواصل
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPendingShops() {
+      const container = document.getElementById('pending-shops-container');
+      if (pendingShops.length === 0) {
+        container.innerHTML = `<div class="text-center py-8 text-slate-400 text-sm">لا توجد طلبات معلقة بانتظار الموافقة حالياً.</div>`;
+        return;
+      }
+      container.innerHTML = pendingShops.map((s, index) => `
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-wrap justify-between items-center gap-4">
+          <div class="space-y-1 text-xs">
+            <h4 class="font-bold text-slate-900 text-sm">${s.name} (${s.city})</h4>
+            <p><strong>التخصص:</strong> ${s.spec} | <strong>المسؤول:</strong> ${s.owner} | <strong>الهاتف:</strong> ${s.phone}</p>
+            <p class="text-slate-600"><strong>التفاصيل:</strong> ${s.desc}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="approveShop(${index})" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+              <i class="fa-solid fa-check"></i> موافقة ونشر
+            </button>
+            <button onclick="rejectShop(${index})" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+              <i class="fa-solid fa-xmark"></i> رفض وحذف
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function approveShop(index) {
+      const shop = pendingShops.splice(index, 1)[0];
+      approvedShops.unshift(shop);
+      localStorage.setItem('approved_shops', JSON.stringify(approvedShops));
+      localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
+      renderApprovedShops();
+      renderPendingShops();
+      alert('تمت الموافقة على المحل ونشره في القائمة العامة بنجاح!');
+    }
+
+    function rejectShop(index) {
+      pendingShops.splice(index, 1);
+      localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
+      renderPendingShops();
+      alert('تم رفض وحذف الطلب.');
+    }
   </script>
 </body>
 </html>
+
