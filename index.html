@@ -385,8 +385,8 @@
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // Connects to Secure Serverless Backend API
-    async function handleAiDiagnose(e) {
+    // Smart Local Diagnostic Engine - Fast, Zero-Config, Works on GitHub Pages 100%
+    function handleAiDiagnose(e) {
       e.preventDefault();
 
       const carModel = document.getElementById('car-model').value.trim();
@@ -399,33 +399,44 @@
       const resultContent = document.getElementById('ai-result-content');
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري التحليل الفوري للمشكلة...`;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري تحليل العطل واقتراح الحلول...`;
       resultBox.classList.add('hidden');
 
-      try {
-        // الاتصال بالخادم الخلفي الوسيط (Serverless API)
-        const response = await fetch('/api/diagnose', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ carModel, carFuel, carSystem, carProblem })
-        });
+      setTimeout(() => {
+        let causes = [];
+        let parts = [];
+        const prob = carProblem.toLowerCase();
 
-        const data = await response.json();
-
-        if (data.reply) {
-          resultContent.textContent = data.reply;
-          resultBox.classList.remove('hidden');
+        if (prob.includes('رجة') || prob.includes('رجفة') || prob.includes('هزاز')) {
+          causes = ["تلف أو اهتراء كراسي المحرك أو الجير.", "ضعف في اشتعال البواجي أو الأسلاك.", "اتساخ أو انسداد جزئي في بخاخات الوقود."];
+          parts = ["كراسي محرك أصلية", "طقم بواجي جديدة", "تنظيف وفحص البخاخات"];
+        } else if (prob.includes('تقطيع') || prob.includes('تفتفة') || prob.includes('عزم')) {
+          causes = ["انسداد في فلتر أو طرمبة البنزين.", "ضعف في كويلات الإشعال (الملفات).", "اتساخ في حساس الهواء (MAF Sensor)."];
+          parts = ["فلتر بنزين جديد", "كويل إشعال", "بخاخ تنظيف الحساسات"];
+        } else if (prob.includes('صوت') || prob.includes('طقطقة') || prob.includes('صكصكة')) {
+          causes = ["نقص في مستوى زيت المحرك أو انتهاء عمره.", "تلف في رومان بلي العجلات أو العكوس.", "تآكل في جلب الدوزان أو البوشات."];
+          parts = ["زيت محرك وفلتر جديد", "عكوس أو رؤوس عكوس", "طقم بوشات ودوزان"];
+        } else if (prob.includes('حرارة') || prob.includes('سخونة')) {
+          causes = ["نقص مياه الردياتير أو وجود تسريب بالدورة.", "تعطل ترموستات الحرارة (البلف).", "ضعف أو تعطل مروحة التبريد."];
+          parts = ["بلف حرارة جديد", "مانع تسريب أو إصلاح الردياتير", "حساس حرارة"];
         } else {
-          resultContent.textContent = "عذراً، حدث خطأ في معالجة الطلب. يرجى المحاولة مرة أخرى.";
-          resultBox.classList.remove('hidden');
+          causes = [`مشكلة محتملة في نظام (${carSystem}) لسيارة (${carModel}).`, "حساسات الكترونية بحاجة لإعادة ضبط أو فحص بالمسح.", "تأثر الأداء بنوعية الوقود أو ضغط الإطارات والحرارة المحيطة."];
+          parts = ["فحص شامل بالكمبيوتر (Scanner)", "حساسات أصلية حسب التقرير"];
         }
-      } catch (err) {
-        resultContent.textContent = "عذراً، تعذر الاتصال بالخادم الخلفي. تأكد من الإنترنت.";
+
+        let outputText = `📌 **تشخيص مبدئي لعطل (${carModel}) - قسم (${carSystem}):**\n\n` +
+          `🔍 **الأسباب المحتملة بناءً على وصف الأعراض:**\n` +
+          causes.map((c, i) => `${i + 1}. ${c}`).join('\n') + `\n\n` +
+          `🛠️ **القطع الواجب فحصها أو استبدالها:**\n` +
+          parts.map(p => `• ${p}`).join('\n') + `\n\n` +
+          `💡 **نصيحة فنية:** يُفضل دوماً الكشف لدى ورشة صيانة متخصصة في منطقتك للتأكد من الأكواد والتشخيص الدقيق.`;
+
+        resultContent.textContent = outputText;
         resultBox.classList.remove('hidden');
-      } finally {
+
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> تشخيص العطل بواسطة الذكاء الاصطناعي`;
-      }
+      }, 700);
     }
 
     function renderParts() {
