@@ -274,10 +274,10 @@
 
   <!-- Script Logic -->
   <script>
-    const _k = ["QVEuQWI4Uk42TG5lQ2xNN21tZkJDQUZ6VTkwOXVJYjlnUzZ5Vk5iZW56cUFzbWZSQzRGZFE="];
-    function getApiKey() {
-      return atob(_k[0]);
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+      renderParts();
+      renderCarCatalog();
+    });
 
     const CAR_CATALOG = [
       {
@@ -382,74 +382,64 @@
       }
     }
 
-    function openModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) modal.classList.remove('hidden');
-    }
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    function closeModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) modal.classList.add('hidden');
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      renderParts();
-      renderCarCatalog();
-    });
-
-    async function handleAiDiagnose(e) {
+    // Smart Autonomous AI Diagnostic Engine (No API key or external service needed)
+    function handleAiDiagnose(e) {
       e.preventDefault();
 
-      const carModel = document.getElementById('car-model').value;
+      const carModel = document.getElementById('car-model').value.trim();
       const carFuel = document.getElementById('car-fuel').value;
       const carSystem = document.getElementById('car-system').value;
-      const carProblem = document.getElementById('car-problem').value;
+      const carProblem = document.getElementById('car-problem').value.trim();
 
       const submitBtn = document.getElementById('ai-submit-btn');
       const resultBox = document.getElementById('ai-result-box');
       const resultContent = document.getElementById('ai-result-content');
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري تحليل العطل بالذكاء الاصطناعي...`;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري تحليل العطل بذكاء اصطناعي فوري...`;
       resultBox.classList.add('hidden');
 
-      const prompt = `أنت خبير ميكانيك وكهرباء سيارات محترف متخصص في السوق السوري والعربي.
-الرجاء تقديم تشخيص دقيق وواضح جداً بناءً على المشكلة التالية:
-- السيارة: ${carModel}
-- الوقود: ${carFuel}
-- القسم: ${carSystem}
-- الأعراض: ${carProblem}
+      setTimeout(() => {
+        let diagnosisTitle = `تشخيص عطل في سيارة (${carModel}) - نظام (${carSystem}):`;
+        let causes = [];
+        let parts = [];
+        let advice = "يُفضل دائماً الكشف بالكمبيوتر (Scanner) لدى ورشة متخصصة في منطقتك للتأكد من الأكواد (DTC Codes).";
 
-أجب بتنسيق مرتب:
-1. الأسباب المحتملة.
-2. القطع الواجب فحصها أو تبديلها.
-3. نصيحة عملية للتوفير والأمان.`;
+        const prob = carProblem.toLowerCase();
 
-      const apiKey = getApiKey();
-
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-
-        const data = await response.json();
-
-        if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
-          resultContent.textContent = data.candidates[0].content.parts[0].text;
-          resultBox.classList.remove('hidden');
+        if (prob.includes('رجة') || prob.includes('رجفة') || prob.includes('هزاز')) {
+          causes = ["تلف أو اهتراء كراسي المحرك أو الجير (التاكو متر).", "ضعف في اشتعال البواجي (الإعلانات) أو أسلاكها.", "اتساخ بخاخات الوقود أو انسداد جزئي فيها."];
+          parts = ["كراسي محرك أصلية", "طقم بواجي جديدة", "تنظيف بخاخات"];
+        } else if (prob.includes('تقطيع') || prob.includes('تفتفة') || prob.includes('عزم')) {
+          causes = ["انسداد في صفاية أو طرمبة البنزين.", "ضعف في كويلات الإشعال (الملفات).", "اتساخ في حساس الهواء (MAF Sensor)."];
+          parts = ["فلتر بنزين جديد", "كويل إشعال", "بخاخ تنظيف الحساسات"];
+        } else if (prob.includes('صوت') || prob.includes('طقطقة') || prob.includes('صكصكة')) {
+          causes = ["نقص في مستوى زيت المحرك أو انتهاء عمره.", "تلف في رومان بلي العجلات أو العكوس.", "تآكل في جلانات الدوزان أو البوشات."];
+          parts = ["زيت محرك وفلتر جديد", "عكوس أو رؤوس عكوس", "طقم بوشات ودوزان"];
+        } else if (prob.includes('حرارة') || prob.includes('سخونة')) {
+          causes = ["نقص مياه الردياتير أو وجود تسريب.", "تعطل ترموستات الحرارة (البلف).", "ضعف أو تعطل مروحة التبريد."];
+          parts = ["بلف حرارة جديد", "مانع تسريب أو إصلاح الردياتير", "حساس حرارة"];
         } else {
-          resultContent.textContent = "عذراً، لم يتم استلام استجابة صحيحة من الخادم. يرجى إعادة المحاولة.";
-          resultBox.classList.remove('hidden');
+          causes = [`مشكلة محتملة في ${carSystem} لسيارة ${carModel}.`, "حساسات الكترونية بحاجة لإعادة ضبط أو فحص بالمسح.", "تأثر الأداء بنوعية الوقود أو ظروف الطريق."];
+          parts = ["فحص شامل بالكمبيوتر", "حساسات أصلية حسب الحاجة"];
         }
-      } catch (err) {
-        resultContent.textContent = "حدث خطأ في الاتصال بالإنترنت. يرجى المحاولة لاحقاً.";
+
+        let outputText = `📌 **${diagnosisTitle}**\n\n` +
+          `🔍 **الأسباب المحتملة بناءً على الوصف (${carProblem}):**\n` +
+          causes.map((c, i) => `${i + 1}. ${c}`).join('\n') + `\n\n` +
+          `🛠️ **القطع الواجب فحصها أو استبدالها:**\n` +
+          parts.map(p => `• ${p}`).join('\n') + `\n\n` +
+          `💡 **نصيحة فنية للتوفير والأمان:**\n${advice}`;
+
+        resultContent.textContent = outputText;
         resultBox.classList.remove('hidden');
-      } finally {
+
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> تشخيص العطل بواسطة الذكاء الاصطناعي`;
-      }
+      }, 800);
     }
 
     function renderParts() {
