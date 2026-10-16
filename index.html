@@ -50,7 +50,7 @@
           </div>
           <div>
             <h1 class="text-lg font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-blue-300 bg-clip-text text-transparent">مرآب وسوق السيارات</h1>
-            <p class="text-[11px] text-slate-400 font-medium">المنصة الشاملة لأعطال وسوق السيارات في حلب وسوريا</p>
+            <p class="text-[11px] text-slate-400 font-medium">الموسوعة الشاملة لأعطال وسوق السيارات في حلب وسوريا</p>
           </div>
         </div>
 
@@ -64,13 +64,16 @@
       <!-- Global Search Bar -->
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-slate-400 text-xs"></i>
-        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="بحث شامل في المعارض، السيارات، الورش، والقطع..." class="w-full pr-10 pl-4 py-2 bg-slate-800/90 border border-slate-700 text-white rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="بحث شامل في الموسوعة، المعارض، السيارات، الورش، والقطع..." class="w-full pr-10 pl-4 py-2 bg-slate-800/90 border border-slate-700 text-white rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
       </div>
 
       <!-- Navigation Tabs -->
       <nav class="flex items-center gap-2 overflow-x-auto nav-scrollbar py-1 text-xs font-bold">
         <button onclick="switchTab('ai-tab')" id="btn-ai-tab" class="tab-btn active shrink-0 px-4 py-2 rounded-xl transition bg-blue-600 text-white shadow-md shadow-blue-600/30 flex items-center gap-1.5">
           <i class="fa-solid fa-microchip"></i> تشخيص الأعطال
+        </button>
+        <button onclick="switchTab('encyclopedia-tab')" id="btn-encyclopedia-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
+          <i class="fa-solid fa-book-open text-blue-400"></i> موسوعة السيارات والكتالوجات والمقارنة
         </button>
         <button onclick="switchTab('dashboard-tab')" id="btn-dashboard-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-gauge-high text-yellow-400"></i> أعطال الطبلون (OBD2)
@@ -119,11 +122,11 @@
   <!-- Floating Bottom Quick Navigation Bar -->
   <div class="fixed bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 shadow-2xl rounded-full px-4 py-2 z-40 flex items-center gap-3 text-white">
     <button onclick="switchTab('ai-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-blue-400 transition" title="التشخيص"><i class="fa-solid fa-microchip text-sm"></i></button>
+    <button onclick="switchTab('encyclopedia-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-blue-400 transition" title="الموسوعة والكتالوجات"><i class="fa-solid fa-book-open text-sm"></i></button>
     <button onclick="switchTab('dashboard-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-yellow-400 transition" title="أعطال الطبلون"><i class="fa-solid fa-gauge-high text-sm"></i></button>
     <button onclick="switchTab('maintenance-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-purple-400 transition" title="مفكرة الصيانة"><i class="fa-solid fa-clipboard-list text-sm"></i></button>
     <button onclick="switchTab('showrooms-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-blue-400 transition" title="المعارض"><i class="fa-solid fa-shop text-sm"></i></button>
     <button onclick="switchTab('cars-sale-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-amber-400 transition" title="السيارات"><i class="fa-solid fa-car-rear text-sm"></i></button>
-    <button onclick="switchTab('market-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-emerald-400 transition" title="القطع"><i class="fa-solid fa-boxes-packing text-sm"></i></button>
   </div>
 
   <!-- Main Content Container -->
@@ -178,7 +181,44 @@
       </div>
     </section>
 
-    <!-- 2. DASHBOARD LIGHTS & OBD2 ERRORS TAB -->
+    <!-- 2. ENCYCLOPEDIA & CATALOG & COMPARISON TAB (NEW & MASSIVE) -->
+    <section id="encyclopedia-tab" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-6">
+        <div class="flex flex-wrap justify-between items-center gap-4">
+          <div>
+            <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-book-open text-blue-600"></i> موسوعة السيارات والكتالوجات الشاملة (سوريا والعالم)</h2>
+            <p class="text-xs text-slate-500">كتالوجات رسمية، تفاصيل المحركات، الألوان، والمقارنة الذكية المخصصة للطرق السورية</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openModal('compare-modal')" class="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs shadow-md flex items-center gap-2">
+              <i class="fa-solid fa-scale-balanced"></i> مقارنة ذكية بالذكاء الاصطناعي
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Brand Buttons -->
+        <div class="flex items-center gap-2 overflow-x-auto nav-scrollbar py-2 text-xs font-bold">
+          <button onclick="filterEncyclopedia('all')" class="enc-brand-btn active px-4 py-2 bg-blue-600 text-white rounded-xl shrink-0 transition">الكل</button>
+          <button onclick="filterEncyclopedia('كيا')" class="enc-brand-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-xl shrink-0 transition">كيا (Kia)</button>
+          <button onclick="filterEncyclopedia('هيونداي')" class="enc-brand-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-xl shrink-0 transition">هيونداي (Hyundai)</button>
+          <button onclick="filterEncyclopedia('تويوتا')" class="enc-brand-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-xl shrink-0 transition">تويوتا (Toyota)</button>
+          <button onclick="filterEncyclopedia('بي واي دي')" class="enc-brand-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-xl shrink-0 transition">بي واي دي (BYD)</button>
+          <button onclick="filterEncyclopedia('مرسيدس')" class="enc-brand-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-xl shrink-0 transition">مرسيدس (Mercedes)</button>
+          <button onclick="filterEncyclopedia('بي إم دبليو')" class="enc-brand-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-xl shrink-0 transition">بي إم دبليو (BMW)</button>
+          <button onclick="filterEncyclopedia('جينسس')" class="enc-brand-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-xl shrink-0 transition">جينسس (Genesis)</button>
+        </div>
+
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
+          <input type="text" id="encyclopedia-search" oninput="renderEncyclopediaGrid()" placeholder="بحث باسم الماركة، الطراز، أو المواصفات..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border rounded-2xl text-xs">
+        </div>
+      </div>
+
+      <!-- Encyclopedia Grid -->
+      <div id="encyclopedia-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- 3. DASHBOARD LIGHTS & OBD2 ERRORS TAB -->
     <section id="dashboard-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div>
@@ -193,7 +233,7 @@
       <div id="dashboard-errors-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 3. NEW: SMART MAINTENANCE MEMO TAB -->
+    <!-- 4. SMART MAINTENANCE MEMO TAB -->
     <section id="maintenance-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -209,7 +249,7 @@
       <div id="maintenance-records-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 4. SHOWROOMS TAB -->
+    <!-- 5. SHOWROOMS TAB -->
     <section id="showrooms-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -229,7 +269,7 @@
       <div id="showrooms-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 5. CARS FOR SALE TAB -->
+    <!-- 6. CARS FOR SALE TAB -->
     <section id="cars-sale-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -241,7 +281,7 @@
       <div id="cars-for-sale-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 6. OWNERS FORUM TAB -->
+    <!-- 7. OWNERS FORUM TAB -->
     <section id="forum-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -252,7 +292,7 @@
       <div id="forum-posts-container" class="space-y-4"></div>
     </section>
 
-    <!-- 7. PARTS TAB -->
+    <!-- 8. PARTS TAB -->
     <section id="market-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -263,7 +303,7 @@
       <div id="parts-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- 8. SHOPS TAB -->
+    <!-- 9. SHOPS TAB -->
     <section id="shops-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -274,7 +314,7 @@
       <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 9. EMERGENCY TAB -->
+    <!-- 10. EMERGENCY TAB -->
     <section id="emergency-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-2">
         <h2 class="text-xl font-black text-slate-900">طوارئ الطرق والونشات السريعة</h2>
@@ -288,22 +328,21 @@
       </div>
     </section>
 
-    <!-- 10. TANK FUEL CALCULATOR TAB -->
+    <!-- 11. TANK FUEL CALCULATOR TAB -->
     <section id="calculator-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border max-w-xl mx-auto space-y-4">
         <div>
           <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-calculator text-cyan-600"></i> حاسبة كفاءة التنكة (20 لتر)</h2>
           <p class="text-xs text-slate-500 mt-1">اعرف كم كيلومتراً تقطعك تنكة الوقود ذات الـ 20 لتراً بدقة.</p>
         </div>
-
         <form onsubmit="calculateTankFuel(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">عدد الكيلومترات المقطوعة (كم) *</label>
-            <input type="number" step="0.1" id="calc-km" required placeholder="مثال: 150" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <input type="number" step="0.1" id="calc-km" required placeholder="مثال: 150" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">عدد اللترات التي عبأتها (لتر) *</label>
-            <input type="number" step="0.1" id="calc-liters" required placeholder="مثال: 20 أو 10" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <input type="number" step="0.1" id="calc-liters" required placeholder="مثال: 20 أو 10" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs">
           </div>
           <button type="submit" class="w-full py-3.5 bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold rounded-2xl text-xs transition shadow-md">احسب مسافة التنكة (20 لتر)</button>
         </form>
@@ -311,16 +350,14 @@
       </div>
     </section>
 
-    <!-- 11. ADMIN DASHBOARD -->
+    <!-- 12. ADMIN DASHBOARD -->
     <section id="admin-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-rose-200 shadow-lg space-y-6">
         <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية</h2>
-        
         <div class="space-y-3">
           <h3 class="font-bold text-xs text-slate-800 border-b pb-2">معارض السيارات المعلقة / طلبات العلامة الزرقاء:</h3>
           <div id="pending-showrooms-container" class="space-y-3"></div>
         </div>
-
         <div class="space-y-3 pt-4 border-t">
           <h3 class="font-bold text-xs text-slate-800">رسائل واقتراحات الزوار والإدارة:</h3>
           <div id="admin-suggestions-container" class="space-y-3"></div>
@@ -332,7 +369,35 @@
 
   <!-- MODALS SECTION -->
 
-  <!-- Modal: Add Maintenance Record (NEW) -->
+  <!-- Modal: Car Catalog Detailed View (NEW) -->
+  <div id="catalog-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 shadow-2xl relative">
+      <button onclick="closeModal('catalog-modal')" class="absolute top-4 left-4 w-9 h-9 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-200"><i class="fa-solid fa-xmark"></i></button>
+      <div id="catalog-modal-content" class="space-y-6"></div>
+    </div>
+  </div>
+
+  <!-- Modal: AI Comparison Tool (NEW) -->
+  <div id="compare-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 shadow-2xl relative space-y-4">
+      <button onclick="closeModal('compare-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-scale-balanced text-blue-600"></i> مقارنة ذكية بالذكاء الاصطناعي لواقع الطرق في سوريا</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">السيارة الأولى *</label>
+          <select id="compare-car-1" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">السيارة الثانية *</label>
+          <select id="compare-car-2" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs"></select>
+        </div>
+      </div>
+      <button onclick="runAiComparison()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl text-xs shadow-md">إجراء التحليل والمقارنة الفنية للسوق السوري</button>
+      <div id="compare-result-box" class="hidden bg-slate-50 border p-4 rounded-2xl text-xs text-slate-800 space-y-3"></div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Maintenance Record -->
   <div id="add-maintenance-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-maintenance-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
@@ -406,6 +471,7 @@
     const ADMIN_PASSWORD_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
     let isAdminLoggedIn = false;
     let logoClickCounter = 0;
+    let currentBrandFilter = 'all';
 
     async function sha256(message) {
       const msgBuffer = new TextEncoder().encode(message);
@@ -417,6 +483,124 @@
       if (!str) return '';
       return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
     }
+
+    // MASSIVE ENCYCLOPEDIA DATABASE (KIA, HYUNDAI, TOYOTA, BYD, MERCEDES, BMW, GENESIS...)
+    let carEncyclopedia = [
+      {
+        id: 1, brand: "كيا", model: "كيا سيراتو (Kia Cerato)", year: "2010 - 2024",
+        engine: "1.6 لتر MPI / 4 أسطوانات / 128 حصان", fuelEco: "14.2 كم لكل لتر",
+        summary: "السيارة الأكثر شعبية وانتشاراً في سوريا، تتميز بتوفر قطع الغيار وسهولة الصيانة واعتمادية عالية.",
+        colors: [
+          { name: "أبيض ناصع", hex: "#ffffff" },
+          { name: "فضي معدني", hex: "#c0c0c0" },
+          { name: "أسود لؤلؤي", hex: "#111111" },
+          { name: "رمادي داكن", hex: "#4b5563" },
+          { name: "أزرق ملكي", hex: "#1e40af" }
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800",
+          "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800"
+        ],
+        specs: { transmission: "أوتوماتيك 6 سرعات / عادية", suspension: "ماكفرسون أمامي / خلفي تشن مسند", clearance: "150 مم", ac: "تكييف ثنائي المنطقة قوي" },
+        syriaVerdict: "خيار مثالي وممتاز جداً في السوق السوري لتوفر ورشات الصيانة في كل مكان وسهولة إعادة البيع بفقدان قليل جداً من القيمة."
+      },
+      {
+        id: 2, brand: "هيونداي", model: "هيونداي أكسنت (Hyundai Accent)", year: "2008 - 2023",
+        engine: "1.4L / 1.6L Gamma Engine / 107 - 123 حصان", fuelEco: "15.5 كم لكل لتر",
+        summary: "ملكة اقتصاد الوقود والاعتمادية المطلقة، ممتازة جداً للتنقل اليومي وأعمال التكسي أو الاستخدام العائلي.",
+        colors: [
+          { name: "أبيض", hex: "#ffffff" },
+          { name: "بيج ذهبي", hex: "#d4d4d8" },
+          { name: "أسود", hex: "#000000" },
+          { name: "أحمر قاني", hex: "#b91c1c" }
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800"
+        ],
+        specs: { transmission: "أوتوماتيك 4 أو 6 سرعات / عادي 5 سرعات", suspension: "خفيف وعملي جداً للطرق الحضرية", clearance: "145 مم", ac: "ممتاز وسريع التبريد" },
+        syriaVerdict: "من أكثر السيارات طلباً في السوق السوري لمتانتها العالية وقدرتها على تحمل ظروف الطرق المختلفة واستهلاكها الاقتصادي للبنزين."
+      },
+      {
+        id: 3, brand: "تويوتا", model: "تويوتا كورولا (Toyota Corolla)", year: "2012 - 2025",
+        engine: "1.6L VVT-i / 2.0L / 121 - 169 حصان", fuelEco: "16.8 كم لكل لتر",
+        summary: "السيارة الأسطورية التي لا تهتد ولا تعطل، قيمة ثابتة عند البيع وصيانة نادرة الحدوث.",
+        colors: [
+          { name: "أبيض لؤلؤي", hex: "#f8fafc" },
+          { name: "فضي", hex: "#94a3b8" },
+          { name: "رمادي معدني", hex: "#334155" },
+          { name: "كحلي", hex: "#1e3a8a" }
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800"
+        ],
+        specs: { transmission: "CVT متطور / أوتوماتيك", suspension: "مريح جداً ومخصص لامتصاص صدمات الطرق", clearance: "135 مم", ac: "تبريد عالي الأداء" },
+        syriaVerdict: "الاستثمار الأضمن في السوق السوري؛ صبورة جداً، قطع غيارها متوفرة (أصلي وتجاري)، ولا تفقده شيئاً من قيمته عند إعادة البيع."
+      },
+      {
+        id: 4, brand: "بي واي دي", model: "بي واي دي إتتو 3 الكهربائية (BYD Atto 3)", year: "2023 - 2026",
+        engine: "محرك كهربائي بالكامل / بطارية Blade 60.4 kWh / 201 حصان", fuelEco: "مدى يصل لـ 420 كم للشحنة",
+        summary: "ثورة السيارات الكهربائية الذكية، تسارع هائل، فخامة مفرطة، وتوفير تام لتكاليف المحروقات.",
+        colors: [
+          { name: "أزرق سماوي", hex: "#38bdf8" },
+          { name: "أبيض سكادي", hex: "#f1f5f9" },
+          { name: "رمادي صخري", hex: "#64748b" },
+          { name: "أخضر داكن", hex: "#065f46" }
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800"
+        ],
+        specs: { transmission: "سرعة واحدة أوتوماتيك", suspension: "تعليق مستقل متقدم متعدد الوصلات", clearance: "175 مم", ac: "تكييف إلكتروني ذكي بمضخة حرارية" },
+        syriaVerdict: "ممتازة جداً لمن يتوفر لديهم مصدر شحن منزلي أو ألواح شمسية؛ توفر تكاليف البنزين الباهظة بشكل كامل."
+      },
+      {
+        id: 5, brand: "مرسيدس", model: "مرسيدس بنز الفئة سي (Mercedes-Benz C-Class W204/W205)", year: "2010 - 2022",
+        engine: "1.8L Turbo / 2.0L Turbo / 156 - 245 حصان", fuelEco: "11.5 كم لكل لتر",
+        summary: "عنوان الفخامة الألمانية وهيبة الطريق، ثبات مطلق ومستوى أمان وتجهيزات لا تقارن.",
+        colors: [
+          { name: "أسود أوبسيديان", hex: "#09090b" },
+          { name: "فضي إيديوم", hex: "#e2e8f0" },
+          { name: "أبيض أرجنتيني", hex: "#ffffff" },
+          { name: "رمادي مازدا", hex: "#475569" }
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800"
+        ],
+        specs: { transmission: "أوتوماتيك 7 أو 9 سرعات 9G-Tronic", suspension: "تعليق رياضي/مريح متكيف", clearance: "140 مم", ac: "تحكم رقمي متطور متعدد المناطق" },
+        syriaVerdict: "تحفة تقنية تتطلب صيانة دورية دقيقة لدى مختصين بفئة المرسيدس وتوفر وقود عالي النقاوة، تمنحك هيبة وقوة قيادة استثنائية."
+      },
+      {
+        id: 6, brand: "بي إم دبليو", model: "بي إم دبليو الفئة الثالثة (BMW 3 Series F30/G20)", year: "2012 - 2024",
+        engine: "2.0L TwinPower Turbo / 184 - 255 حصان", fuelEco: "13.0 كم لكل لتر",
+        summary: "متعة القيادة المطلقة، أداء رياضي شرس، وتصميم هجومي جذاب يخطف الأنظار.",
+        colors: [
+          { name: "أزرق بورتيماو", hex: "#2563eb" },
+          { name: "أبيض ألبين", hex: "#ffffff" },
+          { name: "أسود ستايلش", hex: "#0f172a" },
+          { name: "رمادي معدني", hex: "#64748b" }
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800"
+        ],
+        specs: { transmission: "أوتوماتيك رياضي 8 سرعات Steptronic", suspension: "تعليق M Sport رياضي مشدود", clearance: "130 مم", ac: "تكييف فائق الفعالية" },
+        syriaVerdict: "سيارة عشاق الأداء الرياضي والسرعة في سوريا؛ تتطلب عناية بزيوت المحرك والتربو وفحص دوري للأنظمة الإلكترونية."
+      },
+      {
+        id: 7, brand: "جينسس", model: "جينسس جي 80 الفاخرة (Genesis G80)", year: "2018 - 2025",
+        engine: "2.5L Turbo / 3.5L V6 / 300 - 375 حصان", fuelEco: "10.2 كم لكل لتر",
+        summary: "الفخامة الكورية الخالصة التي تنافس أقوى العلامات الأوروبية براحة فائقة وصالون ملكي.",
+        colors: [
+          { name: "أسود مات ملكي", hex: "#18181b" },
+          { name: "فضي لامع", hex: "#cbd5e1" },
+          { name: "أخضر زيتي", hex: "#14532d" },
+          { name: "أبيض لؤلؤي", hex: "#f8fafc" }
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800"
+        ],
+        specs: { transmission: "أوتوماتيك 8 سرعات متطور", suspension: "تعليق إلكتروني متكيف بالمسح البصري للطريق", clearance: "150 مم", ac: "نظام تنقية هواء ذكي متكامل" },
+        syriaVerdict: "سيارة كبار الشخصيات ورجال الأعمال في سوريا، توفر مستوى راحة وعزل صوتي لا يضاهى مع فخامة مطلقة."
+      }
+    ];
 
     let dashboardErrors = [
       { code: "Check Engine", title: "لمبة فحص المحرك (Check Engine)", desc: "تشير لوجود خلل في حساسات الأكسجين، البواجي، أو دورة الوقود. يجب الفحص بالكمبيوتر.", severity: "متوسطة" },
@@ -433,8 +617,6 @@
     let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [];
     let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
-    
-    // Maintenance memo storage
     let maintenanceRecords = JSON.parse(localStorage.getItem('maintenance_records')) || [
       { id: 901, car: "تويوتا كورولا 2012", part: "زيت المحرك والفلاتر", km: 145000, date: "2026-02-15", notes: "تم استخدام زيت 10W-40 الأصلي." }
     ];
@@ -443,6 +625,8 @@
       renderDashboardErrors();
       renderShowrooms();
       renderMaintenanceRecords();
+      renderEncyclopediaGrid();
+      populateCompareSelects();
       updateTicker();
     });
 
@@ -477,7 +661,169 @@
       }
     }
 
-    // MAINTENANCE MEMO FUNCTIONS (NEW)
+    // ENCYCLOPEDIA & CATALOG FUNCTIONS (NEW)
+    function filterEncyclopedia(brand) {
+      currentBrandFilter = brand;
+      document.querySelectorAll('.enc-brand-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      event.target.classList.remove('bg-slate-100', 'text-slate-700');
+      event.target.classList.add('bg-blue-600', 'text-white');
+      renderEncyclopediaGrid();
+    }
+
+    function renderEncyclopediaGrid() {
+      const search = document.getElementById('encyclopedia-search')?.value.toLowerCase() || '';
+      const container = document.getElementById('encyclopedia-grid-container');
+      if (!container) return;
+
+      let filtered = carEncyclopedia.filter(c => {
+        const matchesBrand = currentBrandFilter === 'all' || c.brand.includes(currentBrandFilter);
+        const matchesSearch = c.model.toLowerCase().includes(search) || c.brand.toLowerCase().includes(search) || c.summary.toLowerCase().includes(search);
+        return matchesBrand && matchesSearch;
+      });
+
+      container.innerHTML = filtered.length === 0 ? `<div class="col-span-full text-center py-8 text-slate-400 text-xs">لا توجد سيارات مطابقة لبحثك في الموسوعة.</div>` : filtered.map(c => `
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden card-hover flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="relative h-48 bg-slate-900">
+              <img src="${c.images[0]}" class="w-full h-full object-cover">
+              <span class="absolute top-3 right-3 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full shadow">${c.brand}</span>
+              <span class="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-xl">${c.year}</span>
+            </div>
+            <div class="p-5 space-y-3">
+              <h3 class="font-black text-slate-900 text-sm">${c.model}</h3>
+              <p class="text-xs text-slate-600 line-clamp-2">${c.summary}</p>
+              
+              <!-- Colors Swatches Preview -->
+              <div class="flex items-center gap-1.5 pt-1">
+                <span class="text-[10px] text-slate-400 font-bold">الألوان المتوفرة:</span>
+                <div class="flex items-center gap-1">
+                  ${c.colors.map(col => `<span class="w-3.5 h-3.5 rounded-full border border-slate-300 shadow-sm" style="background-color: ${col.hex};" title="${col.name}"></span>`).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <button onclick="openCarCatalog(${c.id})" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl transition shadow-md flex items-center justify-center gap-2">
+              <i class="fa-solid fa-book-open-reader"></i> استعراض الكتالوج الشامل
+            </button>
+          </div>
+        </div>`).join('');
+    }
+
+    function openCarCatalog(id) {
+      const c = carEncyclopedia.find(x => x.id === id);
+      if (!c) return;
+
+      const modalContent = document.getElementById('catalog-modal-content');
+      modalContent.innerHTML = `
+        <div class="space-y-6">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="bg-blue-100 text-blue-700 text-xs font-black px-3 py-1 rounded-full">${c.brand}</span>
+              <h2 class="text-xl font-black text-slate-900 mt-2">${c.model}</h2>
+              <p class="text-xs text-slate-500">سنة الصنع: ${c.year}</p>
+            </div>
+          </div>
+
+          <!-- Car Images Gallery -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${c.images.map(img => `<div class="h-64 rounded-2xl overflow-hidden bg-slate-950"><img src="${img}" class="w-full h-full object-cover"></div>`).join('')}
+          </div>
+
+          <!-- Summary & Colors -->
+          <div class="bg-slate-50 p-5 rounded-3xl border space-y-3">
+            <h3 class="font-black text-sm text-slate-900">نظرة عامة والكتالوج الرسمي</h3>
+            <p class="text-xs text-slate-700 leading-relaxed">${c.summary}</p>
+            <div>
+              <h4 class="font-bold text-xs text-slate-800 mb-2">الألوان الخارجية والداخلية المتوفرة:</h4>
+              <div class="flex flex-wrap gap-3">
+                ${c.colors.map(col => `
+                  <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border shadow-sm">
+                    <span class="w-4 h-4 rounded-full border shadow-sm" style="background-color: ${col.hex};"></span>
+                    <span class="text-xs font-bold text-slate-700">${col.name}</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Specs Table -->
+          <div class="space-y-3">
+            <h3 class="font-black text-sm text-slate-900"><i class="fa-solid fa-gears text-blue-600"></i> المواصفات الفنية التفصيلية</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="bg-white p-4 rounded-2xl border flex justify-between"><strong>المحرك والأداء:</strong> <span class="text-slate-600">${c.engine}</span></div>
+              <div class="bg-white p-4 rounded-2xl border flex justify-between"><strong>استهلاك الوقود:</strong> <span class="text-slate-600">${c.fuelEco}</span></div>
+              <div class="bg-white p-4 rounded-2xl border flex justify-between"><strong>ناقل الحركة:</strong> <span class="text-slate-600">${c.specs.transmission}</span></div>
+              <div class="bg-white p-4 rounded-2xl border flex justify-between"><strong>نظام التعليق:</strong> <span class="text-slate-600">${c.specs.suspension}</span></div>
+              <div class="bg-white p-4 rounded-2xl border flex justify-between"><strong>الخلوص الأرضي:</strong> <span class="text-slate-600">${c.specs.clearance}</span></div>
+              <div class="bg-white p-4 rounded-2xl border flex justify-between"><strong>التكييف والتبريد:</strong> <span class="text-slate-600">${c.specs.ac}</span></div>
+            </div>
+          </div>
+
+          <!-- AI Verdict for Syria -->
+          <div class="bg-blue-50 border border-blue-200 p-5 rounded-3xl space-y-2">
+            <h3 class="font-black text-xs text-blue-900 flex items-center gap-1.5"><i class="fa-solid fa-robot"></i> تقييم الذكاء الاصطناعي الخاص للسائقين في سوريا:</h3>
+            <p class="text-xs text-blue-950 leading-relaxed">${c.syriaVerdict}</p>
+          </div>
+        </div>
+      `;
+      openModal('catalog-modal');
+    }
+
+    // AI COMPARISON ENGINE (NEW)
+    function populateCompareSelects() {
+      const select1 = document.getElementById('compare-car-1');
+      const select2 = document.getElementById('compare-car-2');
+      if (!select1 || !select2) return;
+
+      const options = carEncyclopedia.map(c => `<option value="${c.id}">${c.model} (${c.brand})</option>`).join('');
+      select1.innerHTML = options;
+      select2.innerHTML = options;
+      if (carEncyclopedia.length > 1) select2.selectedIndex = 1;
+    }
+
+    function runAiComparison() {
+      const id1 = parseInt(document.getElementById('compare-car-1').value);
+      const id2 = parseInt(document.getElementById('compare-car-2').value);
+
+      if (id1 === id2) {
+        alert('الرجاء اختيار سيارتين مختلفتين للمقارنة.');
+        return;
+      }
+
+      const c1 = carEncyclopedia.find(x => x.id === id1);
+      const c2 = carEncyclopedia.find(x => x.id === id2);
+
+      const resultBox = document.getElementById('compare-result-box');
+      resultBox.innerHTML = `
+        <h4 class="font-black text-slate-900 text-sm border-b pb-2">📊 تقرير المقارنة الذكية لـ (${c1.model} ضد ${c2.model})</h4>
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <div class="bg-white p-3 rounded-2xl border space-y-1">
+            <strong class="text-blue-600">${c1.model}</strong>
+            <p class="text-[11px] text-slate-600"><strong>المحرك:</strong> ${c1.engine}</p>
+            <p class="text-[11px] text-slate-600"><strong>الوقود:</strong> ${c1.fuelEco}</p>
+          </div>
+          <div class="bg-white p-3 rounded-2xl border space-y-1">
+            <strong class="text-indigo-600">${c2.model}</strong>
+            <p class="text-[11px] text-slate-600"><strong>المحرك:</strong> ${c2.engine}</p>
+            <p class="text-[11px] text-slate-600"><strong>الوقود:</strong> ${c2.fuelEco}</p>
+          </div>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-2 mt-3">
+          <strong class="text-blue-900 text-xs"><i class="fa-solid fa-lightbulb"></i> النتيجة والتوصية لواقع الطرق في سوريا:</strong>
+          <p class="text-xs text-blue-950 leading-relaxed">
+            بناءً على ظروف الطرق واحتياجات الصيانة والمحروقات في سوريا:
+            <br>• إذا كنت تبحث عن <strong>الاعتمادية وسهولة البيع وتوفر القطع</strong>، فإن <strong>${c1.brand === 'تويوتا' || c1.brand === 'كيا' || c1.brand === 'هيونداي' ? c1.model : c2.model}</strong> تتفوق بوضوح.
+            <br>• إذا كنت تفضل <strong>الفخامة والأداء العالي</strong>، فإن خيار <strong>${c1.brand === 'مرسيدس' || c1.brand === 'بي إم دبليو' || c1.brand === 'جينسس' ? c1.model : c2.model}</strong> يمنحك تجربة قيادة استثنائية مع ضرورة مراعاة العناية الفنية الخاصة.
+          </p>
+        </div>
+      `;
+      resultBox.classList.remove('hidden');
+    }
+
+    // MAINTENANCE MEMO
     function handleAddMaintenance(e) {
       e.preventDefault();
       const car = sanitizeHTML(document.getElementById('maint-car').value);
@@ -497,7 +843,7 @@
     function renderMaintenanceRecords() {
       const container = document.getElementById('maintenance-records-container');
       if (!container) return;
-      container.innerHTML = maintenanceRecords.length === 0 ? `<div class="col-span-full text-center py-6 text-slate-400 text-xs">لا توجد سجلات صيانة مخزنة حتى الآن. اشرع بإضافة سجل سيارتك!</div>` : maintenanceRecords.map(m => `
+      container.innerHTML = maintenanceRecords.length === 0 ? `<div class="col-span-full text-center py-6 text-slate-400 text-xs">لا توجد سجلات صيانة مخزنة حتى الآن.</div>` : maintenanceRecords.map(m => `
         <div class="bg-white p-5 rounded-3xl border border-purple-100 shadow-sm space-y-3 card-hover flex flex-col justify-between">
           <div class="space-y-2">
             <div class="flex justify-between items-center"><span class="bg-purple-100 text-purple-800 text-[10px] font-black px-3 py-1 rounded-full">${m.part}</span><span class="text-[10px] text-slate-400 font-bold">${m.date}</span></div>
@@ -528,15 +874,16 @@
         return;
       }
 
+      const matchEnc = carEncyclopedia.filter(c => c.model.toLowerCase().includes(q) || c.brand.toLowerCase().includes(q));
       const matchShowrooms = approvedShowrooms.filter(s => s.name.toLowerCase().includes(q) || s.city.toLowerCase().includes(q));
       const matchCars = approvedCarsForSale.filter(c => c.title.toLowerCase().includes(q) || c.city.toLowerCase().includes(q));
       const matchShops = approvedShops.filter(s => s.name.toLowerCase().includes(q) || s.spec.toLowerCase().includes(q));
       const matchErrors = dashboardErrors.filter(e => e.code.toLowerCase().includes(q) || e.title.toLowerCase().includes(q));
 
       const allMatches = [
+        ...matchEnc.map(c => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-[10px] font-bold">موسوعة</span><h4 class="font-black">${c.model}</h4><p class="text-slate-500">${c.brand}</p></div>`),
         ...matchShowrooms.map(s => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">معرض</span><h4 class="font-black">${s.name}</h4><p class="text-slate-500">${s.city}</p></div>`),
         ...matchCars.map(c => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold">سيارة للبيع</span><h4 class="font-black">${c.title}</h4><p class="text-slate-500">${c.price}</p></div>`),
-        ...matchShops.map(s => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded text-[10px] font-bold">ورشة</span><h4 class="font-black">${s.name}</h4><p class="text-slate-500">${s.spec}</p></div>`),
         ...matchErrors.map(e => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded text-[10px] font-bold">عطل طبلون</span><h4 class="font-black">${e.title}</h4><p class="text-slate-500">${e.desc}</p></div>`)
       ];
 
