@@ -32,8 +32,8 @@
 
   <!-- Header / Navbar -->
   <header class="glass-header text-white sticky top-0 z-40 border-b border-slate-800/80 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-3">
-      <div class="flex items-center justify-between gap-4 mb-3">
+    <div class="max-w-7xl mx-auto px-4 py-3 space-y-3">
+      <div class="flex items-center justify-between gap-4">
         
         <!-- Logo & Secret Admin Trigger -->
         <div onclick="handleLogoClicks()" class="flex items-center gap-3 cursor-pointer select-none">
@@ -53,13 +53,22 @@
         </div>
       </div>
 
+      <!-- Global Search Bar (New) -->
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-slate-400 text-xs"></i>
+        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="بحث شامل في المعارض، السيارات، الورش، والقطع..." class="w-full pr-10 pl-4 py-2 bg-slate-800/90 border border-slate-700 text-white rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      </div>
+
       <!-- Navigation Tabs -->
       <nav class="flex items-center gap-2 overflow-x-auto nav-scrollbar py-1 text-xs font-bold">
         <button onclick="switchTab('ai-tab')" id="btn-ai-tab" class="tab-btn active shrink-0 px-4 py-2 rounded-xl transition bg-blue-600 text-white shadow-md shadow-blue-600/30 flex items-center gap-1.5">
           <i class="fa-solid fa-microchip"></i> تشخيص الأعطال
         </button>
+        <button onclick="switchTab('dashboard-tab')" id="btn-dashboard-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
+          <i class="fa-solid fa-gauge-high text-yellow-400"></i> أعطال الطبلون (OBD2)
+        </button>
         <button onclick="switchTab('showrooms-tab')" id="btn-showrooms-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-shop text-blue-400"></i> معارض السيارات المعتمدة
+          <i class="fa-solid fa-shop text-blue-400"></i> المعارض المعتمدة (علامة زرقاء)
         </button>
         <button onclick="switchTab('cars-sale-tab')" id="btn-cars-sale-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-car-rear text-amber-400"></i> بيع وشراء السيارات
@@ -103,16 +112,25 @@
   <!-- Floating Bottom Quick Navigation Bar -->
   <div class="fixed bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 shadow-2xl rounded-full px-4 py-2 z-40 flex items-center gap-3 text-white">
     <button onclick="switchTab('ai-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-blue-400 transition" title="التشخيص"><i class="fa-solid fa-microchip text-sm"></i></button>
+    <button onclick="switchTab('dashboard-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-yellow-400 transition" title="أعطال الطبلون"><i class="fa-solid fa-gauge-high text-sm"></i></button>
     <button onclick="switchTab('showrooms-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-blue-400 transition" title="المعارض"><i class="fa-solid fa-shop text-sm"></i></button>
     <button onclick="switchTab('cars-sale-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-amber-400 transition" title="السيارات"><i class="fa-solid fa-car-rear text-sm"></i></button>
     <button onclick="switchTab('forum-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-indigo-400 transition" title="المنتدى"><i class="fa-solid fa-comments text-sm"></i></button>
     <button onclick="switchTab('market-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-emerald-400 transition" title="القطع"><i class="fa-solid fa-boxes-packing text-sm"></i></button>
     <button onclick="switchTab('shops-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-rose-400 transition" title="الورش"><i class="fa-solid fa-wrench text-sm"></i></button>
-    <button onclick="switchTab('emergency-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-orange-400 transition" title="الونشات"><i class="fa-solid fa-truck-pickup text-sm"></i></button>
   </div>
 
   <!-- Main Content Container -->
   <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <!-- GLOBAL SEARCH RESULTS OVERLAY CONTAINER -->
+    <section id="global-search-results-section" class="hidden mb-6 space-y-4">
+      <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex justify-between items-center">
+        <h3 class="font-black text-blue-900 text-xs"><i class="fa-solid fa-magnifying-glass"></i> نتائج البحث الشامل:</h3>
+        <button onclick="clearGlobalSearch()" class="text-xs text-rose-600 font-bold hover:underline">إلغاء البحث وإغلاق</button>
+      </div>
+      <div id="global-search-results-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
 
     <!-- 1. AI DIAGNOSTICS TAB -->
     <section id="ai-tab" class="tab-content space-y-6">
@@ -154,7 +172,23 @@
       </div>
     </section>
 
-    <!-- 2. SHOWROOMS TAB (NEW) -->
+    <!-- 2. DASHBOARD LIGHTS & OBD2 ERRORS TAB (NEW) -->
+    <section id="dashboard-tab" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
+        <div>
+          <h2 class="text-xl font-black text-slate-900">دليل أعطال لوحة العدادات (Check Engine & OBD2)</h2>
+          <p class="text-xs text-slate-500">معنى إضاءة لمبات الطبلون والأكواد الشائعة وكيفية التصرف الفوري</p>
+        </div>
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
+          <input type="text" id="dashboard-search" oninput="renderDashboardErrors()" placeholder="بحث باسم اللمبة أو كود العطل (مثال: Check Engine, P0300)..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border rounded-2xl text-xs">
+        </div>
+      </div>
+
+      <div id="dashboard-errors-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- 3. SHOWROOMS TAB -->
     <section id="showrooms-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -166,31 +200,27 @@
             <i class="fa-solid fa-shop"></i> طلب اعتماد / تسجيل معرض
           </button>
         </div>
-
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
-          <input type="text" id="showroom-search" oninput="renderShowrooms()" placeholder="بحث باسم المعرض أو المنطقة..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <input type="text" id="showroom-search" oninput="renderShowrooms()" placeholder="بحث باسم المعرض أو المنطقة..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border rounded-2xl text-xs">
         </div>
       </div>
-
       <div id="showrooms-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 3. CARS FOR SALE TAB -->
+    <!-- 4. CARS FOR SALE TAB -->
     <section id="cars-sale-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
           <h2 class="text-xl font-black text-slate-900">سوق بيع وشراء السيارات</h2>
           <button onclick="openModal('add-car-sale-modal')" class="px-5 py-3 bg-amber-500 text-slate-950 font-black rounded-2xl text-xs">إضافة سيارة للبيع</button>
         </div>
-        <div class="relative">
-          <input type="text" id="cars-sale-search" oninput="renderCarsForSale()" placeholder="بحث في السيارات..." class="w-full p-2.5 bg-slate-50 border rounded-2xl text-xs">
-        </div>
+        <input type="text" id="cars-sale-search" oninput="renderCarsForSale()" placeholder="بحث في السيارات..." class="w-full p-2.5 bg-slate-50 border rounded-2xl text-xs">
       </div>
       <div id="cars-for-sale-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 4. OWNERS FORUM TAB -->
+    <!-- 5. OWNERS FORUM TAB -->
     <section id="forum-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -201,7 +231,7 @@
       <div id="forum-posts-container" class="space-y-4"></div>
     </section>
 
-    <!-- 5. PARTS TAB -->
+    <!-- 6. PARTS TAB -->
     <section id="market-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -212,7 +242,7 @@
       <div id="parts-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- 6. SHOPS TAB -->
+    <!-- 7. SHOPS TAB -->
     <section id="shops-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -223,7 +253,7 @@
       <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 7. EMERGENCY TAB -->
+    <!-- 8. EMERGENCY TAB -->
     <section id="emergency-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-2">
         <h2 class="text-xl font-black text-slate-900">طوارئ الطرق والونشات السريعة</h2>
@@ -237,7 +267,7 @@
       </div>
     </section>
 
-    <!-- 8. CALCULATOR TAB -->
+    <!-- 9. CALCULATOR TAB -->
     <section id="calculator-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border max-w-xl mx-auto space-y-4">
         <h2 class="text-lg font-black">حاسبة استهلاك الوقود</h2>
@@ -251,7 +281,7 @@
       </div>
     </section>
 
-    <!-- 9. ADMIN DASHBOARD -->
+    <!-- 10. ADMIN DASHBOARD -->
     <section id="admin-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-rose-200 shadow-lg">
         <h2 class="text-lg font-black text-slate-900 mb-4"><i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية</h2>
@@ -315,18 +345,30 @@
       return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
     }
 
-    // INITIAL SHOWROOMS DATABASE (Some with Blue Badge)
+    // INITIAL DATABASES
+    let dashboardErrors = [
+      { code: "Check Engine", title: "لمبة فحص المحرك (Check Engine)", desc: "تشير لوجود خلل في حساسات الأكسجين، البواجي، أو دورة الوقود. يجب الفحص بالكمبيوتر.", severity: "متوسطة" },
+      { code: "P0300", title: "كود تخطي شرارة الاحتراق (Random Misfire)", desc: "تقطيع في المحرك وضعف بالعزم، وعادةً بسبب بواجي تالفة أو كويلات بحاجة لتبديل.", severity: "عالية" },
+      { code: "حرارة المحرك", title: "ضوء ارتفاع حرارة الماء", desc: "خطر تلف المحرك! توقف فوراً، افحص ماء الردياتير، وتأكد من عمل المروحة.", severity: "حرجة" },
+      { code: "ضغط الزيت", title: "ضوء إبريق الزيت الأحمر", desc: "نقص حاد في زيت المحرك أو عطل في طرمبة الزيت. أطفئ السيارة فوراً.", severity: "حرجة" },
+      { code: "ABS", title: "لمبة نظام مانع الانغلاق ABS", desc: "مشكلة في حساسات الإطارات أو وحدة الفرامل. الفرامل العادية تعمل لكن بحذر.", severity: "متوسطة" }
+    ];
+
     let approvedShowrooms = JSON.parse(localStorage.getItem('approved_showrooms')) || [
-      { id: 701, name: "معرض الشهباء الحديث للسيارات", city: "حلب - شارع الأوتوستراد", phone: "0911223344", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=500", mapUrl: "https://maps.google.com", desc: "متخصصون بسيارات الكوري والياباني الحديثة. خبرة أكثر من 15 سنة.", verified: true, rating: 4.9, ratingCount: 24 },
-      { id: 702, name: "معرض الشام الذهبي", city: "حلب - السريان", phone: "0922334455", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500", mapUrl: "https://maps.google.com", desc: "بيع وشراء وتفويض كافة أنواع السيارات بحالة ممتازة.", verified: false, rating: 4.5, ratingCount: 12 }
+      { id: 701, name: "معرض الشهباء الحديث للسيارات", city: "حلب - شارع الأوتوستراد", phone: "0911223344", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=500", mapUrl: "https://maps.google.com", desc: "متخصصون بسيارات الكوري والياباني الحديثة.", verified: true, rating: 4.9, ratingCount: 24 }
     ];
     let pendingShowrooms = JSON.parse(localStorage.getItem('pending_showrooms')) || [];
-    let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [];
+    let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [
+      { id: 101, title: "هيونداي أكسنت 2010 خالية العَلام", year: "2010", km: "128,000 كم", city: "حلب", price: "88,000,000 ل.س", phone: "0991122334", images: ["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800"], desc: "كورية كاملة جاهزية 100%." }
+    ];
     let approvedForumPosts = JSON.parse(localStorage.getItem('approved_forum_posts')) || [];
     let approvedParts = JSON.parse(localStorage.getItem('approved_parts')) || [];
-    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
+    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [
+      { id: 401, name: "تجمع ورش الراموسة للصيانة العامة", city: "حلب - الراموسة", spec: "ميكانيك", phone: "0911112233", image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500", desc: "خبرة طويلة في إصلاح المحركات." }
+    ];
 
     window.addEventListener('DOMContentLoaded', () => {
+      renderDashboardErrors();
       renderShowrooms();
       renderCarsForSale();
       renderForumPosts();
@@ -355,40 +397,100 @@
       }
     }
 
-    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function openModal(id) { document.getElementById(id).classList.add('hidden') || document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // RENDER SHOWROOMS WITH BLUE BADGE & MAPS & RATING
+    // GLOBAL SEARCH ENGINE
+    function handleGlobalSearch(query) {
+      const resultsSection = document.getElementById('global-search-results-section');
+      const container = document.getElementById('global-search-results-container');
+      const q = query.trim().toLowerCase();
+
+      if (!q) {
+        resultsSection.classList.add('hidden');
+        return;
+      }
+
+      const matchShowrooms = approvedShowrooms.filter(s => s.name.toLowerCase().includes(q) || s.city.toLowerCase().includes(q));
+      const matchCars = approvedCarsForSale.filter(c => c.title.toLowerCase().includes(q) || c.city.toLowerCase().includes(q));
+      const matchShops = approvedShops.filter(s => s.name.toLowerCase().includes(q) || s.spec.toLowerCase().includes(q));
+      const matchErrors = dashboardErrors.filter(e => e.code.toLowerCase().includes(q) || e.title.toLowerCase().includes(q));
+
+      const allMatches = [
+        ...matchShowrooms.map(s => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">معرض</span><h4 class="font-black">${s.name}</h4><p class="text-slate-500">${s.city}</p></div>`),
+        ...matchCars.map(c => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold">سيارة للبيع</span><h4 class="font-black">${c.title}</h4><p class="text-slate-500">${c.price}</p></div>`),
+        ...matchShops.map(s => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded text-[10px] font-bold">ورشة</span><h4 class="font-black">${s.name}</h4><p class="text-slate-500">${s.spec}</p></div>`),
+        ...matchErrors.map(e => `<div class="bg-white p-4 rounded-2xl border text-xs space-y-1"><span class="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded text-[10px] font-bold">عطل طبلون</span><h4 class="font-black">${e.title}</h4><p class="text-slate-500">${e.desc}</p></div>`)
+      ];
+
+      resultsSection.classList.remove('hidden');
+      container.innerHTML = allMatches.length ? allMatches.join('') : `<div class="col-span-full text-center py-6 text-slate-400 text-xs">لا توجد نتائج مطابقة لبحثك.</div>`;
+    }
+
+    function clearGlobalSearch() {
+      document.getElementById('global-search-input').value = '';
+      document.getElementById('global-search-results-section').classList.add('hidden');
+    }
+
+    // DASHBOARD ERRORS RENDER
+    function renderDashboardErrors() {
+      const search = document.getElementById('dashboard-search')?.value.toLowerCase() || '';
+      const container = document.getElementById('dashboard-errors-container');
+      const filtered = dashboardErrors.filter(e => e.code.toLowerCase().includes(search) || e.title.toLowerCase().includes(search));
+      if (!container) return;
+      container.innerHTML = filtered.map(e => `
+        <div class="bg-white p-5 rounded-3xl border border-slate-200/80 space-y-2 card-hover flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex justify-between items-center"><span class="bg-yellow-100 text-yellow-800 text-[10px] font-black px-3 py-1 rounded-full">${e.code}</span><span class="text-[10px] font-bold text-slate-500">خطورة: ${e.severity}</span></div>
+            <h3 class="font-black text-slate-900 text-sm">${e.title}</h3>
+            <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-2xl">${e.desc}</p>
+          </div>
+        </div>`).join('');
+    }
+
+    // RENDER SHOWROOMS WITH RATING INTERACTION
     function renderShowrooms() {
       const search = document.getElementById('showroom-search')?.value.toLowerCase() || '';
       const container = document.getElementById('showrooms-container');
       const filtered = approvedShowrooms.filter(s => s.name.toLowerCase().includes(search) || s.city.toLowerCase().includes(search));
 
       if (!container) return;
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 text-xs">لا توجد معارض مطابقة حالياً.</div>`;
-        return;
-      }
-
       container.innerHTML = filtered.map(s => `
         <div class="bg-white rounded-3xl shadow-sm border border-slate-200/80 overflow-hidden card-hover flex flex-col justify-between ${s.verified ? 'ring-2 ring-blue-500/30' : ''}">
           <div>
             <div class="relative h-48 bg-slate-900">
               <img src="${s.image}" class="w-full h-full object-cover">
               ${s.verified ? '<span class="absolute top-3 left-3 bg-blue-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> موثوق (علامة زرقاء)</span>' : ''}
-              <span class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur text-amber-400 text-xs px-3 py-1 rounded-xl font-black">⭐ ${s.rating} (${s.ratingCount} تقييم)</span>
+              <span class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur text-amber-400 text-xs px-3 py-1 rounded-xl font-black cursor-pointer" onclick="rateShowroom(${s.id})">⭐ ${s.rating} (${s.ratingCount} تقييم) - قيم الآن</span>
             </div>
             <div class="p-5 space-y-2">
-              <h3 class="font-black text-slate-900 text-sm flex items-center gap-1.5">${s.name}</h3>
+              <h3 class="font-black text-slate-900 text-sm">${s.name}</h3>
               <p class="text-xs text-slate-500 font-medium"><i class="fa-solid fa-location-dot text-rose-600 ml-1"></i> ${s.city}</p>
               <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-2xl border border-slate-100">${s.desc}</p>
             </div>
           </div>
           <div class="p-5 pt-0 grid grid-cols-2 gap-2">
-            <a href="${s.mapUrl || 'https://maps.google.com'}" target="_blank" class="py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-2xl text-center"><i class="fa-solid fa-map-location-dot ml-1"></i> الخريطة</a>
-            <a href="https://wa.me/${s.phone.replace(/[^0-9]/g, '')}" target="_blank" class="py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-2xl text-center"><i class="fa-brands fa-whatsapp ml-1"></i> واتساب</a>
+            <a href="${s.mapUrl || 'https://maps.google.com'}" target="_blank" class="py-2.5 bg-slate-900 text-white text-xs font-bold rounded-2xl text-center"><i class="fa-solid fa-map-location-dot ml-1"></i> الخريطة</a>
+            <a href="https://wa.me/${s.phone.replace(/[^0-9]/g, '')}" target="_blank" class="py-2.5 bg-emerald-600 text-white text-xs font-bold rounded-2xl text-center"><i class="fa-brands fa-whatsapp ml-1"></i> واتساب</a>
           </div>
         </div>`).join('');
+    }
+
+    function rateShowroom(id) {
+      const ratingInput = prompt("قيم المعرض من 1 إلى 5 نجوم:");
+      const stars = parseFloat(ratingInput);
+      if (stars >= 1 && stars <= 5) {
+        const sr = approvedShowrooms.find(x => x.id === id);
+        if (sr) {
+          sr.rating = ((sr.rating * sr.ratingCount + stars) / (sr.ratingCount + 1)).toFixed(1);
+          sr.ratingCount++;
+          localStorage.setItem('approved_showrooms', JSON.stringify(approvedShowrooms));
+          renderShowrooms();
+          alert('شكراً لتقييمك!');
+        }
+      } else if (ratingInput !== null) {
+        alert('الرجاء إدخال رقم صحيح بين 1 و 5.');
+      }
     }
 
     function handleAddShowroom(e) {
@@ -404,22 +506,18 @@
         verified: false, rating: 5.0, ratingCount: 1
       });
       localStorage.setItem('pending_showrooms', JSON.stringify(pendingShowrooms));
-      closeModal('add-showroom-modal');
-      e.target.reset();
-      alert('تم إرسال طلب تسجيل المعرض والعلامة الزرقاء للإدارة بنجاح.');
+      closeModal('add-showroom-modal'); e.target.reset(); alert('تم إرسال طلب الاعتماد بنجاح.');
     }
 
-    // ADMIN DASHBOARD & VERIFICATION
+    // ADMIN DASHBOARD
     function handleLogoClicks() {
       logoClickCounter++;
       if (logoClickCounter >= 5) { logoClickCounter = 0; openAdminSecretPassModal(); }
     }
-
     function openAdminSecretPassModal() {
       if (isAdminLoggedIn) switchTab('admin-tab');
       else openModal('admin-pass-modal');
     }
-
     async function verifyAdminPassword(e) {
       e.preventDefault();
       const inputPass = document.getElementById('admin-pass-input').value;
@@ -430,56 +528,37 @@
         switchTab('admin-tab');
         renderAdminDashboard();
         alert('أهلاً بك يا مدير!');
-      } else {
-        alert('كلمة السر خاطئة!');
-      }
+      } else { alert('كلمة السر خاطئة!'); }
     }
-
-    function lockAdmin() {
-      isAdminLoggedIn = false;
-      document.getElementById('btn-admin-tab').classList.add('hidden');
-      switchTab('showrooms-tab');
-    }
-
+    function lockAdmin() { isAdminLoggedIn = false; document.getElementById('btn-admin-tab').classList.add('hidden'); switchTab('showrooms-tab'); }
     function renderAdminDashboard() {
       const container = document.getElementById('pending-showrooms-container');
       if (!container) return;
-      container.innerHTML = pendingShowrooms.length === 0 ? `<div class="text-xs text-slate-400">لا توجد طلبات معارض معلقة.</div>` : pendingShowrooms.map((s, i) => `
+      container.innerHTML = pendingShowrooms.length === 0 ? `<div class="text-xs text-slate-400">لا توجد طلبات معلقة.</div>` : pendingShowrooms.map((s, i) => `
         <div class="bg-slate-50 p-4 rounded-2xl border flex justify-between items-center text-xs">
-          <div><strong>${s.name}</strong> (${s.city}) - طلب العلامة الزرقاء</div>
+          <div><strong>${s.name}</strong> (${s.city})</div>
           <div class="flex gap-2">
             <button onclick="approveShowroom(${i}, true)" class="px-3 py-1.5 bg-blue-600 text-white rounded-xl font-bold">موافقة + علامة زرقاء</button>
             <button onclick="approveShowroom(${i}, false)" class="px-3 py-1.5 bg-emerald-600 text-white rounded-xl font-bold">موافقة عادية</button>
-            <button onclick="rejectShowroom(${i})" class="px-3 py-1.5 bg-rose-600 text-white rounded-xl font-bold">رفض</button>
           </div>
         </div>`).join('');
     }
-
     function approveShowroom(index, withBadge) {
       const item = pendingShowrooms.splice(index, 1)[0];
       item.verified = withBadge;
       approvedShowrooms.unshift(item);
       localStorage.setItem('approved_showrooms', JSON.stringify(approvedShowrooms));
       localStorage.setItem('pending_showrooms', JSON.stringify(pendingShowrooms));
-      renderAdminDashboard();
-      renderShowrooms();
-      updateTicker();
-      alert('تمت الموافقة على المعرض بنجاح!');
+      renderAdminDashboard(); renderShowrooms(); updateTicker(); alert('تمت الموافقة بنجاح!');
     }
 
-    function rejectShowroom(index) {
-      pendingShowrooms.splice(index, 1);
-      localStorage.setItem('pending_showrooms', JSON.stringify(pendingShowrooms));
-      renderAdminDashboard();
-    }
-
-    // Standard render hooks
+    // Standard hooks
     function renderCarsForSale() {}
     function renderForumPosts() {}
     function renderParts() {}
     function renderApprovedShops() {}
     function calculateFuel(e) { e.preventDefault(); alert('تم الحساب'); }
-    function handleAiDiagnose(e) { e.preventDefault(); document.getElementById('ai-result-box').classList.remove('hidden'); document.getElementById('ai-result-content').textContent = "تقرير الفحص الأولي سليم."; }
+    function handleAiDiagnose(e) { e.preventDefault(); document.getElementById('ai-result-box').classList.remove('hidden'); document.getElementById('ai-result-content').textContent = "تقرير الفحص سليم."; }
   </script>
 </body>
 </html>
