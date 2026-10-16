@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مرآب وسوق السيارات العربي | سوريا والوطن العربي</title>
+  <title>مرآب وسوق السيارات العربي | حلب وسوريا</title>
   
   <!-- Manifest & PWA Tags -->
   <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22short_name%22%3A%22%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%231e293b%22%7D">
@@ -39,7 +39,7 @@
           </div>
           <div>
             <h1 class="text-lg font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-blue-300 bg-clip-text text-transparent">مرآب وسوق السيارات</h1>
-            <p class="text-[11px] text-slate-400 font-medium">المنصة الشاملة لأعطال وسوق السيارات في سوريا</p>
+            <p class="text-[11px] text-slate-400 font-medium">المنصة الشاملة لأعطال وسوق السيارات في حلب وسوريا</p>
           </div>
         </div>
 
@@ -167,22 +167,32 @@
       </div>
     </section>
 
-    <!-- 2. CARS FOR SALE TAB WITH SEARCH -->
+    <!-- 2. CARS FOR SALE TAB WITH CITY FILTER & SEARCH -->
     <section id="cars-sale-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
           <div>
-            <h2 class="text-xl font-black text-slate-900">سوق بيع وشراء السيارات</h2>
-            <p class="text-xs text-slate-500">تصفح السيارات المعروضة مع دعم الصور والشرح الكامل</p>
+            <h2 class="text-xl font-black text-slate-900">سوق بيع وشراء السيارات في سوريا</h2>
+            <p class="text-xs text-slate-500">تصفح السيارات المعروضة مفلترة حسب المحافظة والمدينة</p>
           </div>
           <button onclick="openModal('add-car-sale-modal')" class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black rounded-2xl shadow-md transition text-xs flex items-center gap-2">
             <i class="fa-solid fa-car"></i> إضافـة سيارة للبيع
           </button>
         </div>
 
+        <!-- City Filter Sub-Tabs -->
+        <div class="flex gap-2 overflow-x-auto nav-scrollbar py-1">
+          <button onclick="filterCarsByCity('ALL')" class="car-city-btn active bg-amber-500 text-slate-950 px-3.5 py-1.5 rounded-xl text-xs font-black transition shrink-0">جميع المحافظات</button>
+          <button onclick="filterCarsByCity('حلب')" class="car-city-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-location-dot ml-1 text-rose-600"></i> حلب</button>
+          <button onclick="filterCarsByCity('دمشق')" class="car-city-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-location-dot ml-1 text-rose-600"></i> دمشق وريفها</button>
+          <button onclick="filterCarsByCity('اللاذقية')" class="car-city-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-location-dot ml-1 text-rose-600"></i> اللاذقية / طرطوس</button>
+          <button onclick="filterCarsByCity('حمص')" class="car-city-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-location-dot ml-1 text-rose-600"></i> حمص / حماة</button>
+        </div>
+
+        <!-- Search Bar -->
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
-          <input type="text" id="cars-sale-search" oninput="renderCarsForSale()" placeholder="بحث في السيارات (اسم السيارة، المحافظة، سنة الصنع)..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="text" id="cars-sale-search" oninput="renderCarsForSale()" placeholder="بحث باسم السيارة أو الموديل..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
       </div>
 
@@ -246,7 +256,7 @@
     <section id="cars-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div>
-          <h2 class="text-xl font-black text-slate-900 mb-1">دليل السيارات الأكثر انتشاراً في سوريا</h2>
+          <h2 class="text-xl font-black text-slate-900 mb-1">دليل السيارات الأكثر انتشاراً في سوريا وحلب</h2>
           <p class="text-xs text-slate-500">بيانات تفصيلية للطرازات الشائعة، توفر قطع غيارها ومميزاتها</p>
         </div>
         
@@ -286,7 +296,7 @@
       <div class="bg-white p-6 rounded-3xl shadow-lg border border-rose-200">
         <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
           <h2 class="text-lg font-black text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة الآمنة (محمية ومشفّرة)
+            <i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية
           </h2>
           <button onclick="lockAdmin()" class="text-xs bg-rose-100 text-rose-700 px-3.5 py-1.5 rounded-xl font-extrabold hover:bg-rose-200 transition">
             <i class="fa-solid fa-lock ml-1"></i> إغلاق وقفل اللوحة
@@ -357,7 +367,12 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <input type="text" id="car-sale-km" placeholder="العداد (مثال: 120 ألف)" class="p-3 border border-slate-200 rounded-2xl text-xs font-medium">
-          <input type="text" id="car-sale-city" required placeholder="المدينة / المحافظة *" class="p-3 border border-slate-200 rounded-2xl text-xs font-medium">
+          <select id="car-sale-city" required class="p-3 border border-slate-200 rounded-2xl text-xs font-medium">
+            <option value="حلب">حلب</option>
+            <option value="دمشق">دمشق وريفها</option>
+            <option value="اللاذقية">اللاذقية / طرطوس</option>
+            <option value="حمص">حمص / حماة</option>
+          </select>
           <input type="text" id="car-sale-price" required placeholder="السعر المطلوب *" class="p-3 border border-slate-200 rounded-2xl text-xs font-medium">
         </div>
         <input type="text" id="car-sale-phone" required placeholder="رقم واتساب للتواصل *" class="w-full p-3 border border-slate-200 rounded-2xl text-xs font-medium">
@@ -401,7 +416,7 @@
         <div class="grid grid-cols-2 gap-3">
           <input type="text" id="post-author" required placeholder="اسمك" class="p-3 border rounded-2xl text-xs">
           <select id="post-category" class="p-3 border rounded-2xl text-xs">
-            <option value="كيا">كيا</option><option value="هيونداي">هيونداي</option><option value="عام">عام</option>
+            <option value="كيا">كيا</option><option value="هيونداي">هيونداي</option><option value="بيجو / شام">بيجو / شام</option><option value="عام">عام وتعديل</option>
           </select>
         </div>
         <input type="text" id="post-title" required placeholder="عنوان التجربة" class="w-full p-3 border rounded-2xl text-xs">
@@ -430,8 +445,8 @@
         <input type="text" id="new-title" required placeholder="اسم القطعة / المادة" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="new-car" required placeholder="نوع السيارة المناسبة" class="w-full p-3 border rounded-2xl text-xs">
         <div class="grid grid-cols-2 gap-3">
-          <input type="text" id="new-city" required placeholder="المدينة" class="w-full p-3 border rounded-2xl text-xs">
-          <input type="text" id="new-phone" required placeholder="رقم واتساب" class="w-full p-3 border rounded-2xl text-xs">
+          <input type="text" id="new-city" required placeholder="المدينة (حلب / دمشق...)" class="p-3 border rounded-2xl text-xs">
+          <input type="text" id="new-phone" required placeholder="رقم واتساب" class="p-3 border rounded-2xl text-xs">
         </div>
         <button type="submit" class="w-full py-3 bg-emerald-600 text-white font-extrabold rounded-2xl text-xs">إرسال للمراجعة</button>
       </form>
@@ -445,7 +460,7 @@
       <h3 class="text-base font-black text-slate-900 mb-3">إضافة محل/ورشة</h3>
       <form onsubmit="handleSubmitsShop(event)" class="space-y-3">
         <input type="text" id="shop-name" required placeholder="اسم الورشة" class="w-full p-3 border rounded-2xl text-xs">
-        <input type="text" id="shop-city" required placeholder="المنطقة / المحافظة" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="shop-city" required placeholder="المنطقة (مثال: حلب - الراموسة)" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="shop-spec" required placeholder="التخصص" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="shop-phone" required placeholder="واتساب" class="w-full p-3 border rounded-2xl text-xs">
         <button type="submit" class="w-full py-3 bg-blue-600 text-white font-extrabold rounded-2xl text-xs">إرسال للمراجعة</button>
@@ -461,115 +476,67 @@
         <!-- SECRET ADMIN LOCK ICON -->
         <span onclick="openAdminSecretPassModal()" class="cursor-pointer text-slate-700 hover:text-slate-500 transition ml-1" title="لوحة التحكم">🔒</span>
       </p>
-      <p class="text-slate-500 text-[11px]">المنصة الخدمية المعتمدة لمالكي وسوق السيارات في سوريا</p>
+      <p class="text-slate-500 text-[11px]">المنصة الخدمية المعتمدة لمالكي وسوق السيارات في حلب وسوريا</p>
     </div>
   </footer>
 
-  <!-- Script Logic with Enhanced Security & Cryptography -->
+  <!-- Script Logic with Enhanced Security & Pre-filled Facebook/Local Content -->
   <script>
-    // SHA-256 Hashed Password for "1234" (Secure against plaintext inspection)
     const ADMIN_PASSWORD_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
     let isAdminLoggedIn = false;
     let deferredPwaPrompt = null;
     let logoClickCounter = 0;
     let selectedPartCategory = 'ALL';
+    let selectedCarCity = 'ALL';
 
-    // Helper function for SHA-256 Hashing
     async function sha256(message) {
       const msgBuffer = new TextEncoder().encode(message);
       const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // XSS Sanitizer to prevent script injection
     function sanitizeHTML(str) {
-      return str.replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag)
-      );
-    }
-
-    // PWA PROMPT LOGIC
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPwaPrompt = e;
-      document.getElementById('pwa-banner').classList.remove('hidden');
-      document.getElementById('header-install-btn').classList.remove('hidden');
-      document.getElementById('header-install-btn').classList.add('flex');
-    });
-
-    function promptPwaInstall() {
-      if (deferredPwaPrompt) {
-        deferredPwaPrompt.prompt();
-        deferredPwaPrompt.userChoice.then(() => { deferredPwaPrompt = null; closePwaBanner(); });
-      } else {
-        alert('لتثبيت التطبيق: اضغط خيارات المتصفح (⋮) ثم اختر "إضافة إلى الشاشة الرئيسية".');
-      }
-    }
-    function closePwaBanner() { document.getElementById('pwa-banner').classList.add('hidden'); }
-
-    // SECRET ADMIN LOGIC
-    function handleLogoClicks() {
-      logoClickCounter++;
-      if (logoClickCounter >= 5) {
-        logoClickCounter = 0;
-        openAdminSecretPassModal();
-      }
-    }
-
-    function openAdminSecretPassModal() {
-      if (isAdminLoggedIn) { switchTab('admin-tab'); }
-      else { openModal('admin-pass-modal'); }
-    }
-
-    async function verifyAdminPassword(e) {
-      e.preventDefault();
-      const inputPass = document.getElementById('admin-pass-input').value;
-      const inputHash = await sha256(inputPass);
-      
-      if (inputHash === ADMIN_PASSWORD_HASH) {
-        isAdminLoggedIn = true;
-        closeModal('admin-pass-modal');
-        document.getElementById('admin-pass-input').value = '';
-        document.getElementById('btn-admin-tab').classList.remove('hidden');
-        switchTab('admin-tab');
-        renderAdminDashboard();
-        alert('أهلاً بك يا مدير! تم التحقق بنجاح وفتح لوحة الإدارة الآمنة.');
-      } else {
-        alert('كلمة السر خاطئة!');
-      }
-    }
-
-    function lockAdmin() {
-      isAdminLoggedIn = false;
-      document.getElementById('btn-admin-tab').classList.add('hidden');
-      switchTab('ai-tab');
-    }
-
-    // NOTIFICATION LOGIC
-    function requestNotificationPermission() {
-      if ("Notification" in window && Notification.permission === "default") { Notification.requestPermission(); }
-    }
-    function sendUserNotification(title, body) {
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/744/744465.png' });
-      }
+      return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
     }
 
     // CAR CATALOG DATA
     const CAR_CATALOG = [
-      { name: "هيونداي أكسنت (Accent)", origin: "كوري", years: "2000 - 2024", engine: "1.4L / 1.6L", availability: "متوفرة بكثرة بجميع المحافظات", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500", pros: "الأكثر مبيعاً وانتشاراً، قطع غيار رخيصة وصيانة سهلة.", cons: "العزل الثابت متوسط." },
-      { name: "كيا ريو / سيراتو", origin: "كوري", years: "2003 - 2023", engine: "1.4L / 1.6L", availability: "ممتازة جداً", image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", pros: "تصميم مرغوب، اعتمادية عالية، إعادة بيع سريعة.", cons: "ارتفاع بسيط بأسعار القطع الجديدة." },
-      { name: "شام (Sham) / سايبا", origin: "فرنسي / محلي", years: "2007 - 2018", engine: "1.6L / 1.8L", availability: "متوفرة بكل مكان", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500", pros: "هيكل متين وقوي، صيانة بسيطة متوفرة.", cons: "مصروف وقود أعلى قليلاً." },
-      { name: "تويوتا كورولا (Corolla)", origin: "ياباني", years: "1998 - 2024", engine: "1.3L / 1.6L", availability: "ممتازة في كافة الأسواق", image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=500", pros: "اعتمادية أسطورية تحافظ على سعرها عند البيع.", cons: "سعر الشراء مرتفع للسيارات النظيفة." }
+      { name: "هيونداي أكسنت (Accent) / أفانتي", origin: "كوري", years: "2000 - 2024", engine: "1.4L / 1.6L", availability: "متوفرة بكثرة خارقة بحلب وسوريا", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500", pros: "الأكثر انتشاراً في حلب، قطع غيار رخيصة جداً وصيانة سهلة.", cons: "العزل الثابت متوسط." },
+      { name: "كيا ريو / سيراتو", origin: "كوري", years: "2003 - 2023", engine: "1.4L / 1.6L", availability: "ممتازة جداً بحلب وشوارعها", image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", pros: "تصميم مرغوب، ثبات جيد، صيانة متوفرة بالراموسة والسريان.", cons: "ارتفاع بسيط بأسعار القطع الكورية الأصلية." },
+      { name: "شام (Sham) / سايبا", origin: "فرنسي / محلي", years: "2007 - 2018", engine: "1.6L / 1.8L", availability: "متوفرة بكل مكان وبسعر مناسب", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500", pros: "هيكل قوي ومتين يتحمل شوارع حلب، صيانة ورخيصة.", cons: "مصروف الوقود مرتفع نسبياً." },
+      { name: "تويوتا كورولا (Corolla)", origin: "ياباني", years: "1998 - 2024", engine: "1.3L / 1.6L", availability: "ممتازة جداً", image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=500", pros: "اعتمادية أسطورية تحافظ على قيمتها وسعرها.", cons: "سعر الشراء مرتفع للأنواع النظيفة." }
     ];
 
-    // DATABASES
-    let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [];
+    // PRE-FILLED LOCAL DATA (ALEPRO & SYRIA)
+    const INITIAL_APPROVED_CARS = [
+      { id: 101, title: "هيونداي أكسنت 2010 خالية العَلام", year: "2010", km: "128,000 كم", city: "حلب", price: "88,000,000 ل.س", phone: "0991122334", images: ["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800", "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800"], desc: "سيارة هيونداي أكسنت 2010 كورية كاملة جاهزية 100%. خالية البخ والقص تماماً، دوزان وميكانيك جديد بالكامل، تكييف ثلج، لوحات حلب وتواجد في حلب الجديدة.", date: "2026-10-15" },
+      { id: 102, title: "كيا سيراتو 2008 أوتوماتيك أصلية", year: "2008", km: "145,000 كم", city: "حلب", price: "95,000,000 ل.س", phone: "0988334455", images: ["https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800"], desc: "كيا سيراتو موديل 2008 محرك 1.6L بنزين أوتوماتيك، بخ قطعتين نظافة، فرش جلد أوريجينال، دوزان جديد، تواجد حلب - المحافظة.", date: "2026-10-14" },
+      { id: 103, title: "سيارة شام موديل 2011 جاهزة للترسيم", year: "2011", km: "160,000 كم", city: "حلب", price: "48,000,000 ل.س", phone: "0933112244", images: ["https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800"], desc: "شام موديل 2011 بخ ناعم خالي القص، محرك 1.8 ممتاز، بطارية جديدة مع دوزان جديد. تواجد حلب - الفرقان.", date: "2026-10-12" },
+      { id: 104, title: "تويوتا كورولا 2007 ياباني أصلية", year: "2007", km: "170,000 كم", city: "دمشق", price: "115,000,000 ل.س", phone: "0944556677", images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800"], desc: "تويوتا كورولا 2007 محرك 1.6 غيار عادي، خالية من الداخل تماماً وبخ ناعم من الخارج، جاهزية عالية.", date: "2026-10-10" }
+    ];
+
+    const INITIAL_FORUM_POSTS = [
+      { id: 201, author: "أبو أحمد الحلبي", category: "بيجو / شام", title: "حل مشكلة الحرارة بالصيف في سيارات شام وبيجو بحلب", content: "يا شباب بعد تجربة طويلة مع الحرارة بالأزمة، أفضل حل تركيب بلف حرارة 82 درجة مع ردياتير ألمنيوم صفين وتنظيف دورة التبريد عند ورش الراموسة. الحرارة بالنصف تماماً حتى مع التكييف.", date: "2026-10-14" },
+      { id: 202, author: "المهندس محمود", category: "كيا", title: "تجربتي مع أفضل نوعية زيت محرك لسيراتو وريو", content: "أنصح أصحاب الكيا بتفقد لزوجة الزيت 5W30 أو 10W40 ألماني أو كوري أصلي وتغييره كل 5000 كم لضمان حماية التكايات والصمام المتغير VVT.", date: "2026-10-11" }
+    ];
+
+    const INITIAL_PARTS = [
+      { id: 301, type: "عرض", category: "زينة", title: "شاشة أندرويد 10 إنش مع كاميرا ريفرس", car: "تناسب كيا / هيونداي / شام", city: "حلب", phone: "0991223344" },
+      { id: 302, type: "طلب", category: "كهرباء", title: "مطلوب حساس أكسجين أصلي مستعمل نظيف", car: "كيا سيراتو 2008", city: "حلب", phone: "0988776655" },
+      { id: 303, type: "عرض", category: "ميكانيك", title: "طقم كويلات كورية أصلية مع بواجي ليزار", car: "هيونداي أكسنت / أفانتي", city: "حلب", phone: "0933445566" }
+    ];
+
+    const INITIAL_SHOPS = [
+      { id: 401, name: "تجمع ورش الراموسة للصيانة العامة", city: "حلب - الراموسة", spec: "ميكانيك عام، دوزان، وبخ وتصويج", phone: "0911112233" },
+      { id: 402, name: "مركز الأمان لكهرباء وفحص السيارات بالكمبيوتر", city: "حلب - السريان الجديدة", spec: "فحص كمبيوتر Scanner، برمجة حساسات، وتكييف", phone: "0922334455" }
+    ];
+
+    // DATABASES INITIALIZATION
+    let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || INITIAL_APPROVED_CARS;
     let pendingCarsForSale = JSON.parse(localStorage.getItem('pending_cars_for_sale')) || [];
-    let approvedForumPosts = JSON.parse(localStorage.getItem('approved_forum_posts')) || [];
-    let approvedParts = JSON.parse(localStorage.getItem('approved_parts')) || [];
-    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
+    let approvedForumPosts = JSON.parse(localStorage.getItem('approved_forum_posts')) || INITIAL_FORUM_POSTS;
+    let approvedParts = JSON.parse(localStorage.getItem('approved_parts')) || INITIAL_PARTS;
+    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || INITIAL_SHOPS;
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
     let pendingForumPosts = JSON.parse(localStorage.getItem('pending_forum_posts')) || [];
     let pendingParts = JSON.parse(localStorage.getItem('pending_parts')) || [];
@@ -602,30 +569,86 @@
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // SUGGESTIONS LOGIC
-    function handleAddSuggestion(e) {
-      e.preventDefault();
-      adminSuggestions.push({
-        id: Date.now(),
-        name: sanitizeHTML(document.getElementById('sug-name').value),
-        phone: sanitizeHTML(document.getElementById('sug-phone').value),
-        content: sanitizeHTML(document.getElementById('sug-content').value),
-        date: new Date().toISOString().split('T')[0]
-      });
-      localStorage.setItem('admin_suggestions', JSON.stringify(adminSuggestions));
-      closeModal('add-suggestion-modal');
-      e.target.reset();
-      alert('شكراً لك! تم إرسال اقتراحك للإدارة بنجاح.');
+    // PWA & ADMIN AUTH
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault(); deferredPwaPrompt = e;
+      document.getElementById('pwa-banner').classList.remove('hidden');
+      document.getElementById('header-install-btn').classList.remove('hidden');
+      document.getElementById('header-install-btn').classList.add('flex');
+    });
+
+    function promptPwaInstall() {
+      if (deferredPwaPrompt) { deferredPwaPrompt.prompt(); deferredPwaPrompt = null; closePwaBanner(); }
+      else { alert('لتثبيت التطبيق: اضغط خيارات المتصفح (⋮) ثم اختر "إضافة إلى الشاشة الرئيسية".'); }
+    }
+    function closePwaBanner() { document.getElementById('pwa-banner').classList.add('hidden'); }
+
+    function handleLogoClicks() {
+      logoClickCounter++;
+      if (logoClickCounter >= 5) { logoClickCounter = 0; openAdminSecretPassModal(); }
     }
 
-    // CARS FOR SALE WITH SEARCH
+    function openAdminSecretPassModal() {
+      if (isAdminLoggedIn) { switchTab('admin-tab'); }
+      else { openModal('admin-pass-modal'); }
+    }
+
+    async function verifyAdminPassword(e) {
+      e.preventDefault();
+      const inputPass = document.getElementById('admin-pass-input').value;
+      const inputHash = await sha256(inputPass);
+      
+      if (inputHash === ADMIN_PASSWORD_HASH) {
+        isAdminLoggedIn = true;
+        closeModal('admin-pass-modal');
+        document.getElementById('admin-pass-input').value = '';
+        document.getElementById('btn-admin-tab').classList.remove('hidden');
+        switchTab('admin-tab');
+        renderAdminDashboard();
+        alert('أهلاً بك يا مدير! تم التحقق بنجاح وفتح لوحة الإدارة.');
+      } else {
+        alert('كلمة السر خاطئة!');
+      }
+    }
+
+    function lockAdmin() {
+      isAdminLoggedIn = false;
+      document.getElementById('btn-admin-tab').classList.add('hidden');
+      switchTab('ai-tab');
+    }
+
+    function requestNotificationPermission() {
+      if ("Notification" in window && Notification.permission === "default") { Notification.requestPermission(); }
+    }
+    function sendUserNotification(title, body) {
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/744/744465.png' });
+      }
+    }
+
+    // CARS FOR SALE BY CITY FILTER & SEARCH
+    function filterCarsByCity(city) {
+      selectedCarCity = city;
+      document.querySelectorAll('.car-city-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-slate-950', 'font-black');
+        btn.classList.add('bg-slate-100', 'text-slate-700', 'font-bold');
+      });
+      event.target.classList.remove('bg-slate-100', 'text-slate-700', 'font-bold');
+      event.target.classList.add('bg-amber-500', 'text-slate-950', 'font-black');
+      renderCarsForSale();
+    }
+
     function renderCarsForSale() {
       const search = document.getElementById('cars-sale-search')?.value.toLowerCase() || '';
       const container = document.getElementById('cars-for-sale-container');
-      const filtered = approvedCarsForSale.filter(c => c.title.toLowerCase().includes(search) || c.city.toLowerCase().includes(search));
+      const filtered = approvedCarsForSale.filter(c => {
+        const matchesCity = selectedCarCity === 'ALL' || c.city.includes(selectedCarCity);
+        const matchesSearch = c.title.toLowerCase().includes(search) || c.city.toLowerCase().includes(search);
+        return matchesCity && matchesSearch;
+      });
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 text-xs">لا توجد سيارات مطابقة للبحث حالياً.</div>`;
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 text-xs">لا توجد سيارات معروضة في هذه المدينة حالياً.</div>`;
         return;
       }
 
@@ -683,7 +706,7 @@
         city: sanitizeHTML(document.getElementById('car-sale-city').value),
         price: sanitizeHTML(document.getElementById('car-sale-price').value),
         phone: sanitizeHTML(document.getElementById('car-sale-phone').value),
-        images: cleanImages,
+        images: cleanImages.length > 0 ? cleanImages : ['https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500'],
         desc: sanitizeHTML(document.getElementById('car-sale-desc').value),
         date: new Date().toISOString().split('T')[0]
       });
@@ -707,10 +730,9 @@
       resultBox.classList.add('hidden');
 
       setTimeout(() => {
-        let causes = ["عطل محتمل بنظام (" + carSystem + ") لسيارة (" + carModel + ").", "حساسات بحاجة لمسح كودات الخطأ."];
-        let parts = ["فحص بالكمبيوتر Scanner", "قطع أصلية حسب الفحص"];
+        let causes = ["عطل محتمل بنظام (" + carSystem + ") لسيارة (" + carModel + ").", "حساسات بحاجة لمسح كودات الخطأ بالكمبيوتر."];
+        let parts = ["فحص بالكمبيوتر Scanner", "قطع غيار أصلية بحسب التقرير"];
 
-        document.getElementById('ai-result-content সন্ত্রাসী หรือ อื่นๆ')?.textContent;
         document.getElementById('ai-result-content').textContent = `📌 **تقرير عطل (${carModel}) - (${carSystem}):**\n\n🔍 الأسباب المحتملة:\n` + causes.join('\n') + `\n\n🛠️ القطع التقديرية:\n` + parts.join('\n');
         resultBox.classList.remove('hidden');
         submitBtn.disabled = false;
@@ -781,7 +803,7 @@
     function renderForumPosts() {
       const search = document.getElementById('forum-search')?.value.toLowerCase() || '';
       const container = document.getElementById('forum-posts-container');
-      const filtered = approvedForumPosts.filter(p => p.title.toLowerCase().includes(search));
+      const filtered = approvedForumPosts.filter(p => p.title.toLowerCase().includes(search) || p.content.toLowerCase().includes(search));
 
       if (filtered.length === 0) {
         container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">لا توجد مواضيع مطابقة للبحث.</div>`;
@@ -855,6 +877,21 @@
     }
 
     // ADMIN DASHBOARD
+    function handleAddSuggestion(e) {
+      e.preventDefault();
+      adminSuggestions.push({
+        id: Date.now(),
+        name: sanitizeHTML(document.getElementById('sug-name').value),
+        phone: sanitizeHTML(document.getElementById('sug-phone').value),
+        content: sanitizeHTML(document.getElementById('sug-content').value),
+        date: new Date().toISOString().split('T')[0]
+      });
+      localStorage.setItem('admin_suggestions', JSON.stringify(adminSuggestions));
+      closeModal('add-suggestion-modal');
+      e.target.reset();
+      alert('شكراً لك! تم إرسال اقتراحك للإدارة بنجاح.');
+    }
+
     function renderAdminDashboard() {
       document.getElementById('pending-suggestions-container').innerHTML = adminSuggestions.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد اقتراحات جديدة.</div>` : adminSuggestions.map((s) => `
         <div class="bg-amber-50/60 p-3 rounded-2xl border border-amber-200 text-xs space-y-1">
