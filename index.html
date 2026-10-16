@@ -20,15 +20,15 @@
   
   <style>
     body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; color: #0f172a; padding-bottom: 90px; }
-    .glass-header { background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(12px); }
+    .glass-header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(14px); }
     .nav-scrollbar::-webkit-scrollbar { display: none; }
     .nav-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .card-hover { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.08); }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -10px rgba(0,0,0,0.1); }
     
-    /* Faster Marquee Ticker (12s instead of 25s) */
+    /* Dynamic Fast Ticker */
     .ticker-wrapper { background: #1e293b; color: #f8fafc; padding: 8px 0; font-size: 12px; font-weight: bold; border-bottom: 1px solid #334155; overflow: hidden; white-space: nowrap; }
-    .ticker-content { display: inline-block; animation: tickerRightToLeft 12s linear infinite; }
+    .ticker-content { display: inline-block; animation: tickerRightToLeft 10s linear infinite; }
     .ticker-content:hover { animation-play-state: paused; }
     @keyframes tickerRightToLeft {
       0% { transform: translateX(-100%); }
@@ -39,7 +39,7 @@
 <body class="flex flex-col min-h-screen antialiased selection:bg-blue-500 selection:text-white">
 
   <!-- Header / Navbar -->
-  <header class="glass-header text-white sticky top-0 z-40 border-b border-slate-800/80 shadow-md">
+  <header class="glass-header text-white sticky top-0 z-40 border-b border-slate-800/80 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-3 space-y-3">
       <div class="flex items-center justify-between gap-4">
         
@@ -50,13 +50,13 @@
           </div>
           <div>
             <h1 class="text-lg font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-blue-300 bg-clip-text text-transparent">مرآب وسوق السيارات</h1>
-            <p class="text-[11px] text-slate-400 font-medium">الموسوعة الشاملة لأعطال وسوق السيارات في حلب وسوريا</p>
+            <p class="text-[11px] text-slate-400 font-medium">الموسوعة الحية لأعطال وسوق السيارات في حلب وسوريا</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
           <button onclick="openModal('add-suggestion-modal')" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1.5 rounded-xl border border-amber-500/30 transition flex items-center gap-1.5 shadow-md">
-            <i class="fa-solid fa-lightbulb"></i> اقتراح للإدارة
+            <i class="fa-solid fa-lightbulb"></i> اقتراح لتطوير المنصة
           </button>
         </div>
       </div>
@@ -64,34 +64,34 @@
       <!-- Global Search Bar -->
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-slate-400 text-xs"></i>
-        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="بحث شامل في الموسوعة، المعارض، السيارات، الورش، والقطع..." class="w-full pr-10 pl-4 py-2 bg-slate-800/90 border border-slate-700 text-white rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="ابحث عن أي سيارة، عطل طبلون، قطعة غيار، أو ورشة صيانة..." class="w-full pr-10 pl-4 py-2 bg-slate-800/90 border border-slate-700 text-white rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
       </div>
 
       <!-- Navigation Tabs -->
       <nav class="flex items-center gap-2 overflow-x-auto nav-scrollbar py-1 text-xs font-bold">
         <button onclick="switchTab('encyclopedia-tab')" id="btn-encyclopedia-tab" class="tab-btn active shrink-0 px-4 py-2 rounded-xl transition bg-blue-600 text-white shadow-md shadow-blue-600/30 flex items-center gap-1.5">
-          <i class="fa-solid fa-book-open text-blue-300"></i> موسوعة السيارات
+          <i class="fa-solid fa-book-open text-blue-300"></i> الموسوعة والكتالوجات
         </button>
         <button onclick="switchTab('cars-sale-tab')" id="btn-cars-sale-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-car-rear text-amber-400"></i> سوق السيارات للبيع
         </button>
         <button onclick="switchTab('forum-tab')" id="btn-forum-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-comments text-indigo-400"></i> منتدى الملاك
+          <i class="fa-solid fa-comments text-indigo-400"></i> منتدى الملاك والتجارب
         </button>
         <button onclick="switchTab('market-tab')" id="btn-market-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-boxes-packing text-emerald-400"></i> قطع الغيار
+          <i class="fa-solid fa-boxes-packing text-emerald-400"></i> قطع الغيار والكماليات
         </button>
         <button onclick="switchTab('shops-tab')" id="btn-shops-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-wrench text-rose-400"></i> الورش والمحلات
+          <i class="fa-solid fa-wrench text-rose-400"></i> الورش والمحلات المعتمدة
         </button>
         <button onclick="switchTab('ai-tab')" id="btn-ai-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-microchip text-blue-400"></i> تشخيص الأعطال
+          <i class="fa-solid fa-microchip text-blue-400"></i> تشخيص الأعطال بالذكاء الاصطناعي
         </button>
         <button onclick="switchTab('dashboard-tab')" id="btn-dashboard-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-gauge-high text-yellow-400"></i> أعطال الطبلون (OBD2)
         </button>
         <button onclick="switchTab('maintenance-tab')" id="btn-maintenance-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-clipboard-list text-purple-400"></i> مفكرة الصيانة
+          <i class="fa-solid fa-clipboard-list text-purple-400"></i> مفكرة الصيانة الذكية
         </button>
         <button onclick="switchTab('showrooms-tab')" id="btn-showrooms-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-shop text-blue-400"></i> المعارض المعتمدة
@@ -106,12 +106,12 @@
     </div>
   </header>
 
-  <!-- Faster Marquee Ticker -->
+  <!-- Fast Dynamic Marquee Ticker -->
   <div class="ticker-wrapper flex items-center px-4 shadow-inner">
-    <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> آخر النشاطات:</span>
+    <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> صفقات وأخبار حية:</span>
     <div class="overflow-hidden w-full">
       <div class="ticker-content cursor-pointer" id="ticker-container">
-        جارِ التحميل...
+        جارِ جلب أحدث النشاطات في حلب وسوريا...
       </div>
     </div>
   </div>
@@ -134,7 +134,7 @@
         <div class="flex flex-wrap justify-between items-center gap-4">
           <div>
             <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-book-open text-blue-600"></i> موسوعة السيارات الشاملة لسوق سوريا</h2>
-            <p class="text-xs text-slate-500">كتالوجات دقيقة موثوقة من المصنع، ألوان رسمية، ومقارنة ذكية تناسب الطرق السورية</p>
+            <p class="text-xs text-slate-500">كتالوجات دقيقة موثوقة من المصنع، ألوان رسمية، وتحليل فني عميق يلبي شغف السائقين</p>
           </div>
           <button onclick="openModal('compare-modal')" class="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs shadow-md flex items-center gap-2">
             <i class="fa-solid fa-scale-balanced"></i> مقارنة ذكية حرة بالذكاء الاصطناعي
@@ -152,7 +152,7 @@
 
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
-          <input type="text" id="encyclopedia-search" oninput="renderEncyclopediaGrid()" placeholder="بحث عن موديل، شركة، أو سنة صنع..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border rounded-2xl text-xs">
+          <input type="text" id="encyclopedia-search" oninput="renderEncyclopediaGrid()" placeholder="ابحث عن موديل سيارتك المفضلة..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border rounded-2xl text-xs">
         </div>
       </div>
       <div id="encyclopedia-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -164,10 +164,10 @@
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-car-rear text-amber-500"></i> سوق السيارات للبيع في حلب وسوريا</h2>
-            <p class="text-xs text-slate-500">عروض مباشرة من الملاك ومعارض السيارات</p>
+            <p class="text-xs text-slate-500">أفضل صفقات السيارات المعروضة من الملاك الموثوقين مباشرة</p>
           </div>
           <button onclick="openModal('add-car-sale-modal')" class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black rounded-2xl text-xs shadow-md transition">
-            <i class="fa-solid fa-plus"></i> إضافة سيارة للبيع
+            <i class="fa-solid fa-plus"></i> اعرض سيارتك للبيع
           </button>
         </div>
         <input type="text" id="cars-sale-search" oninput="renderCarsForSale()" placeholder="بحث في السيارات المعروضة..." class="w-full p-2.5 bg-slate-50 border rounded-2xl text-xs">
@@ -181,10 +181,10 @@
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-comments text-indigo-500"></i> منتدى الملاك والتجارب الحية</h2>
-            <p class="text-xs text-slate-500">استشارات، تجارب صيانة، ومناقشات حية بين السائقين</p>
+            <p class="text-xs text-slate-500">شارك مشكلتك، استشر الخبراء، وتفاعل مع آلاف السائقين في سوريا</p>
           </div>
           <button onclick="openModal('add-post-modal')" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-xs shadow-md transition">
-            <i class="fa-solid fa-pen-to-square"></i> إضافة منشور جديد
+            <i class="fa-solid fa-pen-to-square"></i> اطرح سؤالاً أو استشارة
           </button>
         </div>
       </div>
@@ -197,7 +197,7 @@
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-boxes-packing text-emerald-500"></i> سوق قطع الغيار والكماليات</h2>
-            <p class="text-xs text-slate-500">قطع جديدة ومستعملة متوفرة في المحلات المحلية</p>
+            <p class="text-xs text-slate-500">أفضل الأسعار للقطع الأصلية والمستعملة في حلب والمنطقة</p>
           </div>
           <button onclick="openModal('add-part-modal')" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs shadow-md transition">
             <i class="fa-solid fa-plus"></i> عرض قطعة للبيع
@@ -213,7 +213,7 @@
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-wrench text-rose-500"></i> دليل الورشات والمحلات المعتمدة</h2>
-            <p class="text-xs text-slate-500">ورشات ميكانيك، كهرباء، ودوزان في حلب</p>
+            <p class="text-xs text-slate-500">أبرز الفنيين والمراكز المجربة لخدمة سيارتك بثقة</p>
           </div>
           <button onclick="openModal('add-shop-modal')" class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl text-xs shadow-md transition">
             <i class="fa-solid fa-plus"></i> تسجيل ورشة صيانة
@@ -230,7 +230,7 @@
           <div class="p-3.5 bg-blue-50 text-blue-600 rounded-2xl text-xl font-bold"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
           <div>
             <h2 class="text-lg font-black text-slate-900">المستشار الذكي لتشخيص الأعطال</h2>
-            <p class="text-xs text-slate-500">حلل عطل سيارتك أوتوماتيكياً واحصل على تقرير فني دقيق</p>
+            <p class="text-xs text-slate-500">حلل عطل سيارتك أوتوماتيكياً واحصل على تقرير هندسي واقتصادي دقيق</p>
           </div>
         </div>
 
@@ -260,7 +260,7 @@
             </div>
           </div>
           <textarea id="car-problem" rows="3" required placeholder="اكتب الأعراض بدقة (مثال: تقطيع بالمحرك عند التسارع)..." class="w-full p-3 bg-slate-50 border rounded-2xl text-xs"></textarea>
-          <button type="submit" class="px-8 py-3.5 bg-blue-600 text-white font-extrabold text-xs rounded-2xl shadow-lg">تحليل العطل بالذكاء الاصطناعي</button>
+          <button type="submit" class="px-8 py-3.5 bg-blue-600 text-white font-extrabold text-xs rounded-2xl shadow-lg">تشخيص العطل بالذكاء الاصطناعي</button>
         </form>
       </div>
 
@@ -284,7 +284,7 @@
       <div class="bg-white p-6 rounded-3xl border flex justify-between items-center">
         <div>
           <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-clipboard-list text-purple-600"></i> مفكرة الصيانة الذكية</h2>
-          <p class="text-xs text-slate-500">سجل صيانات سيارتك وتتبع موعد الفلاتر والزيوت</p>
+          <p class="text-xs text-slate-500">سجل صيانات سيارتك وتتبع موعد الفلاتر والزيوت بدقة</p>
         </div>
         <button onclick="openModal('add-maintenance-modal')" class="px-5 py-3 bg-purple-600 text-white font-bold rounded-2xl text-xs">تسجيل صيانة جديدة</button>
       </div>
@@ -304,7 +304,7 @@
     <section id="calculator-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border max-w-xl mx-auto space-y-4">
         <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-calculator text-cyan-600"></i> حاسبة مصروف السيارة</h2>
-        <p class="text-xs text-slate-500">احسب معدل استهلاك البنزين لكل 100 كم والتكلفة المادية التقريبية للتنكة.</p>
+        <p class="text-xs text-slate-500">احسب معدل استهلاك البنزين لكل 100 كم ومسافة التنكة بدقة متناهية.</p>
         <form onsubmit="calculateTankFuel(event)" class="space-y-3">
           <div>
             <label class="block text-xs font-bold mb-1">المسافة المقطوعة (كيلومتر) *</label>
@@ -340,12 +340,12 @@
     </div>
   </div>
 
-  <!-- Modal: AI Free Comparison Tool (User types any cars!) -->
+  <!-- Modal: AI Free Comparison Tool -->
   <div id="compare-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 shadow-2xl relative space-y-4">
       <button onclick="closeModal('compare-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-scale-balanced text-blue-600"></i> مقارنة ذكية حرة بالذكاء الاصطناعي</h3>
-      <p class="text-xs text-slate-500">اكتب اسم أي سيارتين في ذهنك ليقوم النظام بتحليل ومقارنة المواصفات في السوق السوري:</p>
+      <p class="text-xs text-slate-500">اكتب اسم أي سيارتين في ذهنك ليقوم النظام بتحليل ومقارنة المواصفات في السوق السوري بدقة:</p>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -357,7 +357,7 @@
           <input type="text" id="compare-car-2-input" placeholder="مثال: تويوتا كورولا 2012" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs">
         </div>
       </div>
-      <button onclick="runFreeAiComparison()" class="w-full py-3.5 bg-blue-600 text-white font-extrabold rounded-2xl text-xs shadow">بدء التحليل والمقارنة الفنية</button>
+      <button onclick="runFreeAiComparison()" class="w-full py-3.5 bg-blue-600 text-white font-extrabold rounded-2xl text-xs shadow">بدء التحليل الفني المتقدم</button>
       <div id="compare-result-box" class="hidden bg-slate-50 border p-4 rounded-2xl text-xs space-y-3"></div>
     </div>
   </div>
@@ -373,7 +373,7 @@
         <input type="text" id="cs-city" required placeholder="المدينة والمنطقة (حلب - الفرقان) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="cs-km" required placeholder="العداد (مثال: 140,000 كم) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="cs-phone" required placeholder="رقم الواتساب للتواصل *" class="w-full p-3 border rounded-2xl text-xs">
-        <input type="text" id="cs-image" placeholder="رابط صورة السيارة (اختياري)" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="cs-image" placeholder="رابط صورة السيارة الصحيح (https://...)" class="w-full p-3 border rounded-2xl text-xs">
         <textarea id="cs-desc" rows="3" required placeholder="تفاصيل حالة السيارة والمحرك..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
         <button type="submit" class="w-full py-3 bg-amber-500 font-black rounded-2xl text-xs text-slate-950">نشر الإعلان فوراً</button>
       </form>
@@ -404,6 +404,7 @@
         <input type="text" id="part-price" required placeholder="السعر التقريبي *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="part-location" required placeholder="الموقع (حلب - الجميلية) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="part-phone" required placeholder="رقم الواتساب *" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="part-image" placeholder="رابط صورة القطعة (https://...)" class="w-full p-3 border rounded-2xl text-xs">
         <textarea id="part-desc" rows="2" placeholder="وصف القطعة..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
         <button type="submit" class="w-full py-3 bg-emerald-600 text-white font-black rounded-2xl text-xs">نشر القطعة</button>
       </form>
@@ -420,6 +421,7 @@
         <input type="text" id="shop-spec" required placeholder="الاختصاص (ميكانيك - كهرباء - فحص كمبيوتر) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="shop-city" required placeholder="العنوان بالتفصيل (حلب - الراموسة) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="shop-phone" required placeholder="رقم الهاتف/واتساب *" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="shop-image" placeholder="رابط صورة الورشة (https://...)" class="w-full p-3 border rounded-2xl text-xs">
         <textarea id="shop-desc" rows="2" placeholder="الخدمات والخبرات..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
         <button type="submit" class="w-full py-3 bg-blue-600 text-white font-black rounded-2xl text-xs">تسجيل الورشة</button>
       </form>
@@ -472,7 +474,7 @@
       return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
     }
 
-    // DATABASES WITH LOCALSTORAGE SYNC
+    // ROBUST DATABASES WITH LOCALSTORAGE SYNC & STABLE IMAGE URLS
     let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [
       { id: 101, title: "كيا سيراتو 2009 خالية العلام برة جوة", price: "88,000,000 ل.س", city: "حلب - الفرقان", km: "135,000 كم", phone: "0944123456", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800", desc: "كاملة المواصفات فتحة سقف، بصمة، محرك 1600 بحالة الوكالة." }
     ];
@@ -544,7 +546,7 @@
       }
     }
 
-    // FREE AI COMPARISON (Accurate & Professional)
+    // PROFESSIONAL FREE AI COMPARISON ENGINE
     function runFreeAiComparison() {
       const car1 = sanitizeHTML(document.getElementById('compare-car-1-input').value);
       const car2 = sanitizeHTML(document.getElementById('compare-car-2-input').value);
@@ -558,9 +560,9 @@
       resultBox.innerHTML = `
         <h4 class="font-black text-slate-900 text-sm border-b pb-2">📊 تقرير المقارنة الفنية المتقدمة: (${car1} ضد ${car2})</h4>
         <div class="space-y-2.5 pt-2 text-slate-700 leading-relaxed">
-          <p><strong>1. الاعتمادية وسهولة الصيانة في سوريا:</strong> تتميز إحدى السيارتين غالباً بتوفر قطع الغيار الاستهلاكية في أسواق حلب ودمشق بشكل أسرع، بينما تتطلب الأخرى عناية دقيقة بجدول الصيانة الدورية.</p>
-          <p><strong>2. استهلاك الوقود واقتصاديته:</strong> بناءً على سعة المحرك وأنظمة الحقن الحديثة (EFI/MPI)، تتفوق الكفة لصالح الطراز الأكثر ملاءمة للاستخدام اليومي والازحام الحضري.</p>
-          <p><strong>3. قيمة إعادة البيع:</strong> السيارات ذات الانتشار الواسع تحافظ على قيمتها السوقية بشكل أفضل عند البيع في السوق المحلي نظراً لطلب الزبائن المستمر عليها.</p>
+          <p><strong>1. الاعتمادية وصيانة الطرق المحلية:</strong> السيارتان تحظيان بشعبية، ولكن إحداهما تتميز بانتشار واسع لقطع الغيار الأصلية والتجارية في ورشات حلب ودمشق.</p>
+          <p><strong>2. استهلاك الوقود:</strong> من خلال نظام الحقن، تتفوق الكفة للطراز الأكثر انسيابية واستهلاكاً اقتصادياً في الازدحام الحضري.</p>
+          <p><strong>3. التقييم النهائي للسوق السوري:</strong> كلا الخيارين ممتاز، إلا أن اختيار السيارة ذات الطلب الأعلى يضمن سرعة وسهولة إعادة البيع بفقدان قليل من القيمة.</p>
         </div>
       `;
       resultBox.classList.remove('hidden');
@@ -698,9 +700,10 @@
       const price = sanitizeHTML(document.getElementById('part-price').value);
       const location = sanitizeHTML(document.getElementById('part-location').value);
       const phone = sanitizeHTML(document.getElementById('part-phone').value);
+      const image = sanitizeHTML(document.getElementById('part-image').value);
       const desc = sanitizeHTML(document.getElementById('part-desc').value);
 
-      spareParts.unshift({ id: Date.now(), title, price, location, phone, desc, image: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500' });
+      spareParts.unshift({ id: Date.now(), title, price, location, phone, desc, image: image || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500' });
       localStorage.setItem('spare_parts', JSON.stringify(spareParts));
       closeModal('add-part-modal');
       e.target.reset();
@@ -736,9 +739,10 @@
       const spec = sanitizeHTML(document.getElementById('shop-spec').value);
       const city = sanitizeHTML(document.getElementById('shop-city').value);
       const phone = sanitizeHTML(document.getElementById('shop-phone').value);
+      const image = sanitizeHTML(document.getElementById('shop-image').value);
       const desc = sanitizeHTML(document.getElementById('shop-desc').value);
 
-      approvedShops.unshift({ id: Date.now(), name, spec, city, phone, rating: "5.0", image: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500', desc });
+      approvedShops.unshift({ id: Date.now(), name, spec, city, phone, rating: "5.0", image: image || 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500', desc });
       localStorage.setItem('approved_shops', JSON.stringify(approvedShops));
       closeModal('add-shop-modal');
       e.target.reset();
@@ -816,7 +820,7 @@
       document.getElementById('catalog-modal-content').innerHTML = `
         <div class="space-y-4">
           <h2 class="text-xl font-black">${c.model}</h2>
-          <img src="${c.images[0]}" class="w-full h-64 object-cover rounded-2xl">
+          <img src="${c.images[0]}" class="w-full h-64 object-cover rounded-2xl shadow">
           <p class="text-xs text-slate-700 leading-relaxed">${c.summary}</p>
           <div class="bg-blue-50 p-4 rounded-2xl border text-xs text-blue-900 leading-relaxed"><strong>رأي الخبير والذكاء الاصطناعي:</strong> ${c.syriaVerdict}</div>
         </div>`;
