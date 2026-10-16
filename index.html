@@ -6,7 +6,7 @@
   <title>مرآب وسوق السيارات العربي | حلب وسوريا</title>
   
   <!-- Standalone PWA Manifest -->
-  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22short_name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%231e293b%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F744%2F744465.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22short_name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%231e293b%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F744%2F744465.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,12 +25,14 @@
     .nav-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .card-hover { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
     .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.08); }
+    
+    /* Fixed Arabic Marquee Animation (Right to Left) */
     .ticker-wrapper { background: #1e293b; color: #f8fafc; padding: 8px 0; font-size: 12px; font-weight: bold; border-bottom: 1px solid #334155; overflow: hidden; white-space: nowrap; }
     .ticker-content { display: inline-block; animation: tickerRightToLeft 25s linear infinite; }
     .ticker-content:hover { animation-play-state: paused; }
     @keyframes tickerRightToLeft {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
   </style>
 </head>
@@ -41,7 +43,7 @@
     <div class="max-w-7xl mx-auto px-4 py-3 space-y-3">
       <div class="flex items-center justify-between gap-4">
         
-        <!-- Logo & Secret Admin Trigger -->
+        <!-- Logo & Secret Admin Trigger (Click 5 times) -->
         <div onclick="handleLogoClicks()" class="flex items-center gap-3 cursor-pointer select-none">
           <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 text-white rounded-2xl flex items-center justify-center text-xl font-black shadow-lg shadow-blue-500/30">
             <i class="fa-solid fa-car-side"></i>
@@ -53,7 +55,6 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <!-- Fixed Suggestion Button Trigger -->
           <button onclick="openModal('add-suggestion-modal')" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1.5 rounded-xl border border-amber-500/30 transition flex items-center gap-1.5 shadow-md">
             <i class="fa-solid fa-lightbulb"></i> اقتراح للإدارة
           </button>
@@ -103,7 +104,7 @@
     </div>
   </header>
 
-  <!-- Marquee Ticker -->
+  <!-- Marquee Ticker (Right to Left) -->
   <div class="ticker-wrapper flex items-center px-4 shadow-inner">
     <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> آخر النشاطات:</span>
     <div class="overflow-hidden w-full">
@@ -112,11 +113,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Floating PWA Install Button -->
-  <button id="pwa-install-btn" onclick="promptPwaInstall()" class="fixed bottom-20 right-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-4 py-3 rounded-2xl shadow-2xl z-50 hover:scale-105 transition hidden items-center gap-2 font-black border-2 border-white/20 text-xs">
-    <i class="fa-solid fa-download text-sm"></i> تثبيت التطبيق كبرنامج
-  </button>
 
   <!-- Floating Bottom Quick Navigation Bar -->
   <div class="fixed bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 shadow-2xl rounded-full px-4 py-2 z-40 flex items-center gap-3 text-white">
@@ -305,11 +301,19 @@
 
     <!-- 10. ADMIN DASHBOARD -->
     <section id="admin-tab" class="tab-content hidden space-y-6">
-      <div class="bg-white p-6 rounded-3xl border border-rose-200 shadow-lg">
-        <h2 class="text-lg font-black text-slate-900 mb-4"><i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية</h2>
-        <div class="space-y-4">
-          <h3 class="font-bold text-xs text-slate-800">معارض السيارات المعلقة / طلبات العلامة الزرقاء:</h3>
+      <div class="bg-white p-6 rounded-3xl border border-rose-200 shadow-lg space-y-6">
+        <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية</h2>
+        
+        <!-- Pending Showrooms -->
+        <div class="space-y-3">
+          <h3 class="font-bold text-xs text-slate-800 border-b pb-2">معارض السيارات المعلقة / طلبات العلامة الزرقاء:</h3>
           <div id="pending-showrooms-container" class="space-y-3"></div>
+        </div>
+
+        <!-- User Suggestions Container (NEW) -->
+        <div class="space-y-3 pt-4 border-t">
+          <h3 class="font-bold text-xs text-slate-800">رسائل واقتراحات الزوار والإدارة:</h3>
+          <div id="admin-suggestions-container" class="space-y-3"></div>
         </div>
       </div>
     </section>
@@ -318,7 +322,7 @@
 
   <!-- MODALS SECTION -->
 
-  <!-- Modal: Add Suggestion (Fixed) -->
+  <!-- Modal: Add Suggestion -->
   <div id="add-suggestion-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-suggestion-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
@@ -369,7 +373,6 @@
   <script>
     const ADMIN_PASSWORD_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
     let isAdminLoggedIn = false;
-    let deferredPwaPrompt = null;
     let logoClickCounter = 0;
 
     async function sha256(message) {
@@ -395,12 +398,8 @@
       { id: 701, name: "معرض الشهباء الحديث للسيارات", city: "حلب - شارع الأوتوستراد", phone: "0911223344", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=500", mapUrl: "https://maps.google.com", desc: "متخصصون بسيارات الكوري والياباني الحديثة.", verified: true, rating: 4.9, ratingCount: 24 }
     ];
     let pendingShowrooms = JSON.parse(localStorage.getItem('pending_showrooms')) || [];
-    let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [
-      { id: 101, title: "هيونداي أكسنت 2010 خالية العَلام", year: "2010", km: "128,000 كم", city: "حلب", price: "88,000,000 ل.س", phone: "0991122334", images: ["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800"], desc: "كورية كاملة جاهزية 100%." }
-    ];
-    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [
-      { id: 401, name: "تجمع ورش الراموسة للصيانة العامة", city: "حلب - الراموسة", spec: "ميكانيك", phone: "0911112233", image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500", desc: "خبرة طويلة في إصلاح المحركات." }
-    ];
+    let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [];
+    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -409,29 +408,22 @@
       updateTicker();
     });
 
-    // TICKER CONTENT GENERATOR
     function updateTicker() {
       const ticker = document.getElementById('ticker-container');
       const items = approvedShowrooms.map(s => `🏢 معرض معتمد: ${s.name} (${s.city}) ${s.verified ? '✓ [العلامة الزرقاء]' : ''}`);
       ticker.innerHTML = items.length ? items.join(' &nbsp;&nbsp;|&nbsp;&nbsp; ') : "أهلاً بك في مرآب وسوق السيارات.";
     }
 
-    // MODAL HANDLERS (Tested & Verified)
     function openModal(id) {
       const modal = document.getElementById(id);
-      if (modal) {
-        modal.classList.remove('hidden');
-      }
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeModal(id) {
       const modal = document.getElementById(id);
-      if (modal) {
-        modal.classList.add('hidden');
-      }
+      if (modal) modal.classList.add('hidden');
     }
 
-    // TAB SWITCHING (Tested & Verified)
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -447,7 +439,7 @@
       }
     }
 
-    // GLOBAL SEARCH ENGINE
+    // GLOBAL SEARCH
     function handleGlobalSearch(query) {
       const resultsSection = document.getElementById('global-search-results-section');
       const container = document.getElementById('global-search-results-container');
@@ -479,21 +471,21 @@
       document.getElementById('global-search-results-section').classList.add('hidden');
     }
 
-    // SUGGESTION FORM SUBMISSION
+    // SUGGESTION SUBMISSION
     function handleAddSuggestion(e) {
       e.preventDefault();
       const name = sanitizeHTML(document.getElementById('sug-name').value);
       const phone = sanitizeHTML(document.getElementById('sug-phone').value);
       const content = sanitizeHTML(document.getElementById('sug-content').value);
 
-      adminSuggestions.push({ id: Date.now(), name, phone, content, date: new Date().toLocaleDateString() });
+      adminSuggestions.unshift({ id: Date.now(), name, phone, content, date: new Date().toLocaleDateString() });
       localStorage.setItem('admin_suggestions', JSON.stringify(adminSuggestions));
       closeModal('add-suggestion-modal');
       e.target.reset();
       alert('تم إرسال اقتراحك للإدارة بنجاح. شكراً لتواصلك!');
     }
 
-    // TANK FUEL CALCULATOR
+    // CALCULATE TANK
     function calculateTankFuel(e) {
       e.preventDefault();
       const km = parseFloat(document.getElementById('calc-km').value);
@@ -518,7 +510,6 @@
       resultBox.classList.remove('hidden');
     }
 
-    // DASHBOARD ERRORS RENDER
     function renderDashboardErrors() {
       const search = document.getElementById('dashboard-search')?.value.toLowerCase() || '';
       const container = document.getElementById('dashboard-errors-container');
@@ -534,7 +525,6 @@
         </div>`).join('');
     }
 
-    // RENDER SHOWROOMS WITH RATING
     function renderShowrooms() {
       const search = document.getElementById('showroom-search')?.value.toLowerCase() || '';
       const container = document.getElementById('showrooms-container');
@@ -579,22 +569,6 @@
       }
     }
 
-    function handleAddShowroom(e) {
-      e.preventDefault();
-      pendingShowrooms.push({
-        id: Date.now(),
-        name: sanitizeHTML(document.getElementById('sr-name').value),
-        city: sanitizeHTML(document.getElementById('sr-city').value),
-        phone: sanitizeHTML(document.getElementById('sr-phone').value),
-        mapUrl: sanitizeHTML(document.getElementById('sr-map').value || 'https://maps.google.com'),
-        image: sanitizeHTML(document.getElementById('sr-image').value || 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=500'),
-        desc: sanitizeHTML(document.getElementById('sr-desc').value),
-        verified: false, rating: 5.0, ratingCount: 1
-      });
-      localStorage.setItem('pending_showrooms', JSON.stringify(pendingShowrooms));
-      closeModal('add-showroom-modal'); e.target.reset(); alert('تم إرسال طلب الاعتماد بنجاح.');
-    }
-
     // ADMIN DASHBOARD
     function handleLogoClicks() {
       logoClickCounter++;
@@ -616,19 +590,35 @@
         alert('أهلاً بك يا مدير!');
       } else { alert('كلمة السر خاطئة!'); }
     }
-    function lockAdmin() { isAdminLoggedIn = false; document.getElementById('btn-admin-tab').classList.add('hidden'); switchTab('showrooms-tab'); }
+
     function renderAdminDashboard() {
+      // 1. Render pending showrooms
       const container = document.getElementById('pending-showrooms-container');
-      if (!container) return;
-      container.innerHTML = pendingShowrooms.length === 0 ? `<div class="text-xs text-slate-400">لا توجد طلبات معلقة.</div>` : pendingShowrooms.map((s, i) => `
-        <div class="bg-slate-50 p-4 rounded-2xl border flex justify-between items-center text-xs">
-          <div><strong>${s.name}</strong> (${s.city})</div>
-          <div class="flex gap-2">
-            <button onclick="approveShowroom(${i}, true)" class="px-3 py-1.5 bg-blue-600 text-white rounded-xl font-bold">موافقة + علامة زرقاء</button>
-            <button onclick="approveShowroom(${i}, false)" class="px-3 py-1.5 bg-emerald-600 text-white rounded-xl font-bold">موافقة عادية</button>
-          </div>
-        </div>`).join('');
+      if (container) {
+        container.innerHTML = pendingShowrooms.length === 0 ? `<div class="text-xs text-slate-400">لا توجد طلبات معارض معلقة.</div>` : pendingShowrooms.map((s, i) => `
+          <div class="bg-slate-50 p-4 rounded-2xl border flex justify-between items-center text-xs">
+            <div><strong>${s.name}</strong> (${s.city})</div>
+            <div class="flex gap-2">
+              <button onclick="approveShowroom(${i}, true)" class="px-3 py-1.5 bg-blue-600 text-white rounded-xl font-bold">موافقة + علامة زرقاء</button>
+              <button onclick="approveShowroom(${i}, false)" class="px-3 py-1.5 bg-emerald-600 text-white rounded-xl font-bold">موافقة عادية</button>
+            </div>
+          </div>`).join('');
+      }
+
+      // 2. Render user suggestions (NEW)
+      const sugContainer = document.getElementById('admin-suggestions-container');
+      if (sugContainer) {
+        sugContainer.innerHTML = adminSuggestions.length === 0 ? `<div class="text-xs text-slate-400">لا توجد اقتراحات مرسلة حتى الآن.</div>` : adminSuggestions.map(s => `
+          <div class="bg-amber-50/70 border border-amber-200 p-4 rounded-2xl text-xs space-y-1">
+            <div class="flex justify-between font-bold text-slate-800">
+              <span>👤 ${s.name} (${s.phone})</span>
+              <span class="text-[10px] text-slate-400">${s.date}</span>
+            </div>
+            <p class="text-slate-700 bg-white p-2.5 rounded-xl border border-amber-100">${s.content}</p>
+          </div>`).join('');
+      }
     }
+
     function approveShowroom(index, withBadge) {
       const item = pendingShowrooms.splice(index, 1)[0];
       item.verified = withBadge;
@@ -638,7 +628,6 @@
       renderAdminDashboard(); renderShowrooms(); updateTicker(); alert('تمت الموافقة بنجاح!');
     }
 
-    // Standard hooks
     function handleAiDiagnose(e) { e.preventDefault(); document.getElementById('ai-result-box').classList.remove('hidden'); document.getElementById('ai-result-content').textContent = "تقرير الفحص أولي سليم."; }
   </script>
 </body>
