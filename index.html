@@ -6,7 +6,7 @@
   <title>مرآب وسوق السيارات العربي | حلب وسوريا</title>
   
   <!-- Standalone PWA Manifest -->
-  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22short_name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%231e293b%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F744%2F744465.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22short_name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%231e293b%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F744%2F744465.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -75,8 +75,11 @@
         <button onclick="switchTab('dashboard-tab')" id="btn-dashboard-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-gauge-high text-yellow-400"></i> أعطال الطبلون (OBD2)
         </button>
+        <button onclick="switchTab('maintenance-tab')" id="btn-maintenance-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
+          <i class="fa-solid fa-clipboard-list text-purple-400"></i> مفكرة الصيانة
+        </button>
         <button onclick="switchTab('showrooms-tab')" id="btn-showrooms-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-shop text-blue-400"></i> المعارض المعتمدة (علامة زرقاء)
+          <i class="fa-solid fa-shop text-blue-400"></i> المعارض المعتمدة
         </button>
         <button onclick="switchTab('cars-sale-tab')" id="btn-cars-sale-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-car-rear text-amber-400"></i> بيع وشراء السيارات
@@ -96,7 +99,6 @@
         <button onclick="switchTab('calculator-tab')" id="btn-calculator-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-calculator text-cyan-400"></i> حاسبة التنكة
         </button>
-
         <button onclick="switchTab('admin-tab')" id="btn-admin-tab" class="tab-btn hidden shrink-0 px-4 py-2 rounded-xl transition bg-rose-600/90 text-white flex items-center gap-1.5 border border-rose-500/50">
           <i class="fa-solid fa-shield-halved"></i> لوحة الإدارة السرية
         </button>
@@ -118,11 +120,10 @@
   <div class="fixed bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 shadow-2xl rounded-full px-4 py-2 z-40 flex items-center gap-3 text-white">
     <button onclick="switchTab('ai-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-blue-400 transition" title="التشخيص"><i class="fa-solid fa-microchip text-sm"></i></button>
     <button onclick="switchTab('dashboard-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-yellow-400 transition" title="أعطال الطبلون"><i class="fa-solid fa-gauge-high text-sm"></i></button>
+    <button onclick="switchTab('maintenance-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-purple-400 transition" title="مفكرة الصيانة"><i class="fa-solid fa-clipboard-list text-sm"></i></button>
     <button onclick="switchTab('showrooms-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-blue-400 transition" title="المعارض"><i class="fa-solid fa-shop text-sm"></i></button>
     <button onclick="switchTab('cars-sale-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-amber-400 transition" title="السيارات"><i class="fa-solid fa-car-rear text-sm"></i></button>
-    <button onclick="switchTab('forum-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-indigo-400 transition" title="المنتدى"><i class="fa-solid fa-comments text-sm"></i></button>
     <button onclick="switchTab('market-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-emerald-400 transition" title="القطع"><i class="fa-solid fa-boxes-packing text-sm"></i></button>
-    <button onclick="switchTab('shops-tab'); window.scrollTo({top:0, behavior:'smooth'});" class="p-2 hover:text-rose-400 transition" title="الورش"><i class="fa-solid fa-wrench text-sm"></i></button>
   </div>
 
   <!-- Main Content Container -->
@@ -192,7 +193,23 @@
       <div id="dashboard-errors-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 3. SHOWROOMS TAB -->
+    <!-- 3. NEW: SMART MAINTENANCE MEMO TAB -->
+    <section id="maintenance-tab" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
+        <div class="flex flex-wrap justify-between items-center gap-4">
+          <div>
+            <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-clipboard-list text-purple-600"></i> مفكرة الصيانة الذكية وتنبيهات القطع</h2>
+            <p class="text-xs text-slate-500">سجل عداد سيارتك وتتبع مواعيد تغيير الزيت، الفلاتر، والبواجي لتجنب الأعطال المفاجئة</p>
+          </div>
+          <button onclick="openModal('add-maintenance-modal')" class="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-2xl shadow-md transition text-xs flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> تسجيل عملية صيانة جديدة
+          </button>
+        </div>
+      </div>
+      <div id="maintenance-records-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- 4. SHOWROOMS TAB -->
     <section id="showrooms-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -212,7 +229,7 @@
       <div id="showrooms-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 4. CARS FOR SALE TAB -->
+    <!-- 5. CARS FOR SALE TAB -->
     <section id="cars-sale-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -224,7 +241,7 @@
       <div id="cars-for-sale-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 5. OWNERS FORUM TAB -->
+    <!-- 6. OWNERS FORUM TAB -->
     <section id="forum-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -235,7 +252,7 @@
       <div id="forum-posts-container" class="space-y-4"></div>
     </section>
 
-    <!-- 6. PARTS TAB -->
+    <!-- 7. PARTS TAB -->
     <section id="market-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -246,7 +263,7 @@
       <div id="parts-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- 7. SHOPS TAB -->
+    <!-- 8. SHOPS TAB -->
     <section id="shops-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <div class="flex justify-between items-center">
@@ -257,7 +274,7 @@
       <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 8. EMERGENCY TAB -->
+    <!-- 9. EMERGENCY TAB -->
     <section id="emergency-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-2">
         <h2 class="text-xl font-black text-slate-900">طوارئ الطرق والونشات السريعة</h2>
@@ -271,7 +288,7 @@
       </div>
     </section>
 
-    <!-- 9. TANK FUEL CALCULATOR TAB -->
+    <!-- 10. TANK FUEL CALCULATOR TAB -->
     <section id="calculator-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border max-w-xl mx-auto space-y-4">
         <div>
@@ -283,34 +300,27 @@
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">عدد الكيلومترات المقطوعة (كم) *</label>
             <input type="number" step="0.1" id="calc-km" required placeholder="مثال: 150" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-            <p class="text-[11px] text-slate-400 mt-1">المسافة التي قطعتها بالسيارة حتى نفاد البنزين أو حتى قطع مسافة تجريبية.</p>
           </div>
-
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">عدد اللترات التي عبأتها (لتر) *</label>
             <input type="number" step="0.1" id="calc-liters" required placeholder="مثال: 20 أو 10" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-            <p class="text-[11px] text-slate-400 mt-1">كم لتراً أضفت في الخزان لهذه المسافة؟ (يمكنك إدخال 20 لتر أو أي كمية).</p>
           </div>
-
           <button type="submit" class="w-full py-3.5 bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold rounded-2xl text-xs transition shadow-md">احسب مسافة التنكة (20 لتر)</button>
         </form>
-
         <div id="calc-result" class="hidden bg-cyan-50 border border-cyan-200 p-4 rounded-2xl text-xs text-cyan-900 space-y-2"></div>
       </div>
     </section>
 
-    <!-- 10. ADMIN DASHBOARD -->
+    <!-- 11. ADMIN DASHBOARD -->
     <section id="admin-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-rose-200 shadow-lg space-y-6">
         <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية</h2>
         
-        <!-- Pending Showrooms -->
         <div class="space-y-3">
           <h3 class="font-bold text-xs text-slate-800 border-b pb-2">معارض السيارات المعلقة / طلبات العلامة الزرقاء:</h3>
           <div id="pending-showrooms-container" class="space-y-3"></div>
         </div>
 
-        <!-- User Suggestions Container (NEW) -->
         <div class="space-y-3 pt-4 border-t">
           <h3 class="font-bold text-xs text-slate-800">رسائل واقتراحات الزوار والإدارة:</h3>
           <div id="admin-suggestions-container" class="space-y-3"></div>
@@ -321,6 +331,28 @@
   </main>
 
   <!-- MODALS SECTION -->
+
+  <!-- Modal: Add Maintenance Record (NEW) -->
+  <div id="add-maintenance-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
+      <button onclick="closeModal('add-maintenance-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="text-base font-black text-slate-900 mb-3">تسجيل صيانة أو تغيير قطعة استهلاكية</h3>
+      <form onsubmit="handleAddMaintenance(event)" class="space-y-3">
+        <input type="text" id="maint-car" required placeholder="اسم وموديل السيارة (مثال: تويوتا كورولا) *" class="w-full p-3 border rounded-2xl text-xs">
+        <select id="maint-part" class="w-full p-3 border rounded-2xl text-xs">
+          <option value="زيت المحرك والفلاتر">زيت المحرك والفلاتر (كل 5,000 كم)</option>
+          <option value="البواجي (شمعات الاحتراق)">البواجي - شمعات الاحتراق (كل 20,000 كم)</option>
+          <option value="أقماش الفرامل (البريكات)">أقماش الفرامل - البريكات (كل 30,000 كم)</option>
+          <option value="سير التايمنج (القيشات)">سير التايمنج - القيشات (كل 50,000 كم)</option>
+          <option value="زيوت علبة السرعة (الجير)">زيوت علبة السرعة - الجير (كل 40,000 كم)</option>
+        </select>
+        <input type="number" id="maint-km" required placeholder="قراءة العداد الحالية للسيارة (كم) *" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="date" id="maint-date" required class="w-full p-3 border rounded-2xl text-xs">
+        <textarea id="maint-notes" rows="2" placeholder="ملاحظات إضافية أو نوع الزيت المستخدَم..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
+        <button type="submit" class="w-full py-3 bg-purple-600 text-white font-black rounded-2xl text-xs">حفظ في المفكرة</button>
+      </form>
+    </div>
+  </div>
 
   <!-- Modal: Add Suggestion -->
   <div id="add-suggestion-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
@@ -401,10 +433,16 @@
     let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [];
     let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
+    
+    // Maintenance memo storage
+    let maintenanceRecords = JSON.parse(localStorage.getItem('maintenance_records')) || [
+      { id: 901, car: "تويوتا كورولا 2012", part: "زيت المحرك والفلاتر", km: 145000, date: "2026-02-15", notes: "تم استخدام زيت 10W-40 الأصلي." }
+    ];
 
     window.addEventListener('DOMContentLoaded', () => {
       renderDashboardErrors();
       renderShowrooms();
+      renderMaintenanceRecords();
       updateTicker();
     });
 
@@ -436,6 +474,46 @@
       if (activeBtn) {
         activeBtn.classList.remove('bg-slate-800/80', 'text-slate-300');
         activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+      }
+    }
+
+    // MAINTENANCE MEMO FUNCTIONS (NEW)
+    function handleAddMaintenance(e) {
+      e.preventDefault();
+      const car = sanitizeHTML(document.getElementById('maint-car').value);
+      const part = sanitizeHTML(document.getElementById('maint-part').value);
+      const km = parseInt(document.getElementById('maint-km').value);
+      const date = sanitizeHTML(document.getElementById('maint-date').value);
+      const notes = sanitizeHTML(document.getElementById('maint-notes').value);
+
+      maintenanceRecords.unshift({ id: Date.now(), car, part, km, date, notes });
+      localStorage.setItem('maintenance_records', JSON.stringify(maintenanceRecords));
+      closeModal('add-maintenance-modal');
+      e.target.reset();
+      renderMaintenanceRecords();
+      alert('تم حفظ سجل الصيانة بنجاح!');
+    }
+
+    function renderMaintenanceRecords() {
+      const container = document.getElementById('maintenance-records-container');
+      if (!container) return;
+      container.innerHTML = maintenanceRecords.length === 0 ? `<div class="col-span-full text-center py-6 text-slate-400 text-xs">لا توجد سجلات صيانة مخزنة حتى الآن. اشرع بإضافة سجل سيارتك!</div>` : maintenanceRecords.map(m => `
+        <div class="bg-white p-5 rounded-3xl border border-purple-100 shadow-sm space-y-3 card-hover flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex justify-between items-center"><span class="bg-purple-100 text-purple-800 text-[10px] font-black px-3 py-1 rounded-full">${m.part}</span><span class="text-[10px] text-slate-400 font-bold">${m.date}</span></div>
+            <h3 class="font-black text-slate-900 text-sm">${m.car}</h3>
+            <p class="text-xs text-slate-600">عداد الصيانة المسجل: <strong class="text-purple-700">${m.km.toLocaleString()} كم</strong></p>
+            ${m.notes ? `<p class="text-[11px] text-slate-500 bg-slate-50 p-2.5 rounded-xl border">${m.notes}</p>` : ''}
+          </div>
+          <button onclick="deleteMaintenance(${m.id})" class="text-[10px] text-rose-600 font-bold hover:underline self-end">حذف السجل</button>
+        </div>`).join('');
+    }
+
+    function deleteMaintenance(id) {
+      if (confirm('هل تريد حذف سجل الصيانة هذا؟')) {
+        maintenanceRecords = maintenanceRecords.filter(m => m.id !== id);
+        localStorage.setItem('maintenance_records', JSON.stringify(maintenanceRecords));
+        renderMaintenanceRecords();
       }
     }
 
@@ -592,7 +670,6 @@
     }
 
     function renderAdminDashboard() {
-      // 1. Render pending showrooms
       const container = document.getElementById('pending-showrooms-container');
       if (container) {
         container.innerHTML = pendingShowrooms.length === 0 ? `<div class="text-xs text-slate-400">لا توجد طلبات معارض معلقة.</div>` : pendingShowrooms.map((s, i) => `
@@ -605,7 +682,6 @@
           </div>`).join('');
       }
 
-      // 2. Render user suggestions (NEW)
       const sugContainer = document.getElementById('admin-suggestions-container');
       if (sugContainer) {
         sugContainer.innerHTML = adminSuggestions.length === 0 ? `<div class="text-xs text-slate-400">لا توجد اقتراحات مرسلة حتى الآن.</div>` : adminSuggestions.map(s => `
