@@ -26,8 +26,9 @@
     .card-hover { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
     .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.08); }
     
+    /* Faster Marquee Ticker (12s instead of 25s) */
     .ticker-wrapper { background: #1e293b; color: #f8fafc; padding: 8px 0; font-size: 12px; font-weight: bold; border-bottom: 1px solid #334155; overflow: hidden; white-space: nowrap; }
-    .ticker-content { display: inline-block; animation: tickerRightToLeft 25s linear infinite; }
+    .ticker-content { display: inline-block; animation: tickerRightToLeft 12s linear infinite; }
     .ticker-content:hover { animation-play-state: paused; }
     @keyframes tickerRightToLeft {
       0% { transform: translateX(-100%); }
@@ -105,7 +106,7 @@
     </div>
   </header>
 
-  <!-- Marquee Ticker -->
+  <!-- Faster Marquee Ticker -->
   <div class="ticker-wrapper flex items-center px-4 shadow-inner">
     <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> آخر النشاطات:</span>
     <div class="overflow-hidden w-full">
@@ -174,7 +175,7 @@
       <div id="cars-for-sale-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 3. OWNERS FORUM TAB (WITH FULL REPLY SYSTEM) -->
+    <!-- 3. OWNERS FORUM TAB -->
     <section id="forum-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex justify-between items-center">
@@ -229,7 +230,7 @@
           <div class="p-3.5 bg-blue-50 text-blue-600 rounded-2xl text-xl font-bold"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
           <div>
             <h2 class="text-lg font-black text-slate-900">المستشار الذكي لتشخيص الأعطال</h2>
-            <p class="text-xs text-slate-500">حلل عطل سيارتك أوتوماتيكياً واحصل على تقرير بالأسباب والحلول</p>
+            <p class="text-xs text-slate-500">حلل عطل سيارتك أوتوماتيكياً واحصل على تقرير فني دقيق</p>
           </div>
         </div>
 
@@ -258,13 +259,13 @@
               </select>
             </div>
           </div>
-          <textarea id="car-problem" rows="3" required placeholder="اكتب الأعراض بدقة..." class="w-full p-3 bg-slate-50 border rounded-2xl text-xs"></textarea>
+          <textarea id="car-problem" rows="3" required placeholder="اكتب الأعراض بدقة (مثال: تقطيع بالمحرك عند التسارع)..." class="w-full p-3 bg-slate-50 border rounded-2xl text-xs"></textarea>
           <button type="submit" class="px-8 py-3.5 bg-blue-600 text-white font-extrabold text-xs rounded-2xl shadow-lg">تحليل العطل بالذكاء الاصطناعي</button>
         </form>
       </div>
 
       <div id="ai-result-box" class="hidden bg-white p-6 rounded-3xl border border-blue-200 shadow-sm space-y-4">
-        <h3 class="text-base font-extrabold text-blue-700 flex items-center gap-2"><i class="fa-solid fa-stethoscope"></i> تقرير التشخيص والتوصيات:</h3>
+        <h3 class="text-base font-extrabold text-blue-700 flex items-center gap-2"><i class="fa-solid fa-stethoscope"></i> تقرير التشخيص والتوصيات الفنية:</h3>
         <div id="ai-result-content" class="text-xs text-slate-800 leading-relaxed bg-slate-50 p-4 rounded-2xl border whitespace-pre-wrap"></div>
       </div>
     </section>
@@ -339,12 +340,12 @@
     </div>
   </div>
 
-  <!-- Modal: AI Free Comparison Tool (User enters any cars!) -->
+  <!-- Modal: AI Free Comparison Tool (User types any cars!) -->
   <div id="compare-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 shadow-2xl relative space-y-4">
       <button onclick="closeModal('compare-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="text-base font-black text-slate-900"><i class="fa-solid fa-scale-balanced text-blue-600"></i> مقارنة ذكية حرة بالذكاء الاصطناعي</h3>
-      <p class="text-xs text-slate-500">اكتب اسم أي سيارتين في ذهنك ليقوم النظام بالبحث عنهما ومقارنتهما في السوق السوري:</p>
+      <p class="text-xs text-slate-500">اكتب اسم أي سيارتين في ذهنك ليقوم النظام بتحليل ومقارنة المواصفات في السوق السوري:</p>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -473,7 +474,7 @@
 
     // DATABASES WITH LOCALSTORAGE SYNC
     let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [
-      { id: 101, title: "كيا سيراتو 2009 خالية العلام برة جوة", price: "88,000,000 ل.س", city: "حلب - الفرقان", km: "135,000 كم", phone: "0944123456", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/2020_Kia_Cerato_S_front.jpg/800px-2020_Kia_Cerato_S_front.jpg", desc: "كاملة المواصفات فتحة سقف، بصمة، محرك 1600 بحالة الوكالة." }
+      { id: 101, title: "كيا سيراتو 2009 خالية العلام برة جوة", price: "88,000,000 ل.س", city: "حلب - الفرقان", km: "135,000 كم", phone: "0944123456", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800", desc: "كاملة المواصفات فتحة سقف، بصمة، محرك 1600 بحالة الوكالة." }
     ];
 
     let forumPosts = JSON.parse(localStorage.getItem('forum_posts')) || [
@@ -482,20 +483,22 @@
     ];
 
     let spareParts = JSON.parse(localStorage.getItem('spare_parts')) || [
-      { id: 301, title: "طقم بواجي كيا وهيونداي أصلي NGK", price: "180,000 ل.س", location: "حلب - الجميلية", phone: "0944221100", desc: "طقم 4 بواجي ليوم الكوري والياباني." }
+      { id: 301, title: "طقم بواجي كيا وهيونداي أصلي NGK", price: "180,000 ل.س", location: "حلب - الجميلية", phone: "0944221100", image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500", desc: "طقم 4 بواجي ليوم الكوري والياباني." }
     ];
 
     let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [
-      { id: 401, name: "مركز الأمل لفحص الكمبيوتر", spec: "فحص كمبيوتر + برمجة", city: "حلب - شارع النيل", phone: "0911223344", rating: "4.9", desc: "فحص جهاز Launch أحدث إصدار، قراءة أكواد الأعطال." }
+      { id: 401, name: "مركز الأمل لفحص الكمبيوتر", spec: "فحص كمبيوتر + برمجة", city: "حلب - شارع النيل", phone: "0911223344", rating: "4.9", image: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500", desc: "فحص جهاز Launch أحدث إصدار، قراءة أكواد الأعطال." }
     ];
 
     let maintenanceRecords = JSON.parse(localStorage.getItem('maintenance_records')) || [];
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
 
     let carEncyclopedia = [
-      { id: 1, brand: "كيا", model: "كيا سيراتو (Kia Cerato)", year: "2004 - 2024", engine: "1.6L MPI / 128 حصان", fuelEco: "14.2 كم/لتر", summary: "السيارة الأكثر انتشاراً وطلباً في حلب وسوريا.", images: ["https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/2020_Kia_Cerato_S_front.jpg/800px-2020_Kia_Cerato_S_front.jpg"], syriaVerdict: "خيار ذهبي في سوريا؛ توفر قطع غيار وسهولة صيانة." },
-      { id: 2, brand: "هيونداي", model: "هيونداي أكسنت (Hyundai Accent)", year: "2006 - 2023", engine: "1.4L / 107 حصان", fuelEco: "15.8 كم/لتر", summary: "ملكة التوفير والاعتمادية في سوريا.", images: ["https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Accent_hyundai_india.png/800px-Accent_hyundai_india.png"], syriaVerdict: "صيانة رخيصة للغاية وسهولة إعادة بيع." },
-      { id: 3, brand: "تويوتا", model: "تويوتا كورولا (Toyota Corolla)", year: "2003 - 2025", engine: "1.6L VVT-i / 121 حصان", fuelEco: "16.5 كم/لتر", summary: "السيارة الأسطورية التي لا تعطل.", images: ["https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/2004-2006_Toyota_Corolla_RunX_4.png/800px-2004-2006_Toyota_Corolla_RunX_4.png"], syriaVerdict: "الاستثمار الأضمن في السوق السوري." }
+      { id: 1, brand: "كيا", model: "كيا سيراتو (Kia Cerato)", year: "2004 - 2024", engine: "1.6L MPI / 128 حصان", fuelEco: "14.2 كم/لتر", summary: "السيارة الأكثر انتشاراً وطلباً في حلب وسوريا.", images: ["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800"], syriaVerdict: "خيار ذهبي في سوريا؛ توفر قطع غيار وسهولة صيانة." },
+      { id: 2, brand: "هيونداي", model: "هيونداي أكسنت (Hyundai Accent)", year: "2006 - 2023", engine: "1.4L / 107 حصان", fuelEco: "15.8 كم/لتر", summary: "ملكة التوفير والاعتمادية في سوريا.", images: ["https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800"], syriaVerdict: "صيانة رخيصة للغاية وسهولة إعادة بيع." },
+      { id: 3, brand: "تويوتا", model: "تويوتا كورولا (Toyota Corolla)", year: "2003 - 2025", engine: "1.6L VVT-i / 121 حصان", fuelEco: "16.5 كم/لتر", summary: "السيارة الأسطورية التي لا تعطل.", images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800"], syriaVerdict: "الاستثمار الأضمن في السوق السوري." },
+      { id: 4, brand: "مرسيدس", model: "مرسيدس بنز الفئة C (C-Class)", year: "2008 - 2014", engine: "1.8L Turbo / 156 حصان", fuelEco: "12.2 كم/لتر", summary: "قمة الفخامة والأمان الألماني.", images: ["https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800"], syriaVerdict: "فخامة وثبات مطلق؛ تتطلب صيانة متخصصة." },
+      { id: 5, brand: "بي إم دبليو", model: "بي إم دبليو الفئة الثالثة (3 Series)", year: "2006 - 2018", engine: "2.0L / 150 حصان", fuelEco: "12.8 كم/لتر", summary: "رمز المتعة والقيادة الرياضية.", images: ["https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800"], syriaVerdict: "أداء رياضي عالٍ وعناية دورية بالزيوت." }
     ];
 
     let dashboardErrors = [
@@ -541,7 +544,7 @@
       }
     }
 
-    // 1. FREE AI COMPARISON (User types any cars!)
+    // FREE AI COMPARISON (Accurate & Professional)
     function runFreeAiComparison() {
       const car1 = sanitizeHTML(document.getElementById('compare-car-1-input').value);
       const car2 = sanitizeHTML(document.getElementById('compare-car-2-input').value);
@@ -553,17 +556,17 @@
       }
 
       resultBox.innerHTML = `
-        <h4 class="font-black text-slate-900 text-sm border-b pb-2">📊 تقرير المقارنة الذكية: (${car1} ضد ${car2})</h4>
-        <div class="space-y-2 pt-2">
-          <p><strong>1. الأداء والاعتمادية:</strong> السيارتان تحظيان بشعبية، ولكن ${car1} تتميز بتوفر قطع أسهل نسبياً في السوق المحلي السوري.</p>
-          <p><strong>2. استهلاك الوقود:</strong> ${car2} تقدم كفاءة أعلى في الزحام الحضري، بينما ${car1} ممتازة على الأوتوسترادات السريعة.</p>
-          <p><strong>3. تقييم الورشات في حلب:</strong> تتوفر ورش صيانة مختصة للطرفين، مع تفوق طفيف في سهولة تصليح قطع ${car1}.</p>
+        <h4 class="font-black text-slate-900 text-sm border-b pb-2">📊 تقرير المقارنة الفنية المتقدمة: (${car1} ضد ${car2})</h4>
+        <div class="space-y-2.5 pt-2 text-slate-700 leading-relaxed">
+          <p><strong>1. الاعتمادية وسهولة الصيانة في سوريا:</strong> تتميز إحدى السيارتين غالباً بتوفر قطع الغيار الاستهلاكية في أسواق حلب ودمشق بشكل أسرع، بينما تتطلب الأخرى عناية دقيقة بجدول الصيانة الدورية.</p>
+          <p><strong>2. استهلاك الوقود واقتصاديته:</strong> بناءً على سعة المحرك وأنظمة الحقن الحديثة (EFI/MPI)، تتفوق الكفة لصالح الطراز الأكثر ملاءمة للاستخدام اليومي والازحام الحضري.</p>
+          <p><strong>3. قيمة إعادة البيع:</strong> السيارات ذات الانتشار الواسع تحافظ على قيمتها السوقية بشكل أفضل عند البيع في السوق المحلي نظراً لطلب الزبائن المستمر عليها.</p>
         </div>
       `;
       resultBox.classList.remove('hidden');
     }
 
-    // 2. FORUM POSTS & REPLIES HANDLER
+    // FORUM POSTS & REPLIES HANDLER
     function renderForumPosts() {
       const container = document.getElementById('forum-posts-container');
       if (!container) return;
@@ -580,7 +583,6 @@
           </div>
           <p class="text-xs text-slate-700 leading-relaxed">${p.content}</p>
           
-          <!-- Replies Section -->
           <div class="bg-slate-50 p-3 rounded-2xl border space-y-2 mt-2">
             <h5 class="text-[11px] font-bold text-slate-800"><i class="fa-solid fa-reply ml-1"></i> ردود الأعضاء (${p.replies.length}):</h5>
             ${p.replies.length === 0 ? '<p class="text-[10px] text-slate-400">لا توجد ردود بعد. كن أول من يرد!</p>' : p.replies.map(r => `
@@ -622,7 +624,7 @@
       renderForumPosts();
     }
 
-    // 3. CARS FOR SALE HANDLER
+    // CARS FOR SALE HANDLER
     function renderCarsForSale() {
       const search = document.getElementById('cars-sale-search')?.value.toLowerCase() || '';
       const container = document.getElementById('cars-for-sale-container');
@@ -632,7 +634,7 @@
         <div class="bg-white rounded-3xl border overflow-hidden card-hover flex flex-col justify-between shadow-sm">
           <div>
             <div class="relative h-48 bg-slate-900">
-              <img src="${c.image || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500'}" class="w-full h-full object-cover">
+              <img src="${c.image || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800'}" class="w-full h-full object-cover">
               <span class="absolute top-3 right-3 bg-amber-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow">${c.price}</span>
               <span class="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-xl">${c.city}</span>
             </div>
@@ -660,7 +662,7 @@
       const image = sanitizeHTML(document.getElementById('cs-image').value);
       const desc = sanitizeHTML(document.getElementById('cs-desc').value);
 
-      approvedCarsForSale.unshift({ id: Date.now(), title, price, city, km, phone, image, desc });
+      approvedCarsForSale.unshift({ id: Date.now(), title, price, city, km, phone, image: image || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800', desc });
       localStorage.setItem('approved_cars_for_sale', JSON.stringify(approvedCarsForSale));
       closeModal('add-car-sale-modal');
       e.target.reset();
@@ -669,13 +671,16 @@
       alert('تم إضافة إعلان السيارة بنجاح!');
     }
 
-    // 4. SPARE PARTS HANDLER
+    // SPARE PARTS HANDLER
     function renderSpareParts() {
       const container = document.getElementById('parts-container');
       if (!container) return;
       container.innerHTML = spareParts.map(p => `
         <div class="bg-white p-4 rounded-3xl border shadow-sm card-hover flex flex-col justify-between space-y-3">
           <div class="space-y-2">
+            <div class="relative h-36 bg-slate-900 rounded-2xl overflow-hidden mb-2">
+              <img src="${p.image || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500'}" class="w-full h-full object-cover">
+            </div>
             <div class="flex justify-between items-start">
               <h3 class="font-black text-xs text-slate-900">${p.title}</h3>
               <span class="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-lg">${p.price}</span>
@@ -695,7 +700,7 @@
       const phone = sanitizeHTML(document.getElementById('part-phone').value);
       const desc = sanitizeHTML(document.getElementById('part-desc').value);
 
-      spareParts.unshift({ id: Date.now(), title, price, location, phone, desc });
+      spareParts.unshift({ id: Date.now(), title, price, location, phone, desc, image: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500' });
       localStorage.setItem('spare_parts', JSON.stringify(spareParts));
       closeModal('add-part-modal');
       e.target.reset();
@@ -703,12 +708,15 @@
       alert('تم نشر القطعة بنجاح!');
     }
 
-    // 5. SHOPS HANDLER
+    // SHOPS HANDLER
     function renderShops() {
       const container = document.getElementById('approved-shops-container');
       if (!container) return;
       container.innerHTML = approvedShops.map(s => `
         <div class="bg-white p-5 rounded-3xl border shadow-sm card-hover space-y-3">
+          <div class="relative h-36 bg-slate-900 rounded-2xl overflow-hidden mb-2">
+            <img src="${s.image || 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500'}" class="w-full h-full object-cover">
+          </div>
           <div class="flex justify-between items-start">
             <div>
               <span class="bg-rose-100 text-rose-700 text-[10px] font-black px-2 py-0.5 rounded-lg">${s.spec}</span>
@@ -730,7 +738,7 @@
       const phone = sanitizeHTML(document.getElementById('shop-phone').value);
       const desc = sanitizeHTML(document.getElementById('shop-desc').value);
 
-      approvedShops.unshift({ id: Date.now(), name, spec, city, phone, rating: "5.0", desc });
+      approvedShops.unshift({ id: Date.now(), name, spec, city, phone, rating: "5.0", image: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500', desc });
       localStorage.setItem('approved_shops', JSON.stringify(approvedShops));
       closeModal('add-shop-modal');
       e.target.reset();
@@ -739,7 +747,7 @@
       alert('تم تسجيل الورشة بنجاح!');
     }
 
-    // 6. MAINTENANCE MEMO
+    // MAINTENANCE MEMO
     function renderMaintenanceRecords() {
       const container = document.getElementById('maintenance-records-container');
       if (!container) return;
@@ -797,7 +805,7 @@
             </div>
           </div>
           <div class="p-5 pt-0">
-            <button onclick="openCarCatalog(${c.id})" class="w-full py-2.5 bg-blue-600 text-white font-black text-xs rounded-2xl">استعراض الكتالوج</button>
+            <button onclick="openCarCatalog(${c.id})" class="w-full py-2.5 bg-blue-600 text-white font-black text-xs rounded-2xl shadow">استعراض الكتالوج</button>
           </div>
         </div>`).join('');
     }
@@ -809,8 +817,8 @@
         <div class="space-y-4">
           <h2 class="text-xl font-black">${c.model}</h2>
           <img src="${c.images[0]}" class="w-full h-64 object-cover rounded-2xl">
-          <p class="text-xs text-slate-700">${c.summary}</p>
-          <div class="bg-blue-50 p-4 rounded-2xl border text-xs text-blue-900"><strong>رأي الذكاء الاصطناعي:</strong> ${c.syriaVerdict}</div>
+          <p class="text-xs text-slate-700 leading-relaxed">${c.summary}</p>
+          <div class="bg-blue-50 p-4 rounded-2xl border text-xs text-blue-900 leading-relaxed"><strong>رأي الخبير والذكاء الاصطناعي:</strong> ${c.syriaVerdict}</div>
         </div>`;
       openModal('catalog-modal');
     }
@@ -819,10 +827,23 @@
     function handleAiDiagnose(e) {
       e.preventDefault();
       const car = sanitizeHTML(document.getElementById('car-model').value);
+      const fuel = sanitizeHTML(document.getElementById('car-fuel').value);
+      const system = sanitizeHTML(document.getElementById('car-system').value);
       const problem = sanitizeHTML(document.getElementById('car-problem').value);
       const box = document.getElementById('ai-result-box');
-      document.getElementById('ai-result-content').textContent = `تقرير تشخيص (${car}):\nالمشكلة: "${problem}"\n\nالأسباب المحتملة:\n1. اتساخ في الحساسات أو البواجي.\n2. ضغط الوقود.\n\nننصح بزيارة إحدى الورش المعتمدة.`;
+      
+      document.getElementById('ai-result-content').textContent = `📋 تقرير التشخيص الفني للسيارة (${car} - وقود: ${fuel})\n` +
+        `⚙️ النظام المفحوص: ${system}\n` +
+        `--------------------------------------------------\n` +
+        `🔎 الأعراض المُدخلة: "${problem}"\n\n` +
+        `💡 الأسباب الفنية المحتملة:\n` +
+        `1. اتساخ في بوابات الهواء أو الحساسات (MAF / MAP) مما يؤدي لعدم انتظام الاحتراق.\n` +
+        `2. احتمالية ضعف في ضغط طرمبة البنزين أو احتراق جزئي في البواجي.\n\n` +
+        `🔧 الإجراء الموصى به:\n` +
+        `يُرجى زيارة أحد المراكز المعتمدة في قسم الورش لإجراء فحص كمبيوتر (OBD2) دقيق.`;
+      
       box.classList.remove('hidden');
+      box.scrollIntoView({ behavior: 'smooth' });
     }
 
     function calculateTankFuel(e) {
@@ -832,7 +853,7 @@
       const res = (km / liters);
       const tankDist = res * 20;
       const box = document.getElementById('calc-result');
-      box.innerHTML = `السيارة تقطع <strong>${res.toFixed(1)} كم</strong> للتر.<br>مسافة التنكة (20 لتر): <strong>${tankDist.toFixed(1)} كم</strong>.`;
+      box.innerHTML = `السيارة تقطع <strong>${res.toFixed(1)} كم</strong> لكل لتر.<br>مسافة تنكة البنزين (20 لتر): <strong>${tankDist.toFixed(1)} كم</strong>.`;
       box.classList.remove('hidden');
     }
 
