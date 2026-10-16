@@ -29,8 +29,8 @@
     .ticker-content { display: inline-block; animation: tickerRightToLeft 25s linear infinite; }
     .ticker-content:hover { animation-play-state: paused; }
     @keyframes tickerRightToLeft {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
     }
   </style>
 </head>
@@ -102,7 +102,7 @@
     </div>
   </header>
 
-  <!-- Marquee Ticker (Arabic Right-to-Left Direction) -->
+  <!-- Marquee Ticker -->
   <div class="ticker-wrapper flex items-center px-4 shadow-inner">
     <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> آخر النشاطات:</span>
     <div class="overflow-hidden w-full">
@@ -274,7 +274,7 @@
       </div>
     </section>
 
-    <!-- 9. TANK FUEL CALCULATOR TAB (20 Liters Tank) -->
+    <!-- 9. TANK FUEL CALCULATOR TAB -->
     <section id="calculator-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border max-w-xl mx-auto space-y-4">
         <div>
@@ -397,7 +397,7 @@
       updateTicker();
     });
 
-    // TICKER CONTENT GENERATOR (Right to Left animation)
+    // TICKER CONTENT GENERATOR
     function updateTicker() {
       const ticker = document.getElementById('ticker-container');
       const items = approvedShowrooms.map(s => `🏢 معرض معتمد: ${s.name} (${s.city}) ${s.verified ? '✓ [العلامة الزرقاء]' : ''}`);
@@ -410,7 +410,8 @@
         btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
         btn.classList.add('bg-slate-800/80', 'text-slate-300');
       });
-      document.getElementById(tabId).classList.remove('hidden');
+      const target = document.getElementById(tabId);
+      if (target) target.classList.remove('hidden');
       const activeBtn = document.getElementById('btn-' + tabId);
       if (activeBtn) {
         activeBtn.classList.remove('bg-slate-800/80', 'text-slate-300');
@@ -418,8 +419,14 @@
       }
     }
 
-    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('hidden');
+    }
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
 
     // GLOBAL SEARCH ENGINE
     function handleGlobalSearch(query) {
@@ -453,7 +460,7 @@
       document.getElementById('global-search-results-section').classList.add('hidden');
     }
 
-    // TANK FUEL CALCULATOR (20 Liters Tank)
+    // TANK FUEL CALCULATOR
     function calculateTankFuel(e) {
       e.preventDefault();
       const km = parseFloat(document.getElementById('calc-km').value);
@@ -464,7 +471,6 @@
         return;
       }
 
-      // Calculate how many kilometers per 20 Liters Tank
       const kmPerLiter = km / liters;
       const tankDistance = kmPerLiter * 20;
       const consumptionPer100 = (20 / tankDistance) * 100;
