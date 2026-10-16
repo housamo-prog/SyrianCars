@@ -26,14 +26,17 @@
         </div>
         <div>
           <h1 class="text-xl font-extrabold tracking-wide text-blue-400">مرآب وسوق السيارات العربي</h1>
-          <p class="text-xs text-slate-300">تشخيص الأعطال، منتدى الملاك، سوق القطع، والكماليات</p>
+          <p class="text-xs text-slate-300">سوق السيارات، تشخيص الأعطال، قطع الغيار والزينة</p>
         </div>
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="flex flex-wrap gap-2 text-sm font-semibold">
+      <nav class="flex flex-wrap gap-1.5 text-xs font-semibold">
         <button onclick="switchTab('ai-tab')" id="btn-ai-tab" class="tab-btn active px-3 py-2 rounded-lg transition bg-blue-600 text-white shadow">
           <i class="fa-solid fa-robot ml-1"></i> مستشار الأعطال
+        </button>
+        <button onclick="switchTab('cars-sale-tab')" id="btn-cars-sale-tab" class="tab-btn px-3 py-2 rounded-lg transition bg-slate-800 text-amber-400 hover:bg-slate-700">
+          <i class="fa-solid fa-car-rear ml-1"></i> سوق بيع وشراء السيارات
         </button>
         <button onclick="switchTab('forum-tab')" id="btn-forum-tab" class="tab-btn px-3 py-2 rounded-lg transition bg-slate-800 text-slate-300 hover:bg-slate-700">
           <i class="fa-solid fa-comments ml-1"></i> منتدى الملاك
@@ -45,12 +48,12 @@
           <i class="fa-solid fa-gem ml-1"></i> الزينة والكماليات
         </button>
         <button onclick="switchTab('cars-tab')" id="btn-cars-tab" class="tab-btn px-3 py-2 rounded-lg transition bg-slate-800 text-slate-300 hover:bg-slate-700">
-          <i class="fa-solid fa-car ml-1"></i> دليل السيارات
+          <i class="fa-solid fa-book-open ml-1"></i> دليل السيارات الأكثر انتشاراً
         </button>
         <button onclick="switchTab('shops-tab')" id="btn-shops-tab" class="tab-btn px-3 py-2 rounded-lg transition bg-slate-800 text-slate-300 hover:bg-slate-700">
-          <i class="fa-solid fa-wrench ml-1"></i> المحلات والورش
+          <i class="fa-solid fa-wrench ml-1"></i> الورش والمحلات
         </button>
-        <button onclick="checkAdminAuth()" id="btn-admin-tab" class="tab-btn px-3 py-2 rounded-lg transition bg-slate-800 text-amber-400 hover:bg-slate-700 border border-amber-500/30">
+        <button onclick="checkAdminAuth()" id="btn-admin-tab" class="tab-btn px-3 py-2 rounded-lg transition bg-slate-800 text-rose-400 hover:bg-slate-700 border border-rose-500/30">
           <i class="fa-solid fa-lock ml-1"></i> الإدارة
         </button>
       </nav>
@@ -122,34 +125,37 @@
       </div>
     </section>
 
-    <!-- 2. OWNERS FORUM TAB (NEW) -->
+    <!-- 2. CARS FOR SALE TAB (NEW & EXPANDED) -->
+    <section id="cars-sale-tab" class="tab-content hidden space-y-6">
+      <div class="flex flex-wrap justify-between items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900">سوق بيع وشراء السيارات</h2>
+          <p class="text-sm text-slate-500">عرض واكتشاف السيارات المستعملة والجديدة مع دعم ألبوم صور حتى 20 صورة لكل سيارة</p>
+        </div>
+        <button onclick="openModal('add-car-sale-modal')" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center gap-2">
+          <i class="fa-solid fa-car"></i> إضافـة سيارة للبيع
+        </button>
+      </div>
+
+      <div id="cars-for-sale-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- 3. OWNERS FORUM TAB -->
     <section id="forum-tab" class="tab-content hidden space-y-6">
       <div class="flex flex-wrap justify-between items-center gap-4">
         <div>
           <h2 class="text-2xl font-extrabold text-slate-900">منتدى مجتمع ملاك السيارات</h2>
-          <p class="text-sm text-slate-500">منصة نقاش وتبادل تجارب، استفسارات وحلول عملية بين ملاك مختلف أنواع السيارات</p>
+          <p class="text-sm text-slate-500">منصة نقاش وتبادل تجارب، استفسارات وحلول عملية بين ملاك السيارات</p>
         </div>
         <button onclick="openModal('add-post-modal')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center gap-2">
           <i class="fa-solid fa-pen-to-square"></i> إضافة تجربة / منشور جديد
         </button>
       </div>
 
-      <!-- Forum Brand Filter -->
-      <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
-        <button onclick="filterForum('ALL')" class="forum-filter-btn active bg-indigo-600 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition">الكل</button>
-        <button onclick="filterForum('كيا')" class="forum-filter-btn bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition">ملاك كيا</button>
-        <button onclick="filterForum('هيونداي')" class="forum-filter-btn bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition">ملاك هيونداي</button>
-        <button onclick="filterForum('بيجو / شام')" class="forum-filter-btn bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition">ملاك بيجو / شام</button>
-        <button onclick="filterForum('تويوتا')" class="forum-filter-btn bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition">ملاك تويوتا</button>
-        <button onclick="filterForum('ميتسوبيشي')" class="forum-filter-btn bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition">ملاك ميتسوبيشي</button>
-        <button onclick="filterForum('عام')" class="forum-filter-btn bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition">نصائح عامة وتعديل</button>
-      </div>
-
-      <!-- Forum Posts Feed -->
       <div id="forum-posts-container" class="space-y-4"></div>
     </section>
 
-    <!-- 3. PARTS MARKET TAB -->
+    <!-- 4. PARTS MARKET TAB -->
     <section id="market-tab" class="tab-content hidden space-y-6">
       <div class="flex flex-wrap justify-between items-center gap-4">
         <div>
@@ -161,19 +167,10 @@
         </button>
       </div>
 
-      <div class="flex flex-wrap gap-3">
-        <input type="text" id="part-search" oninput="renderParts()" placeholder="بحث باسم القطعة أو نوع السيارة..." class="px-4 py-2 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
-        <select id="part-filter-type" onchange="renderParts()" class="px-4 py-2 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="ALL">الكل (طلبات وعروض)</option>
-          <option value="طلب">طلبات قطع غيار فقط</option>
-          <option value="عرض">عروض للبيع فقط</option>
-        </select>
-      </div>
-
       <div id="parts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- 4. ACCESSORIES & CAR DECOR TAB -->
+    <!-- 5. ACCESSORIES & CAR DECOR TAB -->
     <section id="accessories-tab" class="tab-content hidden space-y-6">
       <div class="flex flex-wrap justify-between items-center gap-4">
         <div>
@@ -188,34 +185,33 @@
       <div id="accessories-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- 5. CAR CATALOG TAB -->
+    <!-- 6. CAR CATALOG TAB (DEVELOPED FOR SYRIA MARKET) -->
     <section id="cars-tab" class="tab-content hidden space-y-6">
       <div>
-        <h2 class="text-2xl font-extrabold text-slate-900">دليل ومواصفات السيارات الشامل</h2>
-        <p class="text-sm text-slate-500">قاعدة بيانات موسعة لأبرز السيارات المنتشرة في سورية والمنطقة العربية مع توفر القطع</p>
+        <h2 class="text-2xl font-extrabold text-slate-900">دليل السيارات الأكثر انتشاراً وطلباً في سوريا</h2>
+        <p class="text-sm text-slate-500">تقرير شامل يوضح الطرازات الأكثر مبيعاً وامتلاكاً في الشارع السوري، مواصفاتها، توفر قطع غيارها، ومميزاتها</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="text" id="car-search-input" oninput="renderCarCatalog()" placeholder="ابحث باسم السيارة أو المحرك..." class="p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <input type="text" id="car-search-input" oninput="renderCarCatalog()" placeholder="ابحث باسم السيارة (أكسنت، سيراتو، شام، كورولا)..." class="p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
         <select id="car-origin-filter" onchange="renderCarCatalog()" class="p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-          <option value="ALL">جميع المنشآت</option>
-          <option value="كوري">كوري</option>
-          <option value="ياباني">ياباني</option>
-          <option value="فرنسي / إيراني / محلي">فرنسي / محلي / إيراني</option>
-          <option value="ألماني / أوروبي">ألماني / أوروبي</option>
-          <option value="صيني">صيني</option>
+          <option value="ALL">جميع المنشآت والماركات</option>
+          <option value="كوري">كوري (هيونداي / كيا)</option>
+          <option value="ياباني">ياباني (تويوتا / ميتسوبيشي)</option>
+          <option value="فرنسي / محلي">فرنسي / محلي (بيجو / شام)</option>
+          <option value="أمريكي / صيني">أمريكي / صيني (شيفروليه / أريزو)</option>
         </select>
       </div>
 
       <div id="cars-catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 6. SHOPS & MAINTENANCE LOCATIONS TAB -->
+    <!-- 7. SHOPS & MAINTENANCE LOCATIONS TAB -->
     <section id="shops-tab" class="tab-content hidden space-y-6">
       <div class="flex flex-wrap justify-between items-center gap-4">
         <div>
           <h2 class="text-2xl font-extrabold text-slate-900">محلات وورش الصيانة وقطع الغيار</h2>
-          <p class="text-sm text-slate-500">دليل التجمعات والمحلات المعتمدة</p>
+          <p class="text-sm text-slate-500">دليل التجمعات والمحلات المعتمدة في المحافظات</p>
         </div>
         <button onclick="openModal('add-shop-modal')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow transition text-sm flex items-center gap-2">
           <i class="fa-solid fa-store"></i> إضافـة محل أو ورشة
@@ -225,12 +221,12 @@
       <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 7. ADMIN DASHBOARD TAB (SECURED) -->
+    <!-- 8. ADMIN DASHBOARD TAB (SECURED) -->
     <section id="admin-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-shield-halved text-amber-500"></i> لوحة تحكم الإدارة (الموافقة والنشر)
+            <i class="fa-solid fa-shield-halved text-rose-500"></i> لوحة تحكم الإدارة (الموافقة والنشر)
           </h2>
           <button onclick="lockAdmin()" class="text-xs bg-rose-100 text-rose-700 px-3 py-1.5 rounded-lg font-bold hover:bg-rose-200">
             <i class="fa-solid fa-right-from-bracket ml-1"></i> قفل اللوحة
@@ -239,17 +235,22 @@
 
         <div class="space-y-6">
           <div>
-            <h3 class="font-bold text-slate-800 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-comments text-indigo-600 ml-1"></i> منشورات وتجارب المنتدى المعلقة:</h3>
+            <h3 class="font-bold text-slate-800 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-car text-amber-600 ml-1"></i> إعلانات السيارات المعروضة للبيع المعلقة:</h3>
+            <div id="pending-cars-sale-container" class="space-y-3"></div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-slate-800 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-comments text-indigo-600 ml-1"></i> منشورات المنتدى المعلقة:</h3>
             <div id="pending-posts-container" class="space-y-3"></div>
           </div>
 
           <div>
-            <h3 class="font-bold text-slate-800 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-store text-blue-600 ml-1"></i> طلبات إضافة المحلات والورش المعلقة:</h3>
+            <h3 class="font-bold text-slate-800 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-store text-blue-600 ml-1"></i> طلبات المحلات والورش المعلقة:</h3>
             <div id="pending-shops-container" class="space-y-3"></div>
           </div>
 
           <div>
-            <h3 class="font-bold text-slate-800 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-wrench text-emerald-600 ml-1"></i> إعلانات وطلبات قطع الغيار المعلقة:</h3>
+            <h3 class="font-bold text-slate-800 text-sm mb-3 border-b pb-2"><i class="fa-solid fa-wrench text-emerald-600 ml-1"></i> إعلانات قطع الغيار المعلقة:</h3>
             <div id="pending-parts-container" class="space-y-3"></div>
           </div>
 
@@ -263,39 +264,87 @@
 
   </main>
 
+  <!-- Modal: Add Car for Sale (UP TO 20 PHOTOS SUPPORT) -->
+  <div id="add-car-sale-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
+    <div class="bg-white w-full max-w-2xl rounded-2xl p-6 shadow-xl relative my-8">
+      <button onclick="closeModal('add-car-sale-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="text-xl font-bold text-slate-900 mb-1">إضافة سيارة للبيع</h3>
+      <p class="text-xs text-slate-500 mb-4">اكتب كافة تفاصيل سيارتك وأضف روابط الصور (حتى 20 صورة)</p>
+
+      <form onsubmit="handleAddCarSale(event)" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">عنوان الإعلان / الماركة والموديل *</label>
+            <input type="text" id="car-sale-title" required placeholder="مثال: هيونداي أكسنت 2010 خالية العَلام" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">سنة الصنع / الموديل *</label>
+            <input type="text" id="car-sale-year" required placeholder="مثال: 2011" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">المسافة المقطوعة (العداد)</label>
+            <input type="text" id="car-sale-km" placeholder="مثال: 140,000 كم" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">المدينة / المحافظة *</label>
+            <input type="text" id="car-sale-city" required placeholder="حلب / دمشق" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">السعر المطلوب *</label>
+            <input type="text" id="car-sale-price" required placeholder="مثال: 85,000,000 ل.س أو حسب الاتفاق" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">رقم واتساب للتواصل *</label>
+          <input type="text" id="car-sale-phone" required placeholder="09xxxxxxxx" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">روابط صور السيارة (يمكنك إضافة حتى 20 رابط صورة، مفصولة بفواصل) *</label>
+          <textarea id="car-sale-images" rows="3" required placeholder="ضع روابط الصور هنا مفصولة بفصلة مثل: https://example.com/1.jpg , https://example.com/2.jpg ..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm dir-ltr text-left"></textarea>
+          <span class="text-[10px] text-slate-400">ملاحظة: يمكنك استخدام روابط صور مباشرة أو رفع الصور على أي موقع رفع واستخدام روابطها.</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">الشرح التفصيلي للسيارة (الحالة الفنية، ترسيم، بخ، مواصفات) *</label>
+          <textarea id="car-sale-desc" rows="4" required placeholder="اكتب شرحاً كاملاً: حالة المحرك، الجير، خالية البخ، الفرش، الحالة الفنية والدوزان، جاهزية الترسيم واللوحات..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow transition">إرسال السيارة للمراجعة والنشر</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: View Car Gallery & Details -->
+  <div id="view-car-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
+    <div class="bg-white w-full max-w-3xl rounded-2xl p-6 shadow-2xl relative my-8">
+      <button onclick="closeModal('view-car-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div id="car-modal-body"></div>
+    </div>
+  </div>
+
   <!-- Modal: Forum New Post -->
   <div id="add-post-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-post-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="text-xl font-bold text-slate-900 mb-1">مشاركة تجربة أو استفسار بالمنتدى</h3>
-      <p class="text-xs text-slate-500 mb-4">انشر تجربتك أو سؤالك مع مالكي السيارات (تخضع للمراجعة)</p>
+      <h3 class="text-xl font-bold text-slate-900 mb-1">مشاركة تجربة بالمنتدى</h3>
       <form onsubmit="handleAddForumPost(event)" class="space-y-4">
         <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">اسمك / لقبك *</label>
-            <input type="text" id="post-author" required placeholder="أبو فهد / المهندس أحمد" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">فئة / ماركة السيارة *</label>
-            <select id="post-category" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-              <option value="كيا">كيا</option>
-              <option value="هيونداي">هيونداي</option>
-              <option value="بيجو / شام">بيجو / شام</option>
-              <option value="تويوتا">تويوتا</option>
-              <option value="ميتسوبيشي">ميتسوبيشي</option>
-              <option value="عام">عام وتجارب عامة</option>
-            </select>
-          </div>
+          <input type="text" id="post-author" required placeholder="اسمك" class="p-2.5 border rounded-xl text-sm">
+          <select id="post-category" class="p-2.5 border rounded-xl text-sm">
+            <option value="كيا">كيا</option>
+            <option value="هيونداي">هيونداي</option>
+            <option value="عام">عام</option>
+          </select>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">عنوان التجربة / السؤال *</label>
-          <input type="text" id="post-title" required placeholder="مثال: تجربتي مع حل مشكلة الحرارة في سيراتو 2008" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">محتوى التجربة أو النصيحة بالكامل *</label>
-          <textarea id="post-content" rows="4" required placeholder="اكتب تفاصيل تجربتك، القطع التي غيرتها، النتيجة، والنصيحة للشباب..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
-        </div>
-        <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow transition">إرسال للمراجعة والنشر</button>
+        <input type="text" id="post-title" required placeholder="عنوان التجربة" class="w-full p-2.5 border rounded-xl text-sm">
+        <textarea id="post-content" rows="4" required placeholder="التفاصيل..." class="w-full p-2.5 border rounded-xl text-sm"></textarea>
+        <button type="submit" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl">إرسال للمراجعة</button>
       </form>
     </div>
   </div>
@@ -304,15 +353,11 @@
   <div id="admin-pass-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-md rounded-2xl p-6 shadow-xl relative text-center">
       <button onclick="closeModal('admin-pass-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-      <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
-        <i class="fa-solid fa-lock"></i>
-      </div>
+      <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl"><i class="fa-solid fa-lock"></i></div>
       <h3 class="text-lg font-bold text-slate-900 mb-1">تسجيل دخول الإدارة</h3>
-      <p class="text-xs text-slate-500 mb-4">يرجى إدخال كلمة السر لمتابعة الطلبات المنشورة والمعلقة</p>
-      
       <form onsubmit="verifyAdminPassword(event)" class="space-y-4">
-        <input type="password" id="admin-pass-input" required placeholder="أدخل كلمة السر هنا..." class="w-full p-2.5 border border-slate-300 rounded-xl text-center font-bold text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
-        <button type="submit" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow transition text-sm">دخول اللوحة</button>
+        <input type="password" id="admin-pass-input" required placeholder="كلمة السر..." class="w-full p-2.5 border rounded-xl text-center font-bold text-sm">
+        <button type="submit" class="w-full py-2.5 bg-rose-600 text-white font-bold rounded-xl text-sm">دخول</button>
       </form>
     </div>
   </div>
@@ -321,45 +366,14 @@
   <div id="add-part-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-part-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="text-xl font-bold text-slate-900 mb-1">إضافة طلب أو عرض قطعة غيار</h3>
-      <p class="text-xs text-slate-500 mb-4">سيتم إرسال الإعلان للإدارة للمراجعة قبل النشر</p>
+      <h3 class="text-xl font-bold text-slate-900 mb-1">إضافة قطعة غيار</h3>
       <form onsubmit="handleAddPart(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">نوع الإعلان *</label>
-          <select id="new-type" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-            <option value="طلب">مطلوب قطعة</option>
-            <option value="عرض">معروض للبيع</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">اسم القطعة *</label>
-          <input type="text" id="new-title" required placeholder="مثال: حساس أكسجين / طرمبة بنزين" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">نوع السيارة *</label>
-            <input type="text" id="new-car" required placeholder="كيا سيراتو 2009" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">المدينة *</label>
-            <input type="text" id="new-city" required placeholder="حلب / دمشق" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">السعر (اختياري)</label>
-            <input type="text" id="new-price" placeholder="150,000 ل.س" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">رقم واتساب *</label>
-            <input type="text" id="new-phone" required placeholder="09xxxxxxxx" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">تفاصيل إضافية</label>
-          <textarea id="new-desc" rows="2" placeholder="ملاحظات..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
-        </div>
-        <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition">إرسال للمراجعة</button>
+        <select id="new-type" class="w-full p-2.5 border rounded-xl text-sm"><option value="طلب">طلب</option><option value="عرض">عرض</option></select>
+        <input type="text" id="new-title" required placeholder="اسم القطعة" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="new-car" required placeholder="السيارة" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="new-city" required placeholder="المدينة" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="new-phone" required placeholder="واتساب" class="w-full p-2.5 border rounded-xl text-sm">
+        <button type="submit" class="w-full py-3 bg-emerald-600 text-white font-bold rounded-xl">إرسال للمراجعة</button>
       </form>
     </div>
   </div>
@@ -368,79 +382,27 @@
   <div id="add-accessory-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-accessory-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="text-xl font-bold text-slate-900 mb-1">إضافة عرض أو طلب زينة وكماليات</h3>
-      <p class="text-xs text-slate-500 mb-4">سيتم إرسال الطلب للمراجعة قبل النشر للجمهور</p>
+      <h3 class="text-xl font-bold text-slate-900 mb-1">إضافة زينة وكماليات</h3>
       <form onsubmit="handleAddAccessory(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">نوع الطلب *</label>
-          <select id="acc-type" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-            <option value="عرض للبيع">عرض زينة / كماليات للبيع</option>
-            <option value="طلب شراء">مطلوب كماليات / زينة</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">اسم غرض الزينة / القطعة *</label>
-          <input type="text" id="acc-title" required placeholder="مثال: شاشة أندرويد 10 إنش / أغطية مقاعد جلد" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">المدينة / المحافظة *</label>
-            <input type="text" id="acc-city" required placeholder="حلب / دمشق" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">السعر / الميزانية</label>
-            <input type="text" id="acc-price" placeholder="مثال: 450,000 ل.س" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">رقم واتساب للتواصل *</label>
-          <input type="text" id="acc-phone" required placeholder="09xxxxxxxx" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">وصف أو ملاحظات</label>
-          <textarea id="acc-desc" rows="2" placeholder="حالة القطعة، المواصفات..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
-        </div>
-        <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow transition">إرسال للمراجعة</button>
+        <input type="text" id="acc-title" required placeholder="اسم غرض الزينة" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="acc-city" required placeholder="المدينة" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="acc-phone" required placeholder="واتساب" class="w-full p-2.5 border rounded-xl text-sm">
+        <button type="submit" class="w-full py-3 bg-purple-600 text-white font-bold rounded-xl">إرسال للمراجعة</button>
       </form>
     </div>
   </div>
 
-  <!-- Modal: Add Shop / Workshop -->
+  <!-- Modal: Add Shop -->
   <div id="add-shop-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-shop-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="text-xl font-bold text-slate-900 mb-1">إضافة محل أو ورشة صيانة</h3>
-      <p class="text-xs text-slate-500 mb-4">سيتم إرسال الطلب للمسؤول للمراجعة والنشر الفوري.</p>
+      <h3 class="text-xl font-bold text-slate-900 mb-1">إضافة محل/ورشة</h3>
       <form onsubmit="handleSubmitsShop(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">اسم المحل أو الورشة *</label>
-          <input type="text" id="shop-name" required placeholder="مثال: مركز الأمان لصيانة السيارات" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">المحافظة / المنطقة *</label>
-            <input type="text" id="shop-city" required placeholder="حلب - الراموسة" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">التخصص *</label>
-            <input type="text" id="shop-spec" required placeholder="ميكانيك عام / كهرباء / زينة" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">اسم المسؤول / المالك</label>
-            <input type="text" id="shop-owner" placeholder="أبو أحمد" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">رقم الهاتف / واتساب *</label>
-            <input type="text" id="shop-phone" required placeholder="09xxxxxxxx" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm">
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">نبذة أو عنوان تفصيلي</label>
-          <textarea id="shop-desc" rows="2" placeholder="شارع الصناعة الرئيسي، قرب كراج..." class="w-full p-2.5 border border-slate-300 rounded-xl text-sm"></textarea>
-        </div>
-        <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow transition">إرسال للمسؤول للموافقة</button>
+        <input type="text" id="shop-name" required placeholder="اسم الورشة" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="shop-city" required placeholder="المنطقة" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="shop-spec" required placeholder="التخصص" class="w-full p-2.5 border rounded-xl text-sm">
+        <input type="text" id="shop-phone" required placeholder="واتساب" class="w-full p-2.5 border rounded-xl text-sm">
+        <button type="submit" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl">إرسال للمراجعة</button>
       </form>
     </div>
   </div>
@@ -455,48 +417,52 @@
 
   <!-- Script Logic -->
   <script>
-    // ADMIN PASSWORD CONFIGURATION
     const ADMIN_PASSWORD = "1234";
     let isAdminLoggedIn = false;
 
-    // Car Catalog Database
+    // DEVELOPED CAR CATALOG FOR SYRIA MARKET BASED ON REAL MARKET DATA
     const CAR_CATALOG = [
-      { name: "سيراتو (Cerato) - كيا", origin: "كوري", years: "2005 - 2022", engine: "1.6L / 2.0L بنزين", availability: "ممتازة جداً (بجميع المحافظات)", priceCategory: "متوسطة", pros: "اعتمادية عالية، قطع رخيصة ومتوفرة، صيانة سهلة.", cons: "العزل الصوتي متوسط." },
-      { name: "شام (Sham) / سايبا", origin: "فرنسي / إيراني / محلي", years: "2007 - 2018", engine: "1.6L بنزين", availability: "متوفرة بكثرة وبأسعار رخيصة", priceCategory: "اقتصادية جداً", pros: "هيكل قوي، تكلفة صيانة منخفضة، قطع متوفرة.", cons: "استهلاك الوقود مرتفع نسبياً." },
-      { name: "إيلانترا / أفانتي - هيونداي", origin: "كوري", years: "2002 - 2024", engine: "1.6L / 2.0L", availability: "ممتازة جداً", priceCategory: "متوسطة", pros: "ثبات ممتاز، هادئة، قطع غيار أصلية وتجارية.", cons: "حساسية بعض الحساسات الكهربائية." },
-      { name: "لانسر (Lancer) - ميتسوبيشي", origin: "ياباني", years: "2000 - 2017", engine: "1.3L / 1.6L / 2.0L", availability: "جيدة جداً", priceCategory: "متوسطة", pros: "محرك قوي واقتصادي، تحمل عالي للطرقات.", cons: "أسعار القطع الأصلية أعلى قليلاً." },
-      { name: "بيجو 206 / 207 / 307", origin: "فرنسي / إيراني", years: "2001 - 2015", engine: "1.4L / 1.6L", availability: "جيدة", priceCategory: "اقتصادية", pros: "قيادة سلسة، ممتازة داخل المدن.", cons: "تحتاج كهربائي سيارات مختص بالفرنسي." },
-      { name: "مازدا 3 (Mazda 3)", origin: "ياباني", years: "2005 - 2022", engine: "1.6L / 2.0L", availability: "جيدة في المدن الرئيسية", priceCategory: "متوسطة", pros: "تصميم رياضي، ثبات وتوجيه دقيق.", cons: "أسعار أجزاء الهيكل الخارجي مرتفعة." },
-      { name: "تويوتا كورولا (Corolla)", origin: "ياباني", years: "1998 - 2024", engine: "1.3L / 1.6L / 1.8L", availability: "ممتازة جداً", priceCategory: "متوسطة إلى مرتفعة", pros: "اعتمادية أسطورية، لا تهبط قيمتها عند البيع.", cons: "سعر الشراء مرتفع مقارنة بالمنافسين." }
+      { name: "هيونداي أكسنت (Accent) / أفانتي", origin: "كوري", years: "2000 - 2024", engine: "1.4L / 1.6L بنزين", availability: "متوفرة بكثرة خارقة بجميع المحافظات", priceCategory: "اقتصادية وشعبية جداً", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500", pros: "الأكثر مبيعاً وانتشاراً في سوريا، قطع غيار رخيصة جداً وصيانة لدى كل الورش.", cons: "العزل الثابت متوسط في السرعات العالية." },
+      { name: "كيا ريو (Kia Rio) / سيراتو", origin: "كوري", years: "2003 - 2023", engine: "1.4L / 1.6L بنزين", availability: "ممتازة جداً وبأعلى درجات التوفر", priceCategory: "اقتصادية إلى متوسطة", image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", pros: "تصميم عصري مرغوب، اعتمادية عالية، سهلة الصيانة وإعادة البيع سريعة جداً.", cons: "ارتفاع بسيط بأسعار الفئات الحديثة." },
+      { name: "شام (Sham) / سايبا إيراني", origin: "فرنسي / محلي", years: "2007 - 2018", engine: "1.6L / 1.8L بنزين", availability: "متوفرة بكل مكان بأرقام رخيصة", priceCategory: "اقتصادية جداً للطبقة الوسطى", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500", pros: "هيكل متين وقوي، صيانة بسيطة، متوفرة بكثرة في السوق المستعمل.", cons: "مصروف الوقود أعلى قليلاً مقارنة بالحجم." },
+      { name: "تويوتا كورولا (Corolla)", origin: "ياباني", years: "1998 - 2024", engine: "1.3L / 1.6L / 1.8L", availability: "ممتازة في كافة الأسواق", priceCategory: "متوسطة إلى مرتفعة", image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=500", pros: "السيارة الأكثر اعتمادية على الإطلاق، تحافظ على قيمتها عند إعادة البيع.", cons: "سعر الشراء مرتفع للسيارات النظيفة." },
+      { name: "بيجو 206 / 207 (Peugeot)", origin: "فرنسي / محلي", years: "2001 - 2015", engine: "1.4L / 1.6L", availability: "جيدة جداً", priceCategory: "اقتصادية", image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500", pros: "حجم مدمج، هادئة واقتصادية للبنزين داخل المدن.", cons: "الحساسات والكهرباء تتطلب كهربائي مختص بالفرنسي." },
+      { name: "شيفروليه أفيو (Aveo) / أوبترا", origin: "أمريكي / صيني", years: "2004 - 2016", engine: "1.5L / 1.6L", availability: "جيدة ومتوفرة", priceCategory: "اقتصادية", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500", pros: "مقصورة واسعة ومريحة، سعر شراء مناسب ومنافس.", cons: "استهلاك المساعدين والدوزان مرتفع في الطرق الصعبة." },
+      { name: "ميتسوبيشي لانسر (Lancer)", origin: "ياباني", years: "2000 - 2017", engine: "1.3L / 1.6L / 2.0L", availability: "جيدة جداً", priceCategory: "متوسطة", image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=500", pros: "محرك قوي جداً، ثبات ممتاز وتتحمل ظروف الطرق السورية.", cons: "أسعار القطع الأصلية أعلى قليلاً من الكوري." }
     ];
+
+    // Approved Cars for Sale Database
+    let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [
+      {
+        id: 1,
+        title: "هيونداي أكسنت 2011 خالية العلام",
+        year: "2011",
+        km: "125,000 كم",
+        city: "حلب",
+        price: "90,000,000 ل.س",
+        phone: "0991122334",
+        images: ["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800", "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800"],
+        desc: "سيارة هيونداي أكسنت كورية خالية البخ والقص تماماً، جاهزية ميكانيكية 100%، دوزان جديد، تكييف شغال ثلج، ترسيم جديد ولوحات حلب.",
+        date: "2026-10-15"
+      }
+    ];
+
+    let pendingCarsForSale = JSON.parse(localStorage.getItem('pending_cars_for_sale')) || [];
 
     // Approved Databases
-    let approvedForumPosts = JSON.parse(localStorage.getItem('approved_forum_posts')) || [
-      { id: 1, author: "م. أحمد الحلبي", category: "كيا", title: "حل مشكلة تقطيع محرك سيراتو 2008 عند القومة", content: "بعد معاناة طويلة مع الرجة على السرعات المنخفضة، اتضح أن السبب من اتساخ كويلات الإشعال مع بوجيات قديمة. أنصح دائماً بتركيب كويلات كورية أصلية وتفقد الفيش.", date: "2026-10-14", likes: 12 },
-      { id: 2, author: "أبو خالد الدمشقي", category: "بيجو / شام", title: "تجربتي مع ضبط حرارة سيارة شام وسالندراتها", content: "لأصحاب السيارات المصنعة محلياً أو الفرنسي، تركيب بلف حرارة 82 درجة مئوية مع تنظيف الردياتير بالكامل حل لي مشكلة الحرارة بالصيف نهائياً.", date: "2026-10-15", likes: 19 }
-    ];
+    let approvedForumPosts = JSON.parse(localStorage.getItem('approved_forum_posts')) || [];
+    let approvedParts = JSON.parse(localStorage.getItem('approved_parts')) || [];
+    let approvedAccessories = JSON.parse(localStorage.getItem('approved_accessories')) || [];
+    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
 
-    let approvedParts = JSON.parse(localStorage.getItem('approved_parts')) || [
-      { id: 1, type: "طلب", title: "حساس أكسجين (بيئة)", car: "كيا سيراتو 2008", city: "حلب", price: "حسب الاتفاق", phone: "0991234567", desc: "أبحث عن حساس أكسجين أصلي نظيف.", date: "2026-10-12" }
-    ];
-
-    let approvedAccessories = JSON.parse(localStorage.getItem('approved_accessories')) || [
-      { id: 1, type: "عرض للبيع", title: "شاشة أندرويد 10 إنش مع كاميرا خلفية", city: "حلب", price: "480,000 ل.س", phone: "0988223344", desc: "شاشة ممتازة تناسب كافة أنواع السيارات تركب فيشة بفيشة.", date: "2026-10-15" }
-    ];
-
-    let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [
-      { id: 1, name: "حلب - المنطقة الصناعية بالراموسة", city: "حلب", spec: "مستعمل وجديد + صيانة شاملة", owner: "تجمع ورش الراموسة", phone: "0911111111", desc: "مركز تجميع قطع الغيار والكرك ومحلات الميكانيك." }
-    ];
-
-    // Pending Approval Storage
+    // Pending Storage
     let pendingForumPosts = JSON.parse(localStorage.getItem('pending_forum_posts')) || [];
     let pendingParts = JSON.parse(localStorage.getItem('pending_parts')) || [];
     let pendingAccessories = JSON.parse(localStorage.getItem('pending_accessories')) || [];
     let pendingShops = JSON.parse(localStorage.getItem('pending_shops')) || [];
 
-    let currentForumCategory = 'ALL';
-
     window.addEventListener('DOMContentLoaded', () => {
+      renderCarsForSale();
       renderForumPosts();
       renderParts();
       renderAccessories();
@@ -530,8 +496,7 @@
 
     function verifyAdminPassword(e) {
       e.preventDefault();
-      const inputPass = document.getElementById('admin-pass-input').value;
-      if (inputPass === ADMIN_PASSWORD) {
+      if (document.getElementById('admin-pass-input').value === ADMIN_PASSWORD) {
         isAdminLoggedIn = true;
         closeModal('admin-pass-modal');
         document.getElementById('admin-pass-input').value = '';
@@ -545,87 +510,123 @@
     function lockAdmin() {
       isAdminLoggedIn = false;
       switchTab('ai-tab');
-      alert('تم قفل لوحة الإدارة بنجاح.');
     }
 
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // FORUM LOGIC
-    function filterForum(category) {
-      currentForumCategory = category;
-      document.querySelectorAll('.forum-filter-btn').forEach(btn => {
-        btn.classList.remove('bg-indigo-600', 'text-white');
-        btn.classList.add('bg-slate-200', 'text-slate-700');
-      });
-      event.target.classList.remove('bg-slate-200', 'text-slate-700');
-      event.target.classList.add('bg-indigo-600', 'text-white');
-      renderForumPosts();
-    }
-
-    function renderForumPosts() {
-      const container = document.getElementById('forum-posts-container');
-      const filtered = approvedForumPosts.filter(p => currentForumCategory === 'ALL' || p.category === currentForumCategory);
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="text-center py-12 text-slate-400">لا توجد تجارب معتمدة منشور في هذه الفئة حالياً. كن أول من يشارك تجربته!</div>`;
+    // RENDER CARS FOR SALE WITH MULTI-IMAGE ALBUM (UP TO 20 PHOTOS)
+    function renderCarsForSale() {
+      const container = document.getElementById('cars-for-sale-container');
+      if (approvedCarsForSale.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد سيارات معروضة حالياً. اضغط "إضافة سيارة للبيع" لتكون الأول!</div>`;
         return;
       }
 
-      container.innerHTML = filtered.map(p => `
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-          <div class="flex justify-between items-start">
-            <div class="flex items-center gap-2">
-              <div class="w-9 h-9 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-sm">
-                ${p.author.charAt(0)}
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900 text-sm">${p.author}</h4>
-                <p class="text-xs text-slate-400"><i class="fa-regular fa-clock ml-1"></i>${p.date}</p>
-              </div>
+      container.innerHTML = approvedCarsForSale.map(car => `
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-48 bg-slate-900">
+              <img src="${car.images[0] || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500'}" class="w-full h-full object-cover">
+              <span class="absolute top-3 right-3 bg-slate-900/80 text-white text-[11px] px-2.5 py-1 rounded-full font-bold backdrop-blur-md">
+                <i class="fa-solid fa-images ml-1"></i> ${car.images.length} صور
+              </span>
+              <span class="absolute bottom-3 right-3 bg-amber-500 text-slate-900 font-extrabold text-xs px-3 py-1 rounded-lg shadow">
+                ${car.price}
+              </span>
             </div>
-            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full font-bold"><i class="fa-solid fa-car ml-1"></i> قسم ${p.category}</span>
+
+            <div class="p-5 space-y-2">
+              <h3 class="font-extrabold text-slate-900 text-base">${car.title}</h3>
+              <div class="flex flex-wrap gap-2 text-xs text-slate-500">
+                <span><i class="fa-solid fa-calendar ml-1 text-blue-600"></i> ${car.year}</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-gauge-high ml-1 text-emerald-600"></i> ${car.km}</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-location-dot ml-1 text-rose-600"></i> ${car.city}</span>
+              </div>
+              <p class="text-xs text-slate-600 line-clamp-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100">${car.desc}</p>
+            </div>
           </div>
 
-          <h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-2">${p.title}</h3>
-          <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap bg-slate-50 p-3 rounded-xl">${p.content}</p>
-
-          <div class="flex justify-between items-center text-xs pt-2 text-slate-500">
-            <button onclick="likePost(${p.id})" class="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 font-bold bg-indigo-50 px-3 py-1.5 rounded-lg">
-              <i class="fa-solid fa-thumbs-up"></i> إعجاب وتأييد (${p.likes || 0})
+          <div class="p-5 pt-0 flex gap-2">
+            <button onclick="viewCarDetails(${car.id})" class="flex-1 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1">
+              <i class="fa-solid fa-eye"></i> التفاصيل ومعرض الصور
             </button>
-            <span><i class="fa-solid fa-circle-check text-emerald-600 ml-1"></i> تجربة موثوقة</span>
+            <a href="https://wa.me/${car.phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition flex items-center justify-center">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
           </div>
         </div>
       `).join('');
     }
 
-    function handleAddForumPost(e) {
-      e.preventDefault();
-      const post = {
-        id: Date.now(),
-        author: document.getElementById('post-author').value,
-        category: document.getElementById('post-category').value,
-        title: document.getElementById('post-title').value,
-        content: document.getElementById('post-content').value,
-        date: new Date().toISOString().split('T')[0],
-        likes: 0
-      };
+    function viewCarDetails(carId) {
+      const car = approvedCarsForSale.find(c => c.id === carId);
+      if(!car) return;
 
-      pendingForumPosts.push(post);
-      localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
-      closeModal('add-post-modal');
-      e.target.reset();
-      alert('تم إرسال منشورك بنجاح! سيتم اعتماده ونشره في المنتدى بعد مراجعة المسؤول.');
+      const body = document.getElementById('car-modal-body');
+      body.innerHTML = `
+        <div class="space-y-6">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 mb-1">${car.title}</h2>
+            <p class="text-xs text-slate-500"><i class="fa-solid fa-location-dot ml-1"></i> ${car.city} - سنة الصنع: ${car.year} - العداد: ${car.km}</p>
+          </div>
+
+          <!-- Main Active Image -->
+          <div class="h-72 md:h-96 rounded-2xl overflow-hidden bg-slate-900 shadow-md">
+            <img id="active-car-main-img" src="${car.images[0]}" class="w-full h-full object-contain">
+          </div>
+
+          <!-- Thumbnails Gallery (Up to 20 Photos) -->
+          <div class="flex gap-2 overflow-x-auto pb-2">
+            ${car.images.map((imgUrl, i) => `
+              <img src="${imgUrl}" onclick="document.getElementById('active-car-main-img').src='${imgUrl}'" class="w-16 h-16 object-cover rounded-xl border-2 border-slate-200 cursor-pointer hover:border-amber-500 transition flex-shrink-0">
+            `).join('')}
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-file-lines ml-1 text-amber-600"></i> الشرح والتفاصيل الفنية الكاملة:</h4>
+            <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap">${car.desc}</p>
+          </div>
+
+          <div class="flex justify-between items-center bg-amber-50 p-4 rounded-xl border border-amber-200">
+            <div>
+              <span class="text-xs text-amber-800 font-bold block">السعر المطلوب:</span>
+              <span class="text-lg font-extrabold text-amber-700">${car.price}</span>
+            </div>
+            <a href="https://wa.me/${car.phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2">
+              <i class="fa-brands fa-whatsapp text-base"></i> تواصل مع البائع مباشرة
+            </a>
+          </div>
+        </div>
+      `;
+      openModal('view-car-modal');
     }
 
-    function likePost(id) {
-      const post = approvedForumPosts.find(p => p.id === id);
-      if (post) {
-        post.likes = (post.likes || 0) + 1;
-        localStorage.setItem('approved_forum_posts', JSON.stringify(approvedForumPosts));
-        renderForumPosts();
-      }
+    function handleAddCarSale(e) {
+      e.preventDefault();
+      const rawImages = document.getElementById('car-sale-images').value.split(',');
+      const cleanImages = rawImages.map(u => u.trim()).filter(u => u.length > 5);
+
+      const newCar = {
+        id: Date.now(),
+        title: document.getElementById('car-sale-title').value,
+        year: document.getElementById('car-sale-year').value,
+        km: document.getElementById('car-sale-km').value || 'غير محدد',
+        city: document.getElementById('car-sale-city').value,
+        price: document.getElementById('car-sale-price').value,
+        phone: document.getElementById('car-sale-phone').value,
+        images: cleanImages.length > 0 ? cleanImages : ['https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500'],
+        desc: document.getElementById('car-sale-desc').value,
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      pendingCarsForSale.push(newCar);
+      localStorage.setItem('pending_cars_for_sale', JSON.stringify(pendingCarsForSale));
+      closeModal('add-car-sale-modal');
+      e.target.reset();
+      alert('تم إرسال سيارتك للمراجعة بنجاح! ستظهر بالسوق فور موافقة المسؤول.');
     }
 
     // AI Diagnostics
@@ -641,7 +642,7 @@
       const resultContent = document.getElementById('ai-result-content');
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري تحليل العطل بذكاء اصطناعي...`;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري تحليل العطل...`;
       resultBox.classList.add('hidden');
 
       setTimeout(() => {
@@ -650,23 +651,19 @@
         const prob = carProblem.toLowerCase();
 
         if (prob.includes('رجة') || prob.includes('رجفة')) {
-          causes = ["تلف أو اهتراء كراسي المحرك أو الجير.", "ضعف في اشتعال البواجي أو الأسلاك.", "اتساخ في بخاخات الوقود."];
-          parts = ["كراسي محرك أصلية", "طقم بواجي جديدة", "تنظيف بخاخات"];
-        } else if (prob.includes('تقطيع') || prob.includes('تفتفة')) {
-          causes = ["انسداد في فلتر أو طرمبة البنزين.", "ضعف في كويلات الإشعال.", "اتساخ في حساس الهواء (MAF)."];
-          parts = ["فلتر بنزين جديد", "كويل إشعال", "بخاخ تنظيف حساسات"];
-        } else if (prob.includes('حرارة') || prob.includes('سخونة')) {
-          causes = ["نقص مياه الردياتير أو تسريب بالدورة.", "تعطل ترموستات الحرارة (البلف).", "تعطل مروحة التبريد."];
-          parts = ["بلف حرارة جديد", "إصلاح الردياتير", "حساس حرارة"];
+          causes = ["تلف كراسي المحرك أو الجير.", "ضعف في البواجي أو الأسلاك.", "اتساخ البخاخات."];
+          parts = ["كراسي محرك", "بواجي جديدة", "تنظيف بخاخات"];
+        } else if (prob.includes('حرارة')) {
+          causes = ["نقص مياه الردياتير أو تسريب.", "تعطل البلف الترموستات.", "ضعف مروحة التبريد."];
+          parts = ["بلف حرارة", "إصلاح ردياتير", "حساس حرارة"];
         } else {
-          causes = [`مشكلة محتملة في نظام (${carSystem}) لسيارة (${carModel}).`, "حساسات الكترونية بحاجة لإعادة ضبط بالمسح.", "تأثر الأداء بنوعية الوقود."];
-          parts = ["فحص شامل بالكمبيوتر (Scanner)", "حساسات أصلية حسب الفحص"];
+          causes = [`عطل محتمل في (${carSystem}) لسيارة (${carModel}).`, "حساسات بحاجة إعادة ضبط بالكمبيوتر."];
+          parts = ["فحص كومبيوتر Scanner", "قطع أصلية حسب التقرير"];
         }
 
-        let outputText = `📌 **تشخيص عطل (${carModel}) - نظام (${carSystem}):**\n\n` +
+        let outputText = `📌 **تشخيص عطل (${carModel}) - (${carSystem}):**\n\n` +
           `🔍 **الأسباب المحتملة:**\n` + causes.map((c, i) => `${i + 1}. ${c}`).join('\n') + `\n\n` +
-          `🛠️ **القطع الواجب فحصها أو تبديلها:**\n` + parts.map(p => `• ${p}`).join('\n') + `\n\n` +
-          `💡 **نصيحة فنية:** يُفضل الكشف لدى ورشة صيانة متخصصة في منطقتك.`;
+          `🛠️ **القطع الواجب فحصها:**\n` + parts.map(p => `• ${p}`).join('\n');
 
         resultContent.textContent = outputText;
         resultBox.classList.remove('hidden');
@@ -675,263 +672,228 @@
       }, 700);
     }
 
-    // Render Approved Parts
-    function renderParts() {
-      const search = document.getElementById('part-search').value.toLowerCase();
-      const filterType = document.getElementById('part-filter-type').value;
-      const container = document.getElementById('parts-container');
-      const filtered = approvedParts.filter(p => {
-        const matchesSearch = p.title.toLowerCase().includes(search) || p.car.toLowerCase().includes(search) || p.city.toLowerCase().includes(search);
-        const matchesType = filterType === 'ALL' || p.type === filterType;
-        return matchesSearch && matchesType;
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد إعلانات معتمدة مطابقة للبحث حالياً.</div>`;
-        return;
-      }
-
-      container.innerHTML = filtered.map(item => `
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2.5 py-1 rounded-full text-xs font-bold ${item.type === 'طلب' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">
-                <i class="fa-solid ${item.type === 'طلب' ? 'fa-hand' : 'fa-tag'} ml-1"></i> ${item.type}
-              </span>
-              <span class="text-xs text-slate-400"><i class="fa-regular fa-clock ml-1"></i>${item.date}</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base mb-1">${item.title}</h3>
-            <p class="text-xs text-slate-500 mb-2"><i class="fa-solid fa-car ml-1"></i> ${item.car} - <i class="fa-solid fa-location-dot ml-1"></i> ${item.city}</p>
-            <p class="text-xs text-slate-700 mb-4 bg-slate-50 p-2.5 rounded-xl border border-slate-100">${item.desc}</p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
-            <span class="text-sm font-extrabold text-blue-600">${item.price}</span>
-            <a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-              <i class="fa-brands fa-whatsapp"></i> تواصل
-            </a>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function handleAddPart(e) {
-      e.preventDefault();
-      const newPart = {
-        id: Date.now(),
-        type: document.getElementById('new-type').value,
-        title: document.getElementById('new-title').value,
-        car: document.getElementById('new-car').value,
-        city: document.getElementById('new-city').value,
-        price: document.getElementById('new-price').value || 'حسب الاتفاق',
-        phone: document.getElementById('new-phone').value,
-        desc: document.getElementById('new-desc').value || 'لا يوجد وصف',
-        date: new Date().toISOString().split('T')[0]
-      };
-
-      pendingParts.push(newPart);
-      localStorage.setItem('pending_parts', JSON.stringify(pendingParts));
-      closeModal('add-part-modal');
-      e.target.reset();
-      alert('تم إرسال إعلانك بنجاح للمسؤول! سيتم نشره فور الموافقة عليه.');
-    }
-
-    // Render Approved Accessories
-    function renderAccessories() {
-      const container = document.getElementById('accessories-container');
-      if (approvedAccessories.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد معروضات زينة معتمدة حالياً.</div>`;
-        return;
-      }
-
-      container.innerHTML = approvedAccessories.map(item => `
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800">
-                <i class="fa-solid fa-gem ml-1"></i> ${item.type}
-              </span>
-              <span class="text-xs text-slate-400"><i class="fa-regular fa-clock ml-1"></i>${item.date}</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base mb-1">${item.title}</h3>
-            <p class="text-xs text-slate-500 mb-2"><i class="fa-solid fa-location-dot ml-1"></i> ${item.city}</p>
-            <p class="text-xs text-slate-700 mb-4 bg-purple-50/50 p-2.5 rounded-xl border border-purple-100">${item.desc}</p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
-            <span class="text-sm font-extrabold text-purple-700">${item.price}</span>
-            <a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-              <i class="fa-brands fa-whatsapp"></i> تواصل
-            </a>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function handleAddAccessory(e) {
-      e.preventDefault();
-      const acc = {
-        id: Date.now(),
-        type: document.getElementById('acc-type').value,
-        title: document.getElementById('acc-title').value,
-        city: document.getElementById('acc-city').value,
-        price: document.getElementById('acc-price').value || 'حسب الاتفاق',
-        phone: document.getElementById('acc-phone').value,
-        desc: document.getElementById('acc-desc').value || 'لا يوجد وصف إضافي',
-        date: new Date().toISOString().split('T')[0]
-      };
-
-      pendingAccessories.push(acc);
-      localStorage.setItem('pending_accessories', JSON.stringify(pendingAccessories));
-      closeModal('add-accessory-modal');
-      e.target.reset();
-      alert('تم إرسال طلب/عرض الزينة بنجاح! سيتم نشره فور مراجعة المسؤول.');
-    }
-
-    // Car Catalog
+    // Render Car Catalog
     function renderCarCatalog() {
       const search = document.getElementById('car-search-input').value.toLowerCase();
       const filterOrigin = document.getElementById('car-origin-filter').value;
       const container = document.getElementById('cars-catalog-container');
       const filtered = CAR_CATALOG.filter(c => {
         const matchesSearch = c.name.toLowerCase().includes(search) || c.engine.toLowerCase().includes(search);
-        const matchesOrigin = filterOrigin === 'ALL' || c.origin === filterOrigin;
+        const matchesOrigin = filterOrigin === 'ALL' || c.origin.includes(filterOrigin.split(' ')[0]);
         return matchesSearch && matchesOrigin;
       });
 
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد نتائج مطابقة.</div>`;
-        return;
-      }
-
       container.innerHTML = filtered.map(c => `
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden space-y-3 p-5">
+          <div class="h-36 rounded-xl overflow-hidden bg-slate-100 mb-2">
+            <img src="${c.image}" class="w-full h-full object-cover">
+          </div>
           <div class="flex justify-between items-center">
             <h3 class="font-bold text-slate-900 text-base">${c.name}</h3>
             <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-full font-bold">${c.origin}</span>
           </div>
           <div class="text-xs space-y-1 text-slate-600">
-            <p><strong>الإنتاج:</strong> ${c.years}</p>
-            <p><strong>المحرك:</strong> ${c.engine}</p>
-            <p><strong>توفر القطع:</strong> <span class="text-emerald-700 font-semibold">${c.availability}</span></p>
+            <p><strong>سنوات الانتشار:</strong> ${c.years}</p>
+            <p><strong>سعة المحرك:</strong> ${c.engine}</p>
+            <p><strong>توفر قطع الغيار في سوريا:</strong> <span class="text-emerald-700 font-semibold">${c.availability}</span></p>
+            <p><strong>الفئة السعرية:</strong> ${c.priceCategory}</p>
+          </div>
+          <div class="pt-2 border-t border-slate-100 text-xs space-y-1">
+            <p class="text-emerald-700"><i class="fa-solid fa-thumbs-up ml-1"></i> <strong>المميزات:</strong> ${c.pros}</p>
+            <p class="text-rose-700"><i class="fa-solid fa-thumbs-down ml-1"></i> <strong>السلبيات:</strong> ${c.cons}</p>
           </div>
         </div>
       `).join('');
     }
 
-    // Approved Shops
-    function handleSubmitsShop(e) {
-      e.preventDefault();
-      const shop = {
-        id: Date.now(),
-        name: document.getElementById('shop-name').value,
-        city: document.getElementById('shop-city').value,
-        spec: document.getElementById('shop-spec').value,
-        owner: document.getElementById('shop-owner').value || 'غير محدد',
-        phone: document.getElementById('shop-phone').value,
-        desc: document.getElementById('shop-desc').value || 'لا يوجد تفاصيل'
-      };
+    // Forum
+    function renderForumPosts() {
+      const container = document.getElementById('forum-posts-container');
+      if (approvedForumPosts.length === 0) {
+        container.innerHTML = `<div class="text-center py-8 text-slate-400">لا توجد تجارب معتمدة بالمنتدى حالياً.</div>`;
+        return;
+      }
+      container.innerHTML = approvedForumPosts.map(p => `
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-2">
+          <h4 class="font-bold text-slate-900 text-sm">${p.title} (${p.category})</h4>
+          <p class="text-xs text-slate-700 bg-slate-50 p-3 rounded-xl">${p.content}</p>
+          <span class="text-[10px] text-slate-400">بواسطة: ${p.author} - ${p.date}</span>
+        </div>
+      `).join('');
+    }
 
-      pendingShops.push(shop);
-      localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
-      closeModal('add-shop-modal');
+    function handleAddForumPost(e) {
+      e.preventDefault();
+      const post = {
+        id: Date.now(),
+        author: document.getElementById('post-author').value,
+        category: document.getElementById('post-category').value,
+        title: document.getElementById('post-title').value,
+        content: document.getElementById('post-content').value,
+        date: new Date().toISOString().split('T')[0]
+      };
+      pendingForumPosts.push(post);
+      localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
+      closeModal('add-post-modal');
       e.target.reset();
-      alert('تم إرسال محلك بنجاح للمسؤول لغرض المراجعة والنشر.');
+      alert('تم إرسال المنشور للمراجعة.');
+    }
+
+    // Parts & Accessories & Shops
+    function renderParts() {
+      const container = document.getElementById('parts-container');
+      container.innerHTML = approvedParts.map(p => `
+        <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs space-y-1">
+          <h4 class="font-bold text-slate-900 text-sm">${p.title} (${p.type})</h4>
+          <p>السيارة: ${p.car} - ${p.city}</p>
+          <p class="text-blue-600 font-bold">${p.price}</p>
+          <a href="https://wa.me/${p.phone.replace(/[^0-9]/g, '')}" target="_blank" class="inline-block mt-2 px-3 py-1 bg-emerald-600 text-white rounded font-bold">تواصل واتساب</a>
+        </div>
+      `).join('');
+    }
+
+    function handleAddPart(e) {
+      e.preventDefault();
+      pendingParts.push({
+        id: Date.now(),
+        type: document.getElementById('new-type').value,
+        title: document.getElementById('new-title').value,
+        car: document.getElementById('new-car').value,
+        city: document.getElementById('new-city').value,
+        phone: document.getElementById('new-phone').value,
+        price: 'حسب الاتفاق',
+        date: new Date().toISOString().split('T')[0]
+      });
+      localStorage.setItem('pending_parts', JSON.stringify(pendingParts));
+      closeModal('add-part-modal');
+      alert('تم الإرسال للمراجعة.');
+    }
+
+    function renderAccessories() {
+      const container = document.getElementById('accessories-container');
+      container.innerHTML = approvedAccessories.map(a => `
+        <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs space-y-1">
+          <h4 class="font-bold text-slate-900 text-sm">${a.title}</h4>
+          <p>المدينة: ${a.city}</p>
+          <a href="https://wa.me/${a.phone.replace(/[^0-9]/g, '')}" target="_blank" class="inline-block mt-2 px-3 py-1 bg-emerald-600 text-white rounded font-bold">تواصل واتساب</a>
+        </div>
+      `).join('');
+    }
+
+    function handleAddAccessory(e) {
+      e.preventDefault();
+      pendingAccessories.push({
+        id: Date.now(),
+        title: document.getElementById('acc-title').value,
+        city: document.getElementById('acc-city').value,
+        phone: document.getElementById('acc-phone').value,
+        date: new Date().toISOString().split('T')[0]
+      });
+      localStorage.setItem('pending_accessories', JSON.stringify(pendingAccessories));
+      closeModal('add-accessory-modal');
+      alert('تم الإرسال للمراجعة.');
     }
 
     function renderApprovedShops() {
       const container = document.getElementById('approved-shops-container');
-      if (approvedShops.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">لا توجد محلات معتمدة حالياً.</div>`;
-        return;
-      }
       container.innerHTML = approvedShops.map(s => `
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-bold text-slate-900 text-base">${s.name}</h3>
-              <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">${s.city}</span>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs space-y-1">
+          <h4 class="font-bold text-slate-900 text-sm">${s.name} (${s.city})</h4>
+          <p>التخصص: ${s.spec}</p>
+          <a href="https://wa.me/${s.phone.replace(/[^0-9]/g, '')}" target="_blank" class="inline-block mt-2 px-3 py-1 bg-emerald-600 text-white rounded font-bold">تواصل واتساب</a>
+        </div>
+      `).join('');
+    }
+
+    function handleSubmitsShop(e) {
+      e.preventDefault();
+      pendingShops.push({
+        id: Date.now(),
+        name: document.getElementById('shop-name').value,
+        city: document.getElementById('shop-city').value,
+        spec: document.getElementById('shop-spec').value,
+        phone: document.getElementById('shop-phone').value
+      });
+      localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
+      closeModal('add-shop-modal');
+      alert('تم الإرسال للمراجعة.');
+    }
+
+    // ADMIN DASHBOARD
+    function renderAdminDashboard() {
+      // Pending Cars for Sale
+      const pCarsContainer = document.getElementById('pending-cars-sale-container');
+      if (pendingCarsForSale.length === 0) {
+        pCarsContainer.innerHTML = `<div class="text-xs text-slate-400 py-2">لا توجد إعلانات سيارات معلقة.</div>`;
+      } else {
+        pCarsContainer.innerHTML = pendingCarsForSale.map((c, i) => `
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-wrap justify-between items-center gap-2 text-xs">
+            <div><strong>${c.title}</strong> (${c.year}) - المدينة: ${c.city} | السعر: ${c.price} | الصور: ${c.images.length} صور</div>
+            <div class="flex gap-2">
+              <button onclick="approveItem('car_sale', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة ونشر</button>
+              <button onclick="rejectItem('car_sale', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
             </div>
-            <p class="text-xs text-blue-600 font-bold mb-2"><i class="fa-solid fa-wrench ml-1"></i> التخصص: ${s.spec}</p>
-            <p class="text-xs text-slate-600 mb-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">${s.desc}</p>
           </div>
-          <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-            <span class="text-slate-500"><i class="fa-solid fa-user ml-1"></i> ${s.owner}</span>
-            <a href="https://wa.me/${s.phone.replace(/[^0-9]/g, '')}" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition flex items-center gap-1">
-              <i class="fa-brands fa-whatsapp"></i> تواصل
-            </a>
+        `).join('');
+      }
+
+      // Pending Forum
+      const pPostsContainer = document.getElementById('pending-posts-container');
+      pPostsContainer.innerHTML = pendingForumPosts.length === 0 ? `<div class="text-xs text-slate-400 py-2">لا توجد منشورات معلقة.</div>` : pendingForumPosts.map((p, i) => `
+        <div class="bg-slate-50 p-3 rounded-xl border flex justify-between text-xs">
+          <div><strong>${p.title}</strong> بواسطة ${p.author}</div>
+          <div class="flex gap-2">
+            <button onclick="approveItem('forum', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة</button>
+            <button onclick="rejectItem('forum', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Pending Shops
+      const pShopsContainer = document.getElementById('pending-shops-container');
+      pShopsContainer.innerHTML = pendingShops.length === 0 ? `<div class="text-xs text-slate-400 py-2">لا توجد محلات معلقة.</div>` : pendingShops.map((s, i) => `
+        <div class="bg-slate-50 p-3 rounded-xl border flex justify-between text-xs">
+          <div><strong>${s.name}</strong> (${s.city})</div>
+          <div class="flex gap-2">
+            <button onclick="approveItem('shop', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة</button>
+            <button onclick="rejectItem('shop', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Pending Parts
+      const pPartsContainer = document.getElementById('pending-parts-container');
+      pPartsContainer.innerHTML = pendingParts.length === 0 ? `<div class="text-xs text-slate-400 py-2">لا توجد قطع معلقة.</div>` : pendingParts.map((p, i) => `
+        <div class="bg-slate-50 p-3 rounded-xl border flex justify-between text-xs">
+          <div><strong>${p.title}</strong> (${p.car})</div>
+          <div class="flex gap-2">
+            <button onclick="approveItem('part', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة</button>
+            <button onclick="rejectItem('part', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Pending Accessories
+      const pAccContainer = document.getElementById('pending-accessories-container');
+      pAccContainer.innerHTML = pendingAccessories.length === 0 ? `<div class="text-xs text-slate-400 py-2">لا توجد زينة معلقة.</div>` : pendingAccessories.map((a, i) => `
+        <div class="bg-slate-50 p-3 rounded-xl border flex justify-between text-xs">
+          <div><strong>${a.title}</strong> (${a.city})</div>
+          <div class="flex gap-2">
+            <button onclick="approveItem('accessory', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة</button>
+            <button onclick="rejectItem('accessory', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
           </div>
         </div>
       `).join('');
     }
 
-    // ADMIN DASHBOARD RENDER & APPROVAL LOGIC
-    function renderAdminDashboard() {
-      // Pending Forum Posts
-      const pPostsContainer = document.getElementById('pending-posts-container');
-      if (pendingForumPosts.length === 0) {
-        pPostsContainer.innerHTML = `<div class="text-xs text-slate-400 py-2">لا توجد منشورات منتدى معلقة.</div>`;
-      } else {
-        pPostsContainer.innerHTML = pendingForumPosts.map((p, i) => `
-          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-wrap justify-between items-center gap-2 text-xs">
-            <div><strong>[${p.category}] ${p.title}</strong> بواسطة: ${p.author}<br><span class="text-slate-500">${p.content.substring(0, 80)}...</span></div>
-            <div class="flex gap-2">
-              <button onclick="approveItem('forum', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة ونشر</button>
-              <button onclick="rejectItem('forum', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      // Pending Shops
-      const pShopsContainer = document.getElementById('pending-shops-container');
-      if (pendingShops.length === 0) {
-        pShopsContainer.innerHTML = `<div class="text-xs text-slate-400 py-2">لا توجد طلبات محلات معلقة.</div>`;
-      } else {
-        pShopsContainer.innerHTML = pendingShops.map((s, i) => `
-          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-wrap justify-between items-center gap-2 text-xs">
-            <div><strong>${s.name}</strong> (${s.city}) - التخصص: ${s.spec} | الهاتف: ${s.phone}</div>
-            <div class="flex gap-2">
-              <button onclick="approveItem('shop', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة ونشر</button>
-              <button onclick="rejectItem('shop', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      // Pending Parts
-      const pPartsContainer = document.getElementById('pending-parts-container');
-      if (pendingParts.length === 0) {
-        pPartsContainer.innerHTML = `<div class="text-xs text-slate-400 py-2">لا توجد إعلانات قطع معلقة.</div>`;
-      } else {
-        pPartsContainer.innerHTML = pendingParts.map((p, i) => `
-          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-wrap justify-between items-center gap-2 text-xs">
-            <div><strong>[${p.type}] ${p.title}</strong> - السيارة: ${p.car} (${p.city}) | السعر: ${p.price}</div>
-            <div class="flex gap-2">
-              <button onclick="approveItem('part', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة ونشر</button>
-              <button onclick="rejectItem('part', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      // Pending Accessories
-      const pAccContainer = document.getElementById('pending-accessories-container');
-      if (pendingAccessories.length === 0) {
-        pAccContainer.innerHTML = `<div class="text-xs text-slate-400 py-2">لا توجد طلبات زينة معلقة.</div>`;
-      } else {
-        pAccContainer.innerHTML = pendingAccessories.map((a, i) => `
-          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-wrap justify-between items-center gap-2 text-xs">
-            <div><strong>[${a.type}] ${a.title}</strong> - المدينة: ${a.city} | السعر: ${a.price}</div>
-            <div class="flex gap-2">
-              <button onclick="approveItem('accessory', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded font-bold">موافقة ونشر</button>
-              <button onclick="rejectItem('accessory', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded font-bold">حذف</button>
-            </div>
-          </div>
-        `).join('');
-      }
-    }
-
     function approveItem(type, index) {
-      if (type === 'forum') {
+      if (type === 'car_sale') {
+        const item = pendingCarsForSale.splice(index, 1)[0];
+        approvedCarsForSale.unshift(item);
+        localStorage.setItem('approved_cars_for_sale', JSON.stringify(approvedCarsForSale));
+        localStorage.setItem('pending_cars_for_sale', JSON.stringify(pendingCarsForSale));
+        renderCarsForSale();
+      } else if (type === 'forum') {
         const item = pendingForumPosts.splice(index, 1)[0];
         approvedForumPosts.unshift(item);
         localStorage.setItem('approved_forum_posts', JSON.stringify(approvedForumPosts));
@@ -957,25 +919,24 @@
         renderAccessories();
       }
       renderAdminDashboard();
-      alert('تمت الموافقة بنجاح ونشر المحتوى للجمهور!');
+      alert('تمت الموافقة والنشر بنجاح!');
     }
 
     function rejectItem(type, index) {
-      if (type === 'forum') {
-        pendingForumPosts.splice(index, 1);
-        localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
-      } else if (type === 'shop') {
-        pendingShops.splice(index, 1);
-        localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
-      } else if (type === 'part') {
-        pendingParts.splice(index, 1);
-        localStorage.setItem('pending_parts', JSON.stringify(pendingParts));
-      } else if (type === 'accessory') {
-        pendingAccessories.splice(index, 1);
-        localStorage.setItem('pending_accessories', JSON.stringify(pendingAccessories));
-      }
+      if (type === 'car_sale') pendingCarsForSale.splice(index, 1);
+      else if (type === 'forum') pendingForumPosts.splice(index, 1);
+      else if (type === 'shop') pendingShops.splice(index, 1);
+      else if (type === 'part') pendingParts.splice(index, 1);
+      else if (type === 'accessory') pendingAccessories.splice(index, 1);
+
+      localStorage.setItem('pending_cars_for_sale', JSON.stringify(pendingCarsForSale));
+      localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
+      localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
+      localStorage.setItem('pending_parts', JSON.stringify(pendingParts));
+      localStorage.setItem('pending_accessories', JSON.stringify(pendingAccessories));
+
       renderAdminDashboard();
-      alert('تم رفض وحذف الطلب.');
+      alert('تم الحذف بنجاح.');
     }
   </script>
 </body>
