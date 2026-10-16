@@ -32,7 +32,7 @@
     <div class="max-w-7xl mx-auto px-4 py-3">
       <div class="flex items-center justify-between gap-4 mb-3">
         
-        <!-- Logo & Secret Admin Trigger (5 clicks on logo) -->
+        <!-- Logo & Secret Admin Trigger -->
         <div onclick="handleLogoClicks()" class="flex items-center gap-3 cursor-pointer select-none">
           <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 text-white rounded-2xl flex items-center justify-center text-xl font-black shadow-lg shadow-blue-500/30">
             <i class="fa-solid fa-car-side"></i>
@@ -44,19 +44,17 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <!-- Suggestion Button -->
           <button onclick="openModal('add-suggestion-modal')" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1.5 rounded-xl border border-amber-500/30 transition flex items-center gap-1.5">
             <i class="fa-solid fa-lightbulb"></i> اقتراح للإدارة
           </button>
           
-          <!-- Mobile Install Button Trigger -->
           <button id="header-install-btn" onclick="promptPwaInstall()" class="hidden text-xs bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-extrabold px-3.5 py-1.5 rounded-xl shadow-md transition items-center gap-1.5">
             <i class="fa-solid fa-download"></i> تثبيت
           </button>
         </div>
       </div>
 
-      <!-- Scrollable Modern Tabs -->
+      <!-- Navigation Tabs -->
       <nav class="flex items-center gap-2 overflow-x-auto nav-scrollbar py-1 text-xs font-bold">
         <button onclick="switchTab('ai-tab')" id="btn-ai-tab" class="tab-btn active shrink-0 px-4 py-2 rounded-xl transition bg-blue-600 text-white shadow-md shadow-blue-600/30 flex items-center gap-1.5">
           <i class="fa-solid fa-microchip"></i> تشخيص الأعطال
@@ -77,7 +75,6 @@
           <i class="fa-solid fa-wrench text-rose-400"></i> الورش والمحلات
         </button>
 
-        <!-- Hidden Tab for Admin -->
         <button onclick="switchTab('admin-tab')" id="btn-admin-tab" class="tab-btn hidden shrink-0 px-4 py-2 rounded-xl transition bg-rose-600/90 text-white flex items-center gap-1.5 border border-rose-500/50">
           <i class="fa-solid fa-shield-halved"></i> لوحة الإدارة السرية
         </button>
@@ -85,7 +82,7 @@
     </div>
   </header>
 
-  <!-- PWA Install Popup Banner -->
+  <!-- PWA Banner -->
   <div id="pwa-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-slate-900/95 text-white p-4 rounded-2xl shadow-2xl border border-slate-700/80 backdrop-blur-xl z-50 flex items-center justify-between gap-3 hidden transition-all duration-300">
     <div class="flex items-center gap-3">
       <div class="w-11 h-11 bg-blue-600 text-white rounded-xl flex items-center justify-center text-xl shrink-0 shadow-lg shadow-blue-500/40">
@@ -167,7 +164,7 @@
       </div>
     </section>
 
-    <!-- 2. CARS FOR SALE TAB WITH CITY FILTER & SEARCH -->
+    <!-- 2. CARS FOR SALE TAB -->
     <section id="cars-sale-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -180,7 +177,6 @@
           </button>
         </div>
 
-        <!-- City Filter Sub-Tabs -->
         <div class="flex gap-2 overflow-x-auto nav-scrollbar py-1">
           <button onclick="filterCarsByCity('ALL')" class="car-city-btn active bg-amber-500 text-slate-950 px-3.5 py-1.5 rounded-xl text-xs font-black transition shrink-0">جميع المحافظات</button>
           <button onclick="filterCarsByCity('حلب')" class="car-city-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-location-dot ml-1 text-rose-600"></i> حلب</button>
@@ -189,7 +185,6 @@
           <button onclick="filterCarsByCity('حمص')" class="car-city-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-location-dot ml-1 text-rose-600"></i> حمص / حماة</button>
         </div>
 
-        <!-- Search Bar -->
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
           <input type="text" id="cars-sale-search" oninput="renderCarsForSale()" placeholder="بحث باسم السيارة أو الموديل..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
@@ -199,13 +194,13 @@
       <div id="cars-for-sale-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 3. OWNERS FORUM TAB WITH SEARCH -->
+    <!-- 3. OWNERS FORUM TAB WITH REPLIES & UNIQUE USERNAME -->
     <section id="forum-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
           <div>
-            <h2 class="text-xl font-black text-slate-900">منتدى ومجتمع الملاك</h2>
-            <p class="text-xs text-slate-500">نقاشات وتجارب الملاك والخبرات العملية الصادقة</p>
+            <h2 class="text-xl font-black text-slate-900">منتدى ومجتمع الملاك التفاعلي</h2>
+            <p class="text-xs text-slate-500">نقاشات وتجارب عملية مع إمكانية الرد والتبادل بين المستخدمين بأسماء فريدة</p>
           </div>
           <button onclick="openModal('add-post-modal')" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-md transition text-xs flex items-center gap-2">
             <i class="fa-solid fa-pen-to-square"></i> إضافة تجربة / منشور
@@ -305,6 +300,16 @@
 
         <div class="space-y-6">
           <div>
+            <h3 class="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5"><i class="fa-solid fa-comments text-indigo-500"></i> ردود المنتدى المعلقة للموافقة:</h3>
+            <div id="pending-replies-container" class="space-y-3"></div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5"><i class="fa-solid fa-pen-to-square text-indigo-600"></i> منشورات المنتدى المعلقة:</h3>
+            <div id="pending-posts-container" class="space-y-3"></div>
+          </div>
+
+          <div>
             <h3 class="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5"><i class="fa-solid fa-lightbulb text-amber-500"></i> اقتراحات ورسائل الزوار:</h3>
             <div id="pending-suggestions-container" class="space-y-3"></div>
           </div>
@@ -312,11 +317,6 @@
           <div>
             <h3 class="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5"><i class="fa-solid fa-car text-amber-500"></i> السيارات المعروضة المعلقة:</h3>
             <div id="pending-cars-sale-container" class="space-y-3"></div>
-          </div>
-
-          <div>
-            <h3 class="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5"><i class="fa-solid fa-comments text-indigo-500"></i> منشورات المنتدى المعلقة:</h3>
-            <div id="pending-posts-container" class="space-y-3"></div>
           </div>
 
           <div>
@@ -345,7 +345,7 @@
       <p class="text-xs text-slate-500 mb-4">رأيك يهمنا لمساعدتنا في تطوير المنصة وتلبية احتياجاتكم</p>
       
       <form onsubmit="handleAddSuggestion(event)" class="space-y-3">
-        <input type="text" id="sug-name" required placeholder="اسمك الكريم *" class="w-full p-3 border rounded-2xl text-xs font-medium">
+        <input type="text" id="sug-name" required placeholder="اسم المستخدم الخاص بك *" class="w-full p-3 border rounded-2xl text-xs font-medium">
         <input type="text" id="sug-phone" required placeholder="رقم الهاتف / واتساب للتواصل *" class="w-full p-3 border rounded-2xl text-xs font-medium">
         <textarea id="sug-content" rows="4" required placeholder="اكتب اقتراحك، ملاحظتك، أو استفسارك هنا..." class="w-full p-3 border rounded-2xl text-xs font-medium"></textarea>
         <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black rounded-2xl text-xs transition shadow-md">إرسال الاقتراح للإدارة</button>
@@ -407,21 +407,23 @@
     </div>
   </div>
 
-  <!-- Modal: Forum New Post -->
+  <!-- Modal: Forum New Post with Unique Username Check -->
   <div id="add-post-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-post-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-      <h3 class="text-base font-black text-slate-900 mb-3">مشاركة تجربة بالمنتدى</h3>
+      <h3 class="text-base font-black text-slate-900 mb-1">مشاركة تجربة بالمنتدى</h3>
+      <p class="text-xs text-slate-500 mb-3">اختر اسم مستخدم مميز وخاص بك لا يمكن تكراره</p>
+
       <form onsubmit="handleAddForumPost(event)" class="space-y-3">
         <div class="grid grid-cols-2 gap-3">
-          <input type="text" id="post-author" required placeholder="اسمك" class="p-3 border rounded-2xl text-xs">
-          <select id="post-category" class="p-3 border rounded-2xl text-xs">
+          <input type="text" id="post-author" required placeholder="اسم المستخدم الفريد الخاص بك *" class="p-3 border rounded-2xl text-xs font-bold">
+          <select id="post-category" class="p-3 border rounded-2xl text-xs font-medium">
             <option value="كيا">كيا</option><option value="هيونداي">هيونداي</option><option value="بيجو / شام">بيجو / شام</option><option value="عام">عام وتعديل</option>
           </select>
         </div>
-        <input type="text" id="post-title" required placeholder="عنوان التجربة" class="w-full p-3 border rounded-2xl text-xs">
-        <textarea id="post-content" rows="3" required placeholder="التفاصيل..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
-        <button type="submit" class="w-full py-3 bg-indigo-600 text-white font-extrabold rounded-2xl text-xs">إرسال للمراجعة</button>
+        <input type="text" id="post-title" required placeholder="عنوان التجربة *" class="w-full p-3 border rounded-2xl text-xs font-medium">
+        <textarea id="post-content" rows="3" required placeholder="التفاصيل والنصيحة..." class="w-full p-3 border rounded-2xl text-xs font-medium"></textarea>
+        <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl text-xs transition shadow-md">إرسال للمراجعة والنشر</button>
       </form>
     </div>
   </div>
@@ -468,19 +470,18 @@
     </div>
   </div>
 
-  <!-- Footer with Secret Admin Button -->
+  <!-- Footer -->
   <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800 mt-auto">
     <div class="max-w-7xl mx-auto px-4 space-y-2">
       <p class="text-slate-300 font-bold flex items-center justify-center gap-1.5">
         مرآب وسوق السيارات العربي &copy; 2026 - جميع الحقوق محفوظة
-        <!-- SECRET ADMIN LOCK ICON -->
         <span onclick="openAdminSecretPassModal()" class="cursor-pointer text-slate-700 hover:text-slate-500 transition ml-1" title="لوحة التحكم">🔒</span>
       </p>
       <p class="text-slate-500 text-[11px]">المنصة الخدمية المعتمدة لمالكي وسوق السيارات في حلب وسوريا</p>
     </div>
   </footer>
 
-  <!-- Script Logic with Enhanced Security & Pre-filled Facebook/Local Content -->
+  <!-- Script Logic -->
   <script>
     const ADMIN_PASSWORD_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
     let isAdminLoggedIn = false;
@@ -499,31 +500,65 @@
       return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
     }
 
-    // CAR CATALOG DATA
-    const CAR_CATALOG = [
-      { name: "هيونداي أكسنت (Accent) / أفانتي", origin: "كوري", years: "2000 - 2024", engine: "1.4L / 1.6L", availability: "متوفرة بكثرة خارقة بحلب وسوريا", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500", pros: "الأكثر انتشاراً في حلب، قطع غيار رخيصة جداً وصيانة سهلة.", cons: "العزل الثابت متوسط." },
-      { name: "كيا ريو / سيراتو", origin: "كوري", years: "2003 - 2023", engine: "1.4L / 1.6L", availability: "ممتازة جداً بحلب وشوارعها", image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", pros: "تصميم مرغوب، ثبات جيد، صيانة متوفرة بالراموسة والسريان.", cons: "ارتفاع بسيط بأسعار القطع الكورية الأصلية." },
-      { name: "شام (Sham) / سايبا", origin: "فرنسي / محلي", years: "2007 - 2018", engine: "1.6L / 1.8L", availability: "متوفرة بكل مكان وبسعر مناسب", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500", pros: "هيكل قوي ومتين يتحمل شوارع حلب، صيانة ورخيصة.", cons: "مصروف الوقود مرتفع نسبياً." },
-      { name: "تويوتا كورولا (Corolla)", origin: "ياباني", years: "1998 - 2024", engine: "1.3L / 1.6L", availability: "ممتازة جداً", image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=500", pros: "اعتمادية أسطورية تحافظ على قيمتها وسعرها.", cons: "سعر الشراء مرتفع للأنواع النظيفة." }
+    // UNIQUE USERNAME VALIDATION LOGIC
+    let registeredUsers = JSON.parse(localStorage.getItem('registered_users_list')) || [
+      { username: "أبو أحمد الحلبي" },
+      { username: "المهندس محمود" },
+      { username: "أبو خالد" }
     ];
 
-    // PRE-FILLED LOCAL DATA (ALEPRO & SYRIA)
+    function checkAndRegisterUsername(rawUsername) {
+      const cleanName = rawUsername.trim();
+      const existing = registeredUsers.find(u => u.username.toLowerCase() === cleanName.toLowerCase());
+      
+      const mySavedUsername = localStorage.getItem('my_saved_unique_username');
+      if (mySavedUsername && mySavedUsername.toLowerCase() === cleanName.toLowerCase()) {
+        return { success: true, name: cleanName };
+      }
+
+      if (existing) {
+        return { success: false, error: "اسم المستخدم هذا محجوز لاسم آخر! يرجى اختيار اسم فريد ومميز." };
+      }
+
+      registeredUsers.push({ username: cleanName });
+      localStorage.setItem('registered_users_list', JSON.stringify(registeredUsers));
+      localStorage.setItem('my_saved_unique_username', cleanName);
+      return { success: true, name: cleanName };
+    }
+
+    // INITIAL DATA WITH REPLIES SUPPORT
+    const INITIAL_FORUM_POSTS = [
+      { 
+        id: 201, 
+        author: "أبو أحمد الحلبي", 
+        category: "بيجو / شام", 
+        title: "حل مشكلة الحرارة بالصيف في سيارات شام وبيجو بحلب", 
+        content: "يا شباب بعد تجربة طويلة مع الحرارة بالأزمة، أفضل حل تركيب بلف حرارة 82 درجة مع ردياتير ألمنيوم صفين وتنظيف دورة التبريد عند ورش الراموسة. الحرارة بالنصف تماماً حتى مع التكييف.", 
+        date: "2026-10-14",
+        replies: [
+          { id: 2011, author: "المهندس محمود", content: "كلام مظبوط 100%، البلف الـ 82 ممتاز وخصوصاً مع الحر الشديد بحلب بالصيف.", date: "2026-10-14" }
+        ]
+      },
+      { 
+        id: 202, 
+        author: "المهندس محمود", 
+        category: "كيا", 
+        title: "تجربتي مع أفضل نوعية زيت محرك لسيراتو وريو", 
+        content: "أنصح أصحاب الكيا بتفقد لزوجة الزيت 5W30 أو 10W40 ألماني أو كوري أصلي وتغييره كل 5000 كم لضمان حماية التكايات والصمام المتغير VVT.", 
+        date: "2026-10-11",
+        replies: []
+      }
+    ];
+
     const INITIAL_APPROVED_CARS = [
       { id: 101, title: "هيونداي أكسنت 2010 خالية العَلام", year: "2010", km: "128,000 كم", city: "حلب", price: "88,000,000 ل.س", phone: "0991122334", images: ["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800", "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800"], desc: "سيارة هيونداي أكسنت 2010 كورية كاملة جاهزية 100%. خالية البخ والقص تماماً، دوزان وميكانيك جديد بالكامل، تكييف ثلج، لوحات حلب وتواجد في حلب الجديدة.", date: "2026-10-15" },
       { id: 102, title: "كيا سيراتو 2008 أوتوماتيك أصلية", year: "2008", km: "145,000 كم", city: "حلب", price: "95,000,000 ل.س", phone: "0988334455", images: ["https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800"], desc: "كيا سيراتو موديل 2008 محرك 1.6L بنزين أوتوماتيك، بخ قطعتين نظافة، فرش جلد أوريجينال، دوزان جديد، تواجد حلب - المحافظة.", date: "2026-10-14" },
-      { id: 103, title: "سيارة شام موديل 2011 جاهزة للترسيم", year: "2011", km: "160,000 كم", city: "حلب", price: "48,000,000 ل.س", phone: "0933112244", images: ["https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800"], desc: "شام موديل 2011 بخ ناعم خالي القص، محرك 1.8 ممتاز، بطارية جديدة مع دوزان جديد. تواجد حلب - الفرقان.", date: "2026-10-12" },
-      { id: 104, title: "تويوتا كورولا 2007 ياباني أصلية", year: "2007", km: "170,000 كم", city: "دمشق", price: "115,000,000 ل.س", phone: "0944556677", images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800"], desc: "تويوتا كورولا 2007 محرك 1.6 غيار عادي، خالية من الداخل تماماً وبخ ناعم من الخارج، جاهزية عالية.", date: "2026-10-10" }
-    ];
-
-    const INITIAL_FORUM_POSTS = [
-      { id: 201, author: "أبو أحمد الحلبي", category: "بيجو / شام", title: "حل مشكلة الحرارة بالصيف في سيارات شام وبيجو بحلب", content: "يا شباب بعد تجربة طويلة مع الحرارة بالأزمة، أفضل حل تركيب بلف حرارة 82 درجة مع ردياتير ألمنيوم صفين وتنظيف دورة التبريد عند ورش الراموسة. الحرارة بالنصف تماماً حتى مع التكييف.", date: "2026-10-14" },
-      { id: 202, author: "المهندس محمود", category: "كيا", title: "تجربتي مع أفضل نوعية زيت محرك لسيراتو وريو", content: "أنصح أصحاب الكيا بتفقد لزوجة الزيت 5W30 أو 10W40 ألماني أو كوري أصلي وتغييره كل 5000 كم لضمان حماية التكايات والصمام المتغير VVT.", date: "2026-10-11" }
+      { id: 103, title: "سيارة شام موديل 2011 جاهزة للترسيم", year: "2011", km: "160,000 كم", city: "حلب", price: "48,000,000 ل.س", phone: "0933112244", images: ["https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800"], desc: "شام موديل 2011 بخ ناعم خالي القص، محرك 1.8 ممتاز، بطارية جديدة مع دوزان جديد. تواجد حلب - الفرقان.", date: "2026-10-12" }
     ];
 
     const INITIAL_PARTS = [
       { id: 301, type: "عرض", category: "زينة", title: "شاشة أندرويد 10 إنش مع كاميرا ريفرس", car: "تناسب كيا / هيونداي / شام", city: "حلب", phone: "0991223344" },
-      { id: 302, type: "طلب", category: "كهرباء", title: "مطلوب حساس أكسجين أصلي مستعمل نظيف", car: "كيا سيراتو 2008", city: "حلب", phone: "0988776655" },
-      { id: 303, type: "عرض", category: "ميكانيك", title: "طقم كويلات كورية أصلية مع بواجي ليزار", car: "هيونداي أكسنت / أفانتي", city: "حلب", phone: "0933445566" }
+      { id: 302, type: "طلب", category: "كهرباء", title: "مطلوب حساس أكسجين أصلي مستعمل نظيف", car: "كيا سيراتو 2008", city: "حلب", phone: "0988776655" }
     ];
 
     const INITIAL_SHOPS = [
@@ -531,14 +566,21 @@
       { id: 402, name: "مركز الأمان لكهرباء وفحص السيارات بالكمبيوتر", city: "حلب - السريان الجديدة", spec: "فحص كمبيوتر Scanner، برمجة حساسات، وتكييف", phone: "0922334455" }
     ];
 
-    // DATABASES INITIALIZATION
+    const CAR_CATALOG = [
+      { name: "هيونداي أكسنت (Accent) / أفانتي", origin: "كوري", years: "2000 - 2024", engine: "1.4L / 1.6L", availability: "متوفرة بكثرة خارقة بحلب وسوريا", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500", pros: "الأكثر انتشاراً في حلب، قطع غيار رخيصة جداً وصيانة سهلة.", cons: "العزل الثابت متوسط." },
+      { name: "كيا ريو / سيراتو", origin: "كوري", years: "2003 - 2023", engine: "1.4L / 1.6L", availability: "ممتازة جداً بحلب وشوارعها", image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500", pros: "تصميم مرغوب، ثبات جيد، صيانة متوفرة بالراموسة والسريان.", cons: "ارتفاع بسيط بأسعار القطع الكورية الأصلية." },
+      { name: "شام (Sham) / سايبا", origin: "فرنسي / محلي", years: "2007 - 2018", engine: "1.6L / 1.8L", availability: "متوفرة بكل مكان وبسعر مناسب", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500", pros: "هيكل قوي ومتين يتحمل شوارع حلب، صيانة ورخيصة.", cons: "مصروف الوقود مرتفع نسبياً." }
+    ];
+
+    // LOCAL STORAGE DB SETUP
     let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || INITIAL_APPROVED_CARS;
     let pendingCarsForSale = JSON.parse(localStorage.getItem('pending_cars_for_sale')) || [];
     let approvedForumPosts = JSON.parse(localStorage.getItem('approved_forum_posts')) || INITIAL_FORUM_POSTS;
+    let pendingForumPosts = JSON.parse(localStorage.getItem('pending_forum_posts')) || [];
+    let pendingForumReplies = JSON.parse(localStorage.getItem('pending_forum_replies')) || [];
     let approvedParts = JSON.parse(localStorage.getItem('approved_parts')) || INITIAL_PARTS;
     let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || INITIAL_SHOPS;
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
-    let pendingForumPosts = JSON.parse(localStorage.getItem('pending_forum_posts')) || [];
     let pendingParts = JSON.parse(localStorage.getItem('pending_parts')) || [];
     let pendingShops = JSON.parse(localStorage.getItem('pending_shops')) || [];
 
@@ -549,6 +591,13 @@
       renderCarCatalog();
       renderApprovedShops();
       requestNotificationPermission();
+
+      // Pre-fill saved unique username if exists
+      const savedUser = localStorage.getItem('my_saved_unique_username');
+      if (savedUser) {
+        if(document.getElementById('post-author')) document.getElementById('post-author').value = savedUser;
+        if(document.getElementById('sug-name')) document.getElementById('sug-name').value = savedUser;
+      }
     });
 
     function switchTab(tabId) {
@@ -605,7 +654,7 @@
         document.getElementById('btn-admin-tab').classList.remove('hidden');
         switchTab('admin-tab');
         renderAdminDashboard();
-        alert('أهلاً بك يا مدير! تم التحقق بنجاح وفتح لوحة الإدارة.');
+        alert('أهلاً بك يا مدير! تم فتح لوحة الإدارة.');
       } else {
         alert('كلمة السر خاطئة!');
       }
@@ -626,7 +675,125 @@
       }
     }
 
-    // CARS FOR SALE BY CITY FILTER & SEARCH
+    // FORUM WITH REPLIES & UNIQUE USERNAME
+    function renderForumPosts() {
+      const search = document.getElementById('forum-search')?.value.toLowerCase() || '';
+      const container = document.getElementById('forum-posts-container');
+      const filtered = approvedForumPosts.filter(p => p.title.toLowerCase().includes(search) || p.content.toLowerCase().includes(search));
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">لا توجد مواضيع مطابقة للبحث.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const repliesList = p.replies || [];
+        return `
+        <div class="bg-white p-5 rounded-3xl border border-slate-200/80 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="bg-indigo-50 text-indigo-700 text-[10px] font-black px-3 py-1 rounded-full"><i class="fa-solid fa-car ml-1"></i> ${p.category}</span>
+            <span class="text-[10px] text-slate-400">${p.date}</span>
+          </div>
+
+          <h4 class="font-black text-slate-900 text-sm">${p.title}</h4>
+          <p class="text-xs text-slate-700 bg-slate-50 p-3 rounded-2xl font-medium leading-relaxed">${p.content}</p>
+          
+          <div class="flex justify-between items-center text-[11px] text-slate-500 pt-1 border-t border-slate-100">
+            <span class="font-bold text-slate-800"><i class="fa-solid fa-user-gear ml-1 text-indigo-600"></i> ${p.author}</span>
+            <button onclick="toggleReplies(${p.id})" class="text-indigo-600 hover:text-indigo-800 font-extrabold flex items-center gap-1">
+              <i class="fa-solid fa-comments"></i> عرض الردود والتعليق (${repliesList.length})
+            </button>
+          </div>
+
+          <!-- Replies Expandable Box -->
+          <div id="replies-box-${p.id}" class="hidden space-y-3 pt-3 border-t border-slate-100 bg-slate-50/50 p-4 rounded-2xl">
+            <h5 class="font-black text-xs text-slate-800">الردود والنقاشات:</h5>
+            
+            <div class="space-y-2">
+              ${repliesList.length === 0 ? `<p class="text-[11px] text-slate-400">لا توجد ردود بعد. كن أول من يشارك بالرد!</p>` : 
+                repliesList.map(r => `
+                  <div class="bg-white p-3 rounded-xl border border-slate-200/80 space-y-1">
+                    <div class="flex justify-between text-[10px] font-bold text-indigo-900">
+                      <span><i class="fa-solid fa-circle-user ml-1"></i> ${r.author}</span>
+                      <span class="text-slate-400 font-normal">${r.date}</span>
+                    </div>
+                    <p class="text-xs text-slate-700 font-medium">${r.content}</p>
+                  </div>
+                `).join('')
+              }
+            </div>
+
+            <!-- Add Reply Form -->
+            <form onsubmit="handleAddReply(event, ${p.id})" class="space-y-2 pt-2">
+              <input type="text" id="reply-author-${p.id}" required placeholder="اسم المستخدم الفريد الخاص بك *" class="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium">
+              <textarea id="reply-content-${p.id}" rows="2" required placeholder="اكتب ردك أو استفسارك هنا..." class="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium"></textarea>
+              <button type="submit" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl transition shadow-sm">إرسال الرد للمراجعة</button>
+            </form>
+          </div>
+        </div>
+      `}).join('');
+    }
+
+    function toggleReplies(postId) {
+      const box = document.getElementById(`replies-box-${postId}`);
+      if(box) box.classList.toggle('hidden');
+    }
+
+    function handleAddForumPost(e) {
+      e.preventDefault();
+      requestNotificationPermission();
+      
+      const rawAuthor = document.getElementById('post-author').value;
+      const userCheck = checkAndRegisterUsername(rawAuthor);
+
+      if (!userCheck.success) {
+        alert(userCheck.error);
+        return;
+      }
+
+      pendingForumPosts.push({
+        id: Date.now(),
+        author: sanitizeHTML(userCheck.name),
+        category: sanitizeHTML(document.getElementById('post-category').value),
+        title: sanitizeHTML(document.getElementById('post-title').value),
+        content: sanitizeHTML(document.getElementById('post-content').value),
+        date: new Date().toISOString().split('T')[0],
+        replies: []
+      });
+
+      localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
+      closeModal('add-post-modal');
+      e.target.reset();
+      alert('تم إرسال المنشور للمراجعة والنشر.');
+    }
+
+    function handleAddReply(e, postId) {
+      e.preventDefault();
+      requestNotificationPermission();
+
+      const authorInput = document.getElementById(`reply-author-${postId}`).value;
+      const contentInput = document.getElementById(`reply-content-${postId}`).value;
+
+      const userCheck = checkAndRegisterUsername(authorInput);
+      if (!userCheck.success) {
+        alert(userCheck.error);
+        return;
+      }
+
+      pendingForumReplies.push({
+        id: Date.now(),
+        postId: postId,
+        author: sanitizeHTML(userCheck.name),
+        content: sanitizeHTML(contentInput),
+        date: new Date().toISOString().split('T')[0]
+      });
+
+      localStorage.setItem('pending_forum_replies', JSON.stringify(pendingForumReplies));
+      e.target.reset();
+      alert('تم إرسال الرد بنجاح! سيظهر بعد مراجعة وموافقة الإدارة.');
+    }
+
+    // CARS FOR SALE
     function filterCarsByCity(city) {
       selectedCarCity = city;
       document.querySelectorAll('.car-city-btn').forEach(btn => {
@@ -799,41 +966,6 @@
       alert('تم إرسال الطلب للمراجعة.');
     }
 
-    // FORUM
-    function renderForumPosts() {
-      const search = document.getElementById('forum-search')?.value.toLowerCase() || '';
-      const container = document.getElementById('forum-posts-container');
-      const filtered = approvedForumPosts.filter(p => p.title.toLowerCase().includes(search) || p.content.toLowerCase().includes(search));
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">لا توجد مواضيع مطابقة للبحث.</div>`;
-        return;
-      }
-      container.innerHTML = filtered.map(p => `
-        <div class="bg-white p-5 rounded-3xl border border-slate-200/80 space-y-2">
-          <h4 class="font-black text-slate-900 text-xs">${p.title} (${p.category})</h4>
-          <p class="text-xs text-slate-700 bg-slate-50 p-3 rounded-2xl font-medium">${p.content}</p>
-          <span class="text-[10px] text-slate-400">بواسطة: ${p.author} - ${p.date}</span>
-        </div>
-      `).join('');
-    }
-
-    function handleAddForumPost(e) {
-      e.preventDefault();
-      requestNotificationPermission();
-      pendingForumPosts.push({
-        id: Date.now(),
-        author: sanitizeHTML(document.getElementById('post-author').value),
-        category: sanitizeHTML(document.getElementById('post-category').value),
-        title: sanitizeHTML(document.getElementById('post-title').value),
-        content: sanitizeHTML(document.getElementById('post-content').value),
-        date: new Date().toISOString().split('T')[0]
-      });
-      localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
-      closeModal('add-post-modal');
-      alert('تم إرسال المنشور للمراجعة.');
-    }
-
     // CAR CATALOG
     function renderCarCatalog() {
       const search = document.getElementById('car-search-input').value.toLowerCase();
@@ -893,6 +1025,31 @@
     }
 
     function renderAdminDashboard() {
+      // Pending Forum Replies
+      document.getElementById('pending-replies-container').innerHTML = pendingForumReplies.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد ردود معلقة.</div>` : pendingForumReplies.map((r, i) => `
+        <div class="bg-indigo-50/60 p-3 rounded-2xl border border-indigo-200 text-xs space-y-1 flex justify-between items-center">
+          <div>
+            <strong>رد من (${r.author}):</strong>
+            <p class="text-slate-700 font-medium">${r.content}</p>
+          </div>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="approveReply(${i})" class="px-3 py-1 bg-emerald-600 text-white rounded-xl font-bold">موافقة ونشر</button>
+            <button onclick="rejectReply(${i})" class="px-3 py-1 bg-rose-600 text-white rounded-xl font-bold">حذف</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Pending Forum Posts
+      document.getElementById('pending-posts-container').innerHTML = pendingForumPosts.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد منشورات منتدى معلقة.</div>` : pendingForumPosts.map((p, i) => `
+        <div class="bg-slate-50 p-3 rounded-2xl border flex justify-between items-center text-xs">
+          <div><strong>${p.title}</strong> بواسطة (${p.author})</div>
+          <div class="flex gap-2">
+            <button onclick="approveItem('forum', ${i})" class="px-3 py-1 bg-emerald-600 text-white rounded-xl font-bold">موافقة</button>
+            <button onclick="rejectItem('forum', ${i})" class="px-3 py-1 bg-rose-600 text-white rounded-xl font-bold">حذف</button>
+          </div>
+        </div>
+      `).join('');
+
       document.getElementById('pending-suggestions-container').innerHTML = adminSuggestions.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد اقتراحات جديدة.</div>` : adminSuggestions.map((s) => `
         <div class="bg-amber-50/60 p-3 rounded-2xl border border-amber-200 text-xs space-y-1">
           <div class="flex justify-between font-bold text-amber-900"><span>من: ${s.name} (${s.phone})</span><span>${s.date}</span></div>
@@ -921,6 +1078,29 @@
       `).join('');
     }
 
+    function approveReply(index) {
+      const reply = pendingForumReplies.splice(index, 1)[0];
+      const post = approvedForumPosts.find(p => p.id === reply.postId);
+      
+      if(post) {
+        if(!post.replies) post.replies = [];
+        post.replies.push({ id: reply.id, author: reply.author, content: reply.content, date: reply.date });
+        localStorage.setItem('approved_forum_posts', JSON.stringify(approvedForumPosts));
+      }
+      
+      localStorage.setItem('pending_forum_replies', JSON.stringify(pendingForumReplies));
+      renderAdminDashboard();
+      renderForumPosts();
+      sendUserNotification("🎉 تم نشر ردك", `تمت الموافقة ونشر ردك على الموضوع بالمنتدى.`);
+      alert('تمت الموافقة ونشر الرد!');
+    }
+
+    function rejectReply(index) {
+      pendingForumReplies.splice(index, 1);
+      localStorage.setItem('pending_forum_replies', JSON.stringify(pendingForumReplies));
+      renderAdminDashboard();
+    }
+
     function approveItem(type, index) {
       let approvedTitle = "";
       if (type === 'car_sale') {
@@ -930,6 +1110,13 @@
         localStorage.setItem('approved_cars_for_sale', JSON.stringify(approvedCarsForSale));
         localStorage.setItem('pending_cars_for_sale', JSON.stringify(pendingCarsForSale));
         renderCarsForSale();
+      } else if (type === 'forum') {
+        const item = pendingForumPosts.splice(index, 1)[0];
+        approvedTitle = item.title;
+        approvedForumPosts.unshift(item);
+        localStorage.setItem('approved_forum_posts', JSON.stringify(approvedForumPosts));
+        localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
+        renderForumPosts();
       } else if (type === 'part') {
         const item = pendingParts.splice(index, 1)[0];
         approvedTitle = item.title;
@@ -945,8 +1132,11 @@
 
     function rejectItem(type, index) {
       if (type === 'car_sale') pendingCarsForSale.splice(index, 1);
+      else if (type === 'forum') pendingForumPosts.splice(index, 1);
       else if (type === 'part') pendingParts.splice(index, 1);
+      
       localStorage.setItem('pending_cars_for_sale', JSON.stringify(pendingCarsForSale));
+      localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
       localStorage.setItem('pending_parts', JSON.stringify(pendingParts));
       renderAdminDashboard();
     }
