@@ -25,7 +25,13 @@
     .nav-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .card-hover { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
     .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.08); }
-    marquee { background: #1e293b; color: #f8fafc; padding: 8px 0; font-size: 12px; font-weight: bold; border-bottom: 1px solid #334155; }
+    .ticker-wrapper { background: #1e293b; color: #f8fafc; padding: 8px 0; font-size: 12px; font-weight: bold; border-bottom: 1px solid #334155; overflow: hidden; white-space: nowrap; }
+    .ticker-content { display: inline-block; animation: tickerLeftToRight 25s linear infinite; }
+    .ticker-content:hover { animation-play-state: paused; }
+    @keyframes tickerLeftToRight {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen antialiased selection:bg-blue-500 selection:text-white">
@@ -53,7 +59,7 @@
         </div>
       </div>
 
-      <!-- Global Search Bar (New) -->
+      <!-- Global Search Bar -->
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-slate-400 text-xs"></i>
         <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="بحث شامل في المعارض، السيارات، الورش، والقطع..." class="w-full pr-10 pl-4 py-2 bg-slate-800/90 border border-slate-700 text-white rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
@@ -96,12 +102,14 @@
     </div>
   </header>
 
-  <!-- Marquee Ticker -->
-  <div class="bg-slate-900 border-b border-slate-800 text-amber-400 py-2 px-4 text-xs font-bold flex items-center gap-2 shadow-inner">
-    <span class="bg-amber-500 text-slate-950 px-2 py-0.5 rounded-lg text-[10px] font-black shrink-0"><i class="fa-solid fa-bolt"></i> آخر النشاطات:</span>
-    <marquee direction="left" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();" class="cursor-pointer" id="ticker-container">
-      جارِ التحميل...
-    </marquee>
+  <!-- Marquee Ticker (Moving from Left to Right) -->
+  <div class="ticker-wrapper flex items-center px-4 shadow-inner">
+    <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> آخر النشاطات:</span>
+    <div class="overflow-hidden w-full">
+      <div class="ticker-content cursor-pointer" id="ticker-container">
+        جارِ التحميل...
+      </div>
+    </div>
   </div>
 
   <!-- Floating PWA Install Button -->
@@ -172,7 +180,7 @@
       </div>
     </section>
 
-    <!-- 2. DASHBOARD LIGHTS & OBD2 ERRORS TAB (NEW) -->
+    <!-- 2. DASHBOARD LIGHTS & OBD2 ERRORS TAB -->
     <section id="dashboard-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div>
@@ -181,10 +189,9 @@
         </div>
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
-          <input type="text" id="dashboard-search" oninput="renderDashboardErrors()" placeholder="بحث باسم اللمبة أو كود العطل (مثال: Check Engine, P0300)..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border rounded-2xl text-xs">
+          <input type="text" id="dashboard-search" oninput="renderDashboardErrors()" placeholder="بحث باسم اللمبة أو كود العطل..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border rounded-2xl text-xs">
         </div>
       </div>
-
       <div id="dashboard-errors-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
@@ -267,17 +274,37 @@
       </div>
     </section>
 
-    <!-- 9. CALCULATOR TAB -->
+    <!-- 9. FUEL CALCULATOR TAB (FIXED WITH DETAILED EXPLANATIONS) -->
     <section id="calculator-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border max-w-xl mx-auto space-y-4">
-        <h2 class="text-lg font-black">حاسبة استهلاك الوقود</h2>
-        <form onsubmit="calculateFuel(event)" class="space-y-3">
-          <input type="number" id="calc-distance" required placeholder="المسافة (كم)" class="w-full p-3 border rounded-2xl text-xs">
-          <input type="number" step="0.1" id="calc-consumption" required value="8.5" class="w-full p-3 border rounded-2xl text-xs">
-          <input type="number" id="calc-price" required value="12000" class="w-full p-3 border rounded-2xl text-xs">
-          <button type="submit" class="w-full py-3 bg-cyan-600 text-white font-bold rounded-2xl text-xs">حساب التكلفة</button>
+        <div>
+          <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-calculator text-cyan-600"></i> حاسبة استهلاك الوقود ومصاريف الرحلة</h2>
+          <p class="text-xs text-slate-500 mt-1">احسب تكلفة الوقود بدقة تامة لأي مسافة أو مشوار ترغب بقطعها.</p>
+        </div>
+
+        <form onsubmit="calculateFuel(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">مسافة الرحلة الكلية (بالكيلومتر) *</label>
+            <input type="number" id="calc-distance" required placeholder="مثال: 120" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <p class="text-[11px] text-slate-400 mt-1">أدخل إجمالي عدد الكيلومترات التي ستتقطعها في ذهابك وإيابك.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">معدل استهلاك الوقود (لتر لكل 100 كم) *</label>
+            <input type="number" step="0.1" id="calc-consumption" required value="8.5" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <p class="text-[11px] text-slate-400 mt-1">كم لتراً تستهلك سيارتك كلما قطعت 100 كيلومتر؟ (السيارات الصغيرة غالباً 7 إلى 9 لتر).</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">سعر لتر الوقود الحالي (بالليرة السورية) *</label>
+            <input type="number" id="calc-price" required value="12000" class="w-full p-3 bg-slate-50 border rounded-2xl text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <p class="text-[11px] text-slate-400 mt-1">سعر لتر البنزين أو المازوت في المحطة حالياً.</p>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold rounded-2xl text-xs transition shadow-md">احسب تكلفة الوقود الآن</button>
         </form>
-        <div id="calc-result" class="hidden bg-cyan-50 p-3 rounded-2xl text-xs text-cyan-900"></div>
+
+        <div id="calc-result" class="hidden bg-cyan-50 border border-cyan-200 p-4 rounded-2xl text-xs text-cyan-900 space-y-2"></div>
       </div>
     </section>
 
@@ -345,7 +372,6 @@
       return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
     }
 
-    // INITIAL DATABASES
     let dashboardErrors = [
       { code: "Check Engine", title: "لمبة فحص المحرك (Check Engine)", desc: "تشير لوجود خلل في حساسات الأكسجين، البواجي، أو دورة الوقود. يجب الفحص بالكمبيوتر.", severity: "متوسطة" },
       { code: "P0300", title: "كود تخطي شرارة الاحتراق (Random Misfire)", desc: "تقطيع في المحرك وضعف بالعزم، وعادةً بسبب بواجي تالفة أو كويلات بحاجة لتبديل.", severity: "عالية" },
@@ -377,10 +403,11 @@
       updateTicker();
     });
 
+    // TICKER CONTENT GENERATOR (Left to Right animation)
     function updateTicker() {
       const ticker = document.getElementById('ticker-container');
       const items = approvedShowrooms.map(s => `🏢 معرض معتمد: ${s.name} (${s.city}) ${s.verified ? '✓ [العلامة الزرقاء]' : ''}`);
-      ticker.innerHTML = items.length ? items.join(' | ') : "أهلاً بك في مرآب وسوق السيارات.";
+      ticker.innerHTML = items.length ? items.join(' &nbsp;&nbsp;|&nbsp;&nbsp; ') : "أهلاً بك في مرآب وسوق السيارات.";
     }
 
     function switchTab(tabId) {
@@ -397,7 +424,7 @@
       }
     }
 
-    function openModal(id) { document.getElementById(id).classList.add('hidden') || document.getElementById(id).classList.remove('hidden'); }
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
     // GLOBAL SEARCH ENGINE
@@ -430,6 +457,30 @@
     function clearGlobalSearch() {
       document.getElementById('global-search-input').value = '';
       document.getElementById('global-search-results-section').classList.add('hidden');
+    }
+
+    // FUEL CALCULATOR WORKING FUNCTION
+    function calculateFuel(e) {
+      e.preventDefault();
+      const distance = parseFloat(document.getElementById('calc-distance').value);
+      const consumption = parseFloat(document.getElementById('calc-consumption').value);
+      const price = parseFloat(document.getElementById('calc-price').value);
+
+      if (isNaN(distance) || isNaN(consumption) || isNaN(price)) {
+        alert('الرجاء إدخال أرقام صحيحة في جميع الحقول.');
+        return;
+      }
+
+      const totalLiters = (distance * consumption) / 100;
+      const totalCost = totalLiters * price;
+
+      const resultBox = document.getElementById('calc-result');
+      resultBox.innerHTML = `
+        <strong>📊 نتيجة الحساب التفصيلية للرحلة:</strong><br>
+        - إجمالي الوقود المستهلك: <strong>${totalLiters.toFixed(2)} لتر</strong><br>
+        - التكلفة التقريبية للرحلة: <strong>${totalCost.toLocaleString()} ليرة سورية</strong>
+      `;
+      resultBox.classList.remove('hidden');
     }
 
     // DASHBOARD ERRORS RENDER
@@ -557,7 +608,6 @@
     function renderForumPosts() {}
     function renderParts() {}
     function renderApprovedShops() {}
-    function calculateFuel(e) { e.preventDefault(); alert('تم الحساب'); }
     function handleAiDiagnose(e) { e.preventDefault(); document.getElementById('ai-result-box').classList.remove('hidden'); document.getElementById('ai-result-content').textContent = "تقرير الفحص سليم."; }
   </script>
 </body>
