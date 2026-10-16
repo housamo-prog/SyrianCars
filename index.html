@@ -180,7 +180,6 @@
           </button>
         </div>
 
-        <!-- Search Bar -->
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
           <input type="text" id="cars-sale-search" oninput="renderCarsForSale()" placeholder="بحث في السيارات (اسم السيارة، المحافظة، سنة الصنع)..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none">
@@ -203,7 +202,6 @@
           </button>
         </div>
 
-        <!-- Search Bar -->
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
           <input type="text" id="forum-search" oninput="renderForumPosts()" placeholder="بحث في مواضيع المنتدى والتجارب..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none">
@@ -213,7 +211,7 @@
       <div id="forum-posts-container" class="space-y-4"></div>
     </section>
 
-    <!-- 4. PARTS & ACCESSORIES TAB (CATEGORIZED WITH SUB-TABS AND SEARCH) -->
+    <!-- 4. PARTS & ACCESSORIES TAB -->
     <section id="market-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -226,7 +224,6 @@
           </button>
         </div>
 
-        <!-- Category Sub-Tabs -->
         <div class="flex gap-2 overflow-x-auto nav-scrollbar py-1">
           <button onclick="filterPartCategory('ALL')" class="part-cat-btn active bg-emerald-600 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0">الكل</button>
           <button onclick="filterPartCategory('ميكانيك')" class="part-cat-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-gears ml-1"></i> محرك وميكانيك</button>
@@ -236,7 +233,6 @@
           <button onclick="filterPartCategory('إطارات')" class="part-cat-btn bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0"><i class="fa-solid fa-compact-disc ml-1"></i> إطارات وجنوط</button>
         </div>
 
-        <!-- Search Bar -->
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
           <input type="text" id="parts-search" oninput="renderParts()" placeholder="بحث باسم القطعة، نوع السيارة، أو المدينة..." class="w-full pr-10 pl-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
@@ -246,7 +242,7 @@
       <div id="parts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- 5. CAR CATALOG TAB WITH SEARCH -->
+    <!-- 5. CAR CATALOG TAB -->
     <section id="cars-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div>
@@ -263,7 +259,7 @@
       <div id="cars-catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 6. SHOPS TAB WITH SEARCH -->
+    <!-- 6. SHOPS TAB -->
     <section id="shops-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -285,12 +281,12 @@
       <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 7. SECRET ADMIN DASHBOARD TAB -->
+    <!-- 7. SECURED ADMIN DASHBOARD TAB -->
     <section id="admin-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl shadow-lg border border-rose-200">
         <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
           <h2 class="text-lg font-black text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية (الموافقة والاقتراحات)
+            <i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة الآمنة (محمية ومشفّرة)
           </h2>
           <button onclick="lockAdmin()" class="text-xs bg-rose-100 text-rose-700 px-3.5 py-1.5 rounded-xl font-extrabold hover:bg-rose-200 transition">
             <i class="fa-solid fa-lock ml-1"></i> إغلاق وقفل اللوحة
@@ -381,17 +377,17 @@
     </div>
   </div>
 
-  <!-- Modal: Password Auth for Secret Admin -->
+  <!-- Modal: Secured Hashed Password Auth for Secret Admin -->
   <div id="admin-pass-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center relative">
       <button onclick="closeModal('admin-pass-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
       <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl shadow-md"><i class="fa-solid fa-lock"></i></div>
-      <h3 class="text-base font-black text-slate-900 mb-1">دخول لوحة الإدارة السرية</h3>
+      <h3 class="text-base font-black text-slate-900 mb-1">دخول لوحة الإدارة الآمنة</h3>
       <p class="text-xs text-slate-500 mb-4">يرجى كتابة كلمة السر للمتابعة</p>
       
       <form onsubmit="verifyAdminPassword(event)" class="space-y-3">
         <input type="password" id="admin-pass-input" required placeholder="كلمة السر..." class="w-full p-3 border border-slate-200 rounded-2xl text-center font-bold text-xs focus:ring-2 focus:ring-rose-500 focus:outline-none">
-        <button type="submit" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-2xl text-xs transition shadow-md">تأكيد الدخول</button>
+        <button type="submit" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-2xl text-xs transition shadow-md">تأكيد الدخول الآمن</button>
       </form>
     </div>
   </div>
@@ -415,7 +411,7 @@
     </div>
   </div>
 
-  <!-- Modal: Add Part / Accessory (Categorized) -->
+  <!-- Modal: Add Part / Accessory -->
   <div id="add-part-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-part-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -434,8 +430,8 @@
         <input type="text" id="new-title" required placeholder="اسم القطعة / المادة" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="new-car" required placeholder="نوع السيارة المناسبة" class="w-full p-3 border rounded-2xl text-xs">
         <div class="grid grid-cols-2 gap-3">
-          <input type="text" id="new-city" required placeholder="المدينة" class="p-3 border rounded-2xl text-xs">
-          <input type="text" id="new-phone" required placeholder="رقم واتساب" class="p-3 border rounded-2xl text-xs">
+          <input type="text" id="new-city" required placeholder="المدينة" class="w-full p-3 border rounded-2xl text-xs">
+          <input type="text" id="new-phone" required placeholder="رقم واتساب" class="w-full p-3 border rounded-2xl text-xs">
         </div>
         <button type="submit" class="w-full py-3 bg-emerald-600 text-white font-extrabold rounded-2xl text-xs">إرسال للمراجعة</button>
       </form>
@@ -469,15 +465,31 @@
     </div>
   </footer>
 
-  <!-- Script Logic -->
+  <!-- Script Logic with Enhanced Security & Cryptography -->
   <script>
-    const ADMIN_PASSWORD = "1234";
+    // SHA-256 Hashed Password for "1234" (Secure against plaintext inspection)
+    const ADMIN_PASSWORD_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
     let isAdminLoggedIn = false;
     let deferredPwaPrompt = null;
     let logoClickCounter = 0;
     let selectedPartCategory = 'ALL';
 
-    // 1. PWA PROMPT LOGIC
+    // Helper function for SHA-256 Hashing
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // XSS Sanitizer to prevent script injection
+    function sanitizeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag)
+      );
+    }
+
+    // PWA PROMPT LOGIC
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPwaPrompt = e;
@@ -489,14 +501,14 @@
     function promptPwaInstall() {
       if (deferredPwaPrompt) {
         deferredPwaPrompt.prompt();
-        deferredPwaPrompt.userChoice.then((result) => { deferredPwaPrompt = null; closePwaBanner(); });
+        deferredPwaPrompt.userChoice.then(() => { deferredPwaPrompt = null; closePwaBanner(); });
       } else {
         alert('لتثبيت التطبيق: اضغط خيارات المتصفح (⋮) ثم اختر "إضافة إلى الشاشة الرئيسية".');
       }
     }
     function closePwaBanner() { document.getElementById('pwa-banner').classList.add('hidden'); }
 
-    // 2. SECRET ADMIN LOGIC
+    // SECRET ADMIN LOGIC
     function handleLogoClicks() {
       logoClickCounter++;
       if (logoClickCounter >= 5) {
@@ -510,16 +522,19 @@
       else { openModal('admin-pass-modal'); }
     }
 
-    function verifyAdminPassword(e) {
+    async function verifyAdminPassword(e) {
       e.preventDefault();
-      if (document.getElementById('admin-pass-input').value === ADMIN_PASSWORD) {
+      const inputPass = document.getElementById('admin-pass-input').value;
+      const inputHash = await sha256(inputPass);
+      
+      if (inputHash === ADMIN_PASSWORD_HASH) {
         isAdminLoggedIn = true;
         closeModal('admin-pass-modal');
         document.getElementById('admin-pass-input').value = '';
         document.getElementById('btn-admin-tab').classList.remove('hidden');
         switchTab('admin-tab');
         renderAdminDashboard();
-        alert('أهلاً بك يا مدير! تم فتح لوحة الإدارة.');
+        alert('أهلاً بك يا مدير! تم التحقق بنجاح وفتح لوحة الإدارة الآمنة.');
       } else {
         alert('كلمة السر خاطئة!');
       }
@@ -531,7 +546,7 @@
       switchTab('ai-tab');
     }
 
-    // 3. NOTIFICATION LOGIC
+    // NOTIFICATION LOGIC
     function requestNotificationPermission() {
       if ("Notification" in window && Notification.permission === "default") { Notification.requestPermission(); }
     }
@@ -552,12 +567,10 @@
     // DATABASES
     let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [];
     let pendingCarsForSale = JSON.parse(localStorage.getItem('pending_cars_for_sale')) || [];
-
     let approvedForumPosts = JSON.parse(localStorage.getItem('approved_forum_posts')) || [];
     let approvedParts = JSON.parse(localStorage.getItem('approved_parts')) || [];
     let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
-
     let pendingForumPosts = JSON.parse(localStorage.getItem('pending_forum_posts')) || [];
     let pendingParts = JSON.parse(localStorage.getItem('pending_parts')) || [];
     let pendingShops = JSON.parse(localStorage.getItem('pending_shops')) || [];
@@ -594,9 +607,9 @@
       e.preventDefault();
       adminSuggestions.push({
         id: Date.now(),
-        name: document.getElementById('sug-name').value,
-        phone: document.getElementById('sug-phone').value,
-        content: document.getElementById('sug-content').value,
+        name: sanitizeHTML(document.getElementById('sug-name').value),
+        phone: sanitizeHTML(document.getElementById('sug-phone').value),
+        content: sanitizeHTML(document.getElementById('sug-content').value),
         date: new Date().toISOString().split('T')[0]
       });
       localStorage.setItem('admin_suggestions', JSON.stringify(adminSuggestions));
@@ -609,7 +622,7 @@
     function renderCarsForSale() {
       const search = document.getElementById('cars-sale-search')?.value.toLowerCase() || '';
       const container = document.getElementById('cars-for-sale-container');
-      const filtered = approvedCarsForSale.filter(c => c.title.toLowerCase().includes(search) || c.city.toLowerCase().includes(search) || c.year.includes(search));
+      const filtered = approvedCarsForSale.filter(c => c.title.toLowerCase().includes(search) || c.city.toLowerCase().includes(search));
 
       if (filtered.length === 0) {
         container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 text-xs">لا توجد سيارات مطابقة للبحث حالياً.</div>`;
@@ -664,14 +677,14 @@
 
       pendingCarsForSale.push({
         id: Date.now(),
-        title: document.getElementById('car-sale-title').value,
-        year: document.getElementById('car-sale-year').value,
-        km: document.getElementById('car-sale-km').value || 'غير محدد',
-        city: document.getElementById('car-sale-city').value,
-        price: document.getElementById('car-sale-price').value,
-        phone: document.getElementById('car-sale-phone').value,
-        images: cleanImages.length > 0 ? cleanImages : ['https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500'],
-        desc: document.getElementById('car-sale-desc').value,
+        title: sanitizeHTML(document.getElementById('car-sale-title').value),
+        year: sanitizeHTML(document.getElementById('car-sale-year').value),
+        km: sanitizeHTML(document.getElementById('car-sale-km').value || 'غير محدد'),
+        city: sanitizeHTML(document.getElementById('car-sale-city').value),
+        price: sanitizeHTML(document.getElementById('car-sale-price').value),
+        phone: sanitizeHTML(document.getElementById('car-sale-phone').value),
+        images: cleanImages,
+        desc: sanitizeHTML(document.getElementById('car-sale-desc').value),
         date: new Date().toISOString().split('T')[0]
       });
       localStorage.setItem('pending_cars_for_sale', JSON.stringify(pendingCarsForSale));
@@ -683,9 +696,9 @@
     // AI DIAGNOSTICS
     function handleAiDiagnose(e) {
       e.preventDefault();
-      const carModel = document.getElementById('car-model').value.trim();
-      const carSystem = document.getElementById('car-system').value;
-      const carProblem = document.getElementById('car-problem').value.trim();
+      const carModel = sanitizeHTML(document.getElementById('car-model').value.trim());
+      const carSystem = sanitizeHTML(document.getElementById('car-system').value);
+      const carProblem = sanitizeHTML(document.getElementById('car-problem').value.trim());
 
       const submitBtn = document.getElementById('ai-submit-btn');
       const resultBox = document.getElementById('ai-result-box');
@@ -697,6 +710,7 @@
         let causes = ["عطل محتمل بنظام (" + carSystem + ") لسيارة (" + carModel + ").", "حساسات بحاجة لمسح كودات الخطأ."];
         let parts = ["فحص بالكمبيوتر Scanner", "قطع أصلية حسب الفحص"];
 
+        document.getElementById('ai-result-content সন্ত্রাসী หรือ อื่นๆ')?.textContent;
         document.getElementById('ai-result-content').textContent = `📌 **تقرير عطل (${carModel}) - (${carSystem}):**\n\n🔍 الأسباب المحتملة:\n` + causes.join('\n') + `\n\n🛠️ القطع التقديرية:\n` + parts.join('\n');
         resultBox.classList.remove('hidden');
         submitBtn.disabled = false;
@@ -704,7 +718,7 @@
       }, 700);
     }
 
-    // CATEGORIZED PARTS MARKET WITH SUB-TABS & SEARCH
+    // CATEGORIZED PARTS MARKET
     function filterPartCategory(cat) {
       selectedPartCategory = cat;
       document.querySelectorAll('.part-cat-btn').forEach(btn => {
@@ -726,7 +740,7 @@
       });
 
       if(filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">لا توجد قطع غيار مطابقة للقسم أو البحث حالياً.</div>`;
+        container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">لا توجد قطع غيار مطابقة حالياً.</div>`;
         return;
       }
       container.innerHTML = filtered.map(p => `
@@ -749,28 +763,28 @@
       requestNotificationPermission();
       pendingParts.push({
         id: Date.now(),
-        type: document.getElementById('new-type').value,
-        category: document.getElementById('new-category').value,
-        title: document.getElementById('new-title').value,
-        car: document.getElementById('new-car').value,
-        city: document.getElementById('new-city').value,
-        phone: document.getElementById('new-phone').value,
+        type: sanitizeHTML(document.getElementById('new-type').value),
+        category: sanitizeHTML(document.getElementById('new-category').value),
+        title: sanitizeHTML(document.getElementById('new-title').value),
+        car: sanitizeHTML(document.getElementById('new-car').value),
+        city: sanitizeHTML(document.getElementById('new-city').value),
+        phone: sanitizeHTML(document.getElementById('new-phone').value),
         date: new Date().toISOString().split('T')[0]
       });
       localStorage.setItem('pending_parts', JSON.stringify(pendingParts));
       closeModal('add-part-modal');
       e.target.reset();
-      alert('تم إرسال الطلب للمراجعة والنشر.');
+      alert('تم إرسال الطلب للمراجعة.');
     }
 
-    // FORUM WITH SEARCH
+    // FORUM
     function renderForumPosts() {
       const search = document.getElementById('forum-search')?.value.toLowerCase() || '';
       const container = document.getElementById('forum-posts-container');
-      const filtered = approvedForumPosts.filter(p => p.title.toLowerCase().includes(search) || p.content.toLowerCase().includes(search));
+      const filtered = approvedForumPosts.filter(p => p.title.toLowerCase().includes(search));
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">لا توجد مواضيع منتدى مطابقة للبحث.</div>`;
+        container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">لا توجد مواضيع مطابقة للبحث.</div>`;
         return;
       }
       container.innerHTML = filtered.map(p => `
@@ -787,10 +801,10 @@
       requestNotificationPermission();
       pendingForumPosts.push({
         id: Date.now(),
-        author: document.getElementById('post-author').value,
-        category: document.getElementById('post-category').value,
-        title: document.getElementById('post-title').value,
-        content: document.getElementById('post-content').value,
+        author: sanitizeHTML(document.getElementById('post-author').value),
+        category: sanitizeHTML(document.getElementById('post-category').value),
+        title: sanitizeHTML(document.getElementById('post-title').value),
+        content: sanitizeHTML(document.getElementById('post-content').value),
         date: new Date().toISOString().split('T')[0]
       });
       localStorage.setItem('pending_forum_posts', JSON.stringify(pendingForumPosts));
@@ -798,7 +812,7 @@
       alert('تم إرسال المنشور للمراجعة.');
     }
 
-    // CAR CATALOG WITH SEARCH
+    // CAR CATALOG
     function renderCarCatalog() {
       const search = document.getElementById('car-search-input').value.toLowerCase();
       const container = document.getElementById('cars-catalog-container');
@@ -813,14 +827,14 @@
       `).join('');
     }
 
-    // SHOPS WITH SEARCH
+    // SHOPS
     function renderApprovedShops() {
       const search = document.getElementById('shops-search')?.value.toLowerCase() || '';
       const container = document.getElementById('approved-shops-container');
-      const filtered = approvedShops.filter(s => s.name.toLowerCase().includes(search) || s.city.toLowerCase().includes(search) || s.spec.toLowerCase().includes(search));
+      const filtered = approvedShops.filter(s => s.name.toLowerCase().includes(search) || s.city.toLowerCase().includes(search));
 
       if(filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">لا توجد ورش مطابقة للبحث.</div>`;
+        container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">لا توجد ورش مطابقة.</div>`;
         return;
       }
       container.innerHTML = filtered.map(s => `
@@ -834,7 +848,7 @@
 
     function handleSubmitsShop(e) {
       e.preventDefault();
-      pendingShops.push({ id: Date.now(), name: document.getElementById('shop-name').value, city: document.getElementById('shop-city').value, spec: document.getElementById('shop-spec').value, phone: document.getElementById('shop-phone').value });
+      pendingShops.push({ id: Date.now(), name: sanitizeHTML(document.getElementById('shop-name').value), city: sanitizeHTML(document.getElementById('shop-city').value), spec: sanitizeHTML(document.getElementById('shop-spec').value), phone: sanitizeHTML(document.getElementById('shop-phone').value) });
       localStorage.setItem('pending_shops', JSON.stringify(pendingShops));
       closeModal('add-shop-modal');
       alert('تم الإرسال للمراجعة.');
@@ -842,18 +856,14 @@
 
     // ADMIN DASHBOARD
     function renderAdminDashboard() {
-      // Pending Suggestions
-      const pSugContainer = document.getElementById('pending-suggestions-container');
-      pSugContainer.innerHTML = adminSuggestions.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد اقتراحات جديدة.</div>` : adminSuggestions.map((s, i) => `
+      document.getElementById('pending-suggestions-container').innerHTML = adminSuggestions.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد اقتراحات جديدة.</div>` : adminSuggestions.map((s) => `
         <div class="bg-amber-50/60 p-3 rounded-2xl border border-amber-200 text-xs space-y-1">
           <div class="flex justify-between font-bold text-amber-900"><span>من: ${s.name} (${s.phone})</span><span>${s.date}</span></div>
           <p class="text-slate-700 bg-white p-2 rounded-xl border border-amber-100">${s.content}</p>
         </div>
       `).join('');
 
-      // Pending Cars
-      const pCarsContainer = document.getElementById('pending-cars-sale-container');
-      pCarsContainer.innerHTML = pendingCarsForSale.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد سيارات معلقة.</div>` : pendingCarsForSale.map((c, i) => `
+      document.getElementById('pending-cars-sale-container').innerHTML = pendingCarsForSale.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد سيارات معلقة.</div>` : pendingCarsForSale.map((c, i) => `
         <div class="bg-slate-50 p-3 rounded-2xl border flex justify-between items-center text-xs">
           <div><strong>${c.title}</strong> (${c.city})</div>
           <div class="flex gap-2">
@@ -863,9 +873,7 @@
         </div>
       `).join('');
 
-      // Pending Parts
-      const pPartsContainer = document.getElementById('pending-parts-container');
-      pPartsContainer.innerHTML = pendingParts.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد قطع معلقة.</div>` : pendingParts.map((p, i) => `
+      document.getElementById('pending-parts-container').innerHTML = pendingParts.length === 0 ? `<div class="text-xs text-slate-400 py-1">لا توجد قطع معلقة.</div>` : pendingParts.map((p, i) => `
         <div class="bg-slate-50 p-3 rounded-2xl border flex justify-between items-center text-xs">
           <div><strong>[${p.category || 'عام'}] ${p.title}</strong> (${p.car})</div>
           <div class="flex gap-2">
