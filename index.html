@@ -37,7 +37,7 @@
   <header class="glass-header text-white sticky top-0 z-40 border-b border-slate-800/80 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-3 space-y-3">
       <div class="flex items-center justify-between gap-4">
-        <div onclick="handleLogoClicks()" class="flex items-center gap-3 cursor-pointer select-none">
+        <div onclick="handleLogoClicks()" class="flex items-center gap-3 cursor-pointer select-none" title="اضغط 5 مرات لدخول لوحة الإدارة">
           <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 text-white rounded-2xl flex items-center justify-center text-xl font-black shadow-lg shadow-blue-500/30">
             <i class="fa-solid fa-car-side"></i>
           </div>
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs (جميع الأقسام مجتمعة وكاملة) -->
+      <!-- Navigation Tabs (جميع الأقسام كاملة) -->
       <nav class="flex items-center gap-2 overflow-x-auto nav-scrollbar py-1 text-xs font-bold">
         <button onclick="switchTab('encyclopedia-tab')" id="btn-encyclopedia-tab" class="tab-btn active shrink-0 px-4 py-2 rounded-xl transition bg-blue-600 text-white shadow-md flex items-center gap-1.5">
           <i class="fa-solid fa-book-open text-blue-300"></i> الموسوعة والكتالوجات
@@ -85,6 +85,10 @@
         </button>
         <button onclick="switchTab('calculator-tab')" id="btn-calculator-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-1.5">
           <i class="fa-solid fa-calculator text-cyan-400"></i> حاسبة الوقود
+        </button>
+        <!-- زر لوحة الإدارة -->
+        <button onclick="switchTab('admin-tab')" id="btn-admin-tab" class="tab-btn hidden shrink-0 px-4 py-2 rounded-xl transition bg-rose-600/90 text-white flex items-center gap-1.5 border border-rose-500/50">
+          <i class="fa-solid fa-shield-halved"></i> لوحة الإدارة السرية
         </button>
       </nav>
     </div>
@@ -171,7 +175,7 @@
       <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 6. AI DIAGNOSTICS TAB (قسم تشخيص الأعطال بالذكاء الاصطناعي) -->
+    <!-- 6. AI DIAGNOSTICS TAB -->
     <section id="ai-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
         <div class="flex items-center gap-3.5 mb-5">
@@ -205,7 +209,7 @@
               </select>
             </div>
           </div>
-          <textarea id="car-problem" rows="3" required placeholder="اكتب الأعراض بالتفصيل (مثال: تقطيع بالمحرك عند التسارع)..." class="w-full p-3 bg-slate-50 border rounded-2xl text-xs"></textarea>
+          <textarea id="car-problem" rows="3" required placeholder="اكتب الأعراض بالتفصيل..." class="w-full p-3 bg-slate-50 border rounded-2xl text-xs"></textarea>
           <button type="submit" class="px-8 py-3.5 bg-blue-600 text-white font-extrabold text-xs rounded-2xl shadow-lg">تشخيص العطل فوراً</button>
         </form>
       </div>
@@ -216,7 +220,7 @@
       </div>
     </section>
 
-    <!-- 7. DASHBOARD LIGHTS TAB (قسم أعطال الطبلون) -->
+    <!-- 7. DASHBOARD LIGHTS TAB -->
     <section id="dashboard-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border space-y-4">
         <h2 class="text-xl font-black text-slate-900">دليل أعطال لوحة العدادات (Check Engine & OBD2)</h2>
@@ -225,7 +229,7 @@
       <div id="dashboard-errors-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 8. MAINTENANCE TAB (قسم مفكرة الصيانة) -->
+    <!-- 8. MAINTENANCE TAB -->
     <section id="maintenance-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border flex justify-between items-center">
         <div>
@@ -258,6 +262,21 @@
           <button type="submit" class="w-full py-3 bg-cyan-600 text-white font-black rounded-2xl text-xs">احسب الكفاءة</button>
         </form>
         <div id="calc-result" class="hidden bg-cyan-50 border p-4 rounded-2xl text-xs text-cyan-900"></div>
+      </div>
+    </section>
+
+    <!-- 11. ADMIN DASHBOARD TAB (قسم لوحة الإدارة) -->
+    <section id="admin-tab" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-3xl border border-rose-200 space-y-4">
+        <h2 class="text-lg font-black text-rose-700"><i class="fa-solid fa-shield-halved text-rose-600"></i> لوحة الإدارة السرية</h2>
+        <div class="space-y-3">
+          <h3 class="font-bold text-xs text-slate-800 border-b pb-2">طلبات المعارض المعلقة (العلامة الزرقاء):</h3>
+          <div id="pending-showrooms-container" class="space-y-3"></div>
+        </div>
+        <div class="space-y-3 pt-4 border-t">
+          <h3 class="font-bold text-xs text-slate-800">رسائل واقتراحات الزوار:</h3>
+          <div id="admin-suggestions-container" class="space-y-3"></div>
+        </div>
       </div>
     </section>
 
@@ -339,7 +358,7 @@
         <label class="block text-xs font-bold text-slate-700">صورة الورشة *</label>
         <input type="file" id="shop-file" accept="image/*" required class="w-full text-xs p-2 bg-slate-50 border rounded-2xl">
         <textarea id="shop-desc" rows="2" placeholder="الخدمات..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
-        <button type="submit" id="shop-btn" class="w-full py-3 bg-blue-600 text-white font-black rounded-2xl text-xs">تسجيل הورشة</button>
+        <button type="submit" id="shop-btn" class="w-full py-3 bg-blue-600 text-white font-black rounded-2xl text-xs">تسجيل الورشة</button>
       </form>
     </div>
   </div>
@@ -389,12 +408,13 @@
   </div>
 
   <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800 mt-auto mb-12">
-    <p class="text-slate-300 font-bold">مرآب وسوق السيارات العربي &copy; 2026</p>
+    <p class="text-slate-300 font-bold">مرآب وسوق السيارات العربي &copy; 2026 - <span onclick="openAdminSecretPassModal()" class="cursor-pointer text-slate-700" title="دخول الإدارة">🔒</span></p>
   </footer>
 
   <!-- JavaScript Engine -->
   <script>
     const IMGBB_API_KEY = "6d207e02198a847aa98d0a2a901485a5";
+    let logoClickCounter = 0;
 
     async function uploadImageFile(fileInputId) {
       const fileInput = document.getElementById(fileInputId);
@@ -443,7 +463,48 @@
       }
     }
 
-    // Static & Dynamic Data Stores
+    // Secret Admin Triggers
+    function handleLogoClicks() {
+      logoClickCounter++;
+      if (logoClickCounter >= 5) {
+        logoClickCounter = 0;
+        openAdminSecretPassModal();
+      }
+    }
+
+    function openAdminSecretPassModal() {
+      const pass = prompt("أدخل كلمة السر الخاصة بالإدارة:");
+      if (pass === "123456" || pass === "admin") {
+        document.getElementById('btn-admin-tab').classList.remove('hidden');
+        switchTab('admin-tab');
+        renderAdminDashboard();
+      } else if (pass !== null) {
+        alert("كلمة السر غير صحيحة!");
+      }
+    }
+
+    function renderAdminDashboard() {
+      const container = document.getElementById('pending-showrooms-container');
+      if (container) {
+        container.innerHTML = pendingShowrooms.length === 0 ? '<div class="text-xs text-slate-400">لا توجد طلبات معارض معلقة حالياً.</div>' : pendingShowrooms.map((s, idx) => `
+          <div class="bg-slate-50 p-3 rounded-2xl border flex justify-between items-center text-xs">
+            <div><strong>${s.name}</strong> (${s.city}) - هاتف: ${s.phone}</div>
+            <button onclick="approveShowroom(${idx})" class="px-3 py-1 bg-blue-600 text-white rounded-xl font-bold">قبول واعتماد</button>
+          </div>`).join('');
+      }
+    }
+
+    function approveShowroom(idx) {
+      const item = pendingShowrooms.splice(idx, 1)[0];
+      item.verified = true;
+      if (db) db.ref('approved_showrooms').push(item);
+      else { localShowrooms.unshift(item); localStorage.setItem('approved_showrooms', JSON.stringify(localShowrooms)); }
+      renderAdminDashboard();
+      renderShowrooms();
+      alert('تم اعتماد المعرض بنجاح!');
+    }
+
+    // Data Stores
     let carEncyclopedia = [
       { id: 1, brand: "كيا", model: "كيا سيراتو (Kia Cerato)", year: "2004 - 2024", summary: "السيارة الأكثر انتشاراً وطلباً في حلب وسوريا.", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800", verdict: "خيار ذهبي متوفر القطع وسهل الصيانة." },
       { id: 2, brand: "هيونداي", model: "هيونداي أكسنت (Hyundai Accent)", year: "2006 - 2023", summary: "ملكة التوفير والاعتمادية.", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800", verdict: "صيانة اقتصادية واستهلاك قليل للوقود." },
@@ -460,6 +521,7 @@
     let localParts = JSON.parse(localStorage.getItem('spare_parts')) || [];
     let localShops = JSON.parse(localStorage.getItem('approved_shops')) || [];
     let localShowrooms = JSON.parse(localStorage.getItem('approved_showrooms')) || [];
+    let pendingShowrooms = JSON.parse(localStorage.getItem('pending_showrooms')) || [];
     let maintenanceRecords = JSON.parse(localStorage.getItem('maintenance_records')) || [];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -554,7 +616,7 @@
       };
       if (db) db.ref('cars_for_sale').push(item);
       else { localCars.unshift(item); localStorage.setItem('approved_cars_for_sale', JSON.stringify(localCars)); renderCarsForSale(); }
-      btn.disabled = false; btn.innerText = "نشر الإعلان"; closeModal('add-car-sale-modal'); e.target.reset();
+      btn.disabled = false; btn.innerText = "رفع الصورة ونشر الإعلان للجميع"; closeModal('add-car-sale-modal'); e.target.reset();
       alert('تم نشر السيارة بالصورة بنجاح!');
     }
 
@@ -740,9 +802,9 @@
         desc: sanitizeHTML(document.getElementById('sr-desc').value),
         image: imageUrl
       };
-      if (db) db.ref('approved_showrooms').push(item);
-      else { localShowrooms.unshift(item); localStorage.setItem('approved_showrooms', JSON.stringify(localShowrooms)); renderShowrooms(); }
-      closeModal('add-showroom-modal'); e.target.reset(); alert('تم إرسال الطلب بنجاح!');
+      pendingShowrooms.unshift(item);
+      localStorage.setItem('pending_showrooms', JSON.stringify(pendingShowrooms));
+      closeModal('add-showroom-modal'); e.target.reset(); alert('تم إرسال طلب اعتماد المعرض للإدارة بنجاح!');
     }
 
     // 10. Fuel Calculator
@@ -756,7 +818,6 @@
       box.classList.remove('hidden');
     }
 
-    function handleLogoClicks() { alert('مرآب وسوق السيارات العربي - النسخة الحية المتكاملة 2026'); }
     function handleAddSuggestion(e) { e.preventDefault(); alert('تم إرسال اقتراحك للإدارة.'); closeModal('add-suggestion-modal'); }
   </script>
 </body>
