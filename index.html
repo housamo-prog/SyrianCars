@@ -6,16 +6,14 @@
   <title>مرآب وسوق السيارات العربي | حلب وسوريا</title>
   
   <!-- Standalone PWA Manifest -->
-  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22short_name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%231e293b%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F744%2F744465.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D9%88%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22short_name%22%3A%22%D9%85%D8%B1%D8%A2%D8%A8%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%231e293b%22%7D">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS & Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts (Cairo) -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
@@ -26,7 +24,6 @@
     .card-hover { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
     .card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -10px rgba(0,0,0,0.1); }
     
-    /* Fast Dynamic Marquee Ticker */
     .ticker-wrapper { background: #1e293b; color: #f8fafc; padding: 8px 0; font-size: 12px; font-weight: bold; border-bottom: 1px solid #334155; overflow: hidden; white-space: nowrap; }
     .ticker-content { display: inline-block; animation: tickerRightToLeft 10s linear infinite; }
     .ticker-content:hover { animation-play-state: paused; }
@@ -42,8 +39,6 @@
   <header class="glass-header text-white sticky top-0 z-40 border-b border-slate-800/80 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-3 space-y-3">
       <div class="flex items-center justify-between gap-4">
-        
-        <!-- Logo & Secret Admin Trigger -->
         <div onclick="handleLogoClicks()" class="flex items-center gap-3 cursor-pointer select-none">
           <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 text-white rounded-2xl flex items-center justify-center text-xl font-black shadow-lg shadow-blue-500/30">
             <i class="fa-solid fa-car-side"></i>
@@ -61,7 +56,7 @@
         </div>
       </div>
 
-      <!-- Global Search Bar -->
+      <!-- Search Bar -->
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-slate-400 text-xs"></i>
         <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="ابحث عن أي سيارة، عطل طبلون، قطعة غيار، أو ورشة صيانة..." class="w-full pr-10 pl-4 py-2 bg-slate-800/90 border border-slate-700 text-white rounded-2xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
@@ -106,20 +101,19 @@
     </div>
   </header>
 
-  <!-- Fast Dynamic Marquee Ticker -->
+  <!-- Marquee Ticker -->
   <div class="ticker-wrapper flex items-center px-4 shadow-inner">
     <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> صفقات وأخبار حية:</span>
     <div class="overflow-hidden w-full">
       <div class="ticker-content cursor-pointer" id="ticker-container">
-        جارِ جلب أحدث النشاطات في حلب وسوريا...
+        جارِ جلب أحدث النشاطات...
       </div>
     </div>
   </div>
 
-  <!-- Main Content Container -->
+  <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
 
-    <!-- GLOBAL SEARCH RESULTS -->
     <section id="global-search-results-section" class="hidden mb-6 space-y-4">
       <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex justify-between items-center">
         <h3 class="font-black text-blue-900 text-xs"><i class="fa-solid fa-magnifying-glass"></i> نتائج البحث الشامل:</h3>
@@ -128,13 +122,13 @@
       <div id="global-search-results-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- 1. ENCYCLOPEDIA & COMPARISON TAB -->
+    <!-- 1. ENCYCLOPEDIA TAB -->
     <section id="encyclopedia-tab" class="tab-content space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-6 shadow-sm">
         <div class="flex flex-wrap justify-between items-center gap-4">
           <div>
             <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-book-open text-blue-600"></i> موسوعة السيارات الشاملة لسوق سوريا</h2>
-            <p class="text-xs text-slate-500">كتالوجات دقيقة موثوقة من المصنع، ألوان رسمية، وتحليل فني عميق يلبي شغف السائقين</p>
+            <p class="text-xs text-slate-500">كتالوجات موثوقة من المصنع، ألوان رسمية، وتحليل فني يلبي شغف السائقين</p>
           </div>
           <button onclick="openModal('compare-modal')" class="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs shadow-md flex items-center gap-2">
             <i class="fa-solid fa-scale-balanced"></i> مقارنة ذكية حرة بالذكاء الاصطناعي
@@ -291,7 +285,7 @@
       <div id="maintenance-records-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- 9. SHOWROOMS TAB (FIXED BUTTON) -->
+    <!-- 9. SHOWROOMS TAB -->
     <section id="showrooms-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border flex justify-between items-center shadow-sm">
         <div>
@@ -342,9 +336,8 @@
 
   </main>
 
-  <!-- MODALS SECTION -->
+  <!-- MODALS -->
 
-  <!-- Modal: Detailed Catalog View -->
   <div id="catalog-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 shadow-2xl relative">
       <button onclick="closeModal('catalog-modal')" class="absolute top-4 left-4 w-9 h-9 bg-slate-100 rounded-full flex items-center justify-center text-slate-600"><i class="fa-solid fa-xmark"></i></button>
@@ -352,7 +345,6 @@
     </div>
   </div>
 
-  <!-- Modal: AI Free Comparison Tool (Fixed & Intelligent) -->
   <div id="compare-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 shadow-2xl relative space-y-4">
       <button onclick="closeModal('compare-modal')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
@@ -374,7 +366,6 @@
     </div>
   </div>
 
-  <!-- Modal: Add Showroom (FIXED) -->
   <div id="add-showroom-modal" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="closeModal('add-showroom-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -383,14 +374,13 @@
         <input type="text" id="sr-name" required placeholder="اسم المعرض (مثال: معرض الشهباء) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="sr-city" required placeholder="المدينة والمنطقة (حلب - شارع الأوتوستراد) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="sr-phone" required placeholder="رقم الواتساب للتواصل *" class="w-full p-3 border rounded-2xl text-xs">
-        <input type="text" id="sr-image" placeholder="رابط صورة واجهة المعرض (https://...)" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="sr-image" placeholder="رابط صورة واجهة المعرض (اختياري)" class="w-full p-3 border rounded-2xl text-xs">
         <textarea id="sr-desc" rows="2" required placeholder="نبذة عن المعرض وأنواع السيارات المتوفرة..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
         <button type="submit" class="w-full py-3 bg-blue-600 text-white font-black rounded-2xl text-xs">إرسال الطلب للإدارة</button>
       </form>
     </div>
   </div>
 
-  <!-- Modal: Add Car for Sale -->
   <div id="add-car-sale-modal" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="closeModal('add-car-sale-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -401,14 +391,13 @@
         <input type="text" id="cs-city" required placeholder="المدينة والمنطقة (حلب - الفرقان) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="cs-km" required placeholder="العداد (مثال: 140,000 كم) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="cs-phone" required placeholder="رقم الواتساب للتواصل *" class="w-full p-3 border rounded-2xl text-xs">
-        <input type="text" id="cs-image" placeholder="رابط صورة السيارة الصحيح (https://...)" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="cs-image" placeholder="رابط صورة السيارة (اختياري)" class="w-full p-3 border rounded-2xl text-xs">
         <textarea id="cs-desc" rows="3" required placeholder="تفاصيل حالة السيارة والمحرك..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
         <button type="submit" class="w-full py-3 bg-amber-500 font-black rounded-2xl text-xs text-slate-950">نشر الإعلان فوراً</button>
       </form>
     </div>
   </div>
 
-  <!-- Modal: Add Forum Post -->
   <div id="add-post-modal" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-post-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -422,7 +411,6 @@
     </div>
   </div>
 
-  <!-- Modal: Add Spare Part -->
   <div id="add-part-modal" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-part-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -432,14 +420,13 @@
         <input type="text" id="part-price" required placeholder="السعر التقريبي *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="part-location" required placeholder="الموقع (حلب - الجميلية) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="part-phone" required placeholder="رقم الواتساب *" class="w-full p-3 border rounded-2xl text-xs">
-        <input type="text" id="part-image" placeholder="رابط صورة القطعة (https://...)" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="part-image" placeholder="رابط صورة القطعة (اختياري)" class="w-full p-3 border rounded-2xl text-xs">
         <textarea id="part-desc" rows="2" placeholder="وصف القطعة..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
         <button type="submit" class="w-full py-3 bg-emerald-600 text-white font-black rounded-2xl text-xs">نشر القطعة</button>
       </form>
     </div>
   </div>
 
-  <!-- Modal: Add Shop -->
   <div id="add-shop-modal" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-shop-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -449,14 +436,13 @@
         <input type="text" id="shop-spec" required placeholder="الاختصاص (ميكانيك - كهرباء - فحص كمبيوتر) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="shop-city" required placeholder="العنوان بالتفصيل (حلب - الراموسة) *" class="w-full p-3 border rounded-2xl text-xs">
         <input type="text" id="shop-phone" required placeholder="رقم الهاتف/واتساب *" class="w-full p-3 border rounded-2xl text-xs">
-        <input type="text" id="shop-image" placeholder="رابط صورة الورشة (https://...)" class="w-full p-3 border rounded-2xl text-xs">
+        <input type="text" id="shop-image" placeholder="رابط صورة الورشة (اختياري)" class="w-full p-3 border rounded-2xl text-xs">
         <textarea id="shop-desc" rows="2" placeholder="الخدمات والخبرات..." class="w-full p-3 border rounded-2xl text-xs"></textarea>
         <button type="submit" class="w-full py-3 bg-blue-600 text-white font-black rounded-2xl text-xs">تسجيل الورشة</button>
       </form>
     </div>
   </div>
 
-  <!-- Modal: Add Maintenance -->
   <div id="add-maintenance-modal" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-maintenance-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -472,7 +458,6 @@
     </div>
   </div>
 
-  <!-- Modal: Add Suggestion -->
   <div id="add-suggestion-modal" class="fixed inset-0 bg-slate-900/60 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('add-suggestion-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -490,21 +475,26 @@
     <p class="text-slate-300 font-bold">مرآب وسوق السيارات العربي &copy; 2026 - <span onclick="openAdminSecretPassModal()" class="cursor-pointer text-slate-700">🔒</span></p>
   </footer>
 
-  <!-- Script Logic -->
+  <!-- JavaScript -->
   <script>
-    const ADMIN_PASSWORD_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
-    let isAdminLoggedIn = false;
     let logoClickCounter = 0;
     let currentBrandFilter = 'all';
+
+    // HIGH-QUALITY GUARANTEED SVG DATA-URIs (Work 100% Offline & Online)
+    const DEFAULT_CAR_IMG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><rect width='800' height='500' fill='%230f172a'/><path d='M150 320 L220 200 L580 200 L650 320 Z' fill='%231e293b' stroke='%233b82f6' stroke-width='6'/><circle cx='250' cy='340' r='45' fill='%23334155' stroke='%2364748b' stroke-width='8'/><circle cx='550' cy='340' r='45' fill='%23334155' stroke='%2364748b' stroke-width='8'/><text x='400' y='140' font-family='sans-serif' font-size='32' font-weight='bold' fill='%233b82f6' text-anchor='middle'>مرآب وسوق السيارات</text></svg>";
+    
+    const DEFAULT_SHOP_IMG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><rect width='800' height='500' fill='%231e1b4b'/><rect x='200' y='150' width='400' height='250' rx='20' fill='%23312e81' stroke='%236366f1' stroke-width='6'/><text x='400' y='280' font-family='sans-serif' font-size='32' font-weight='bold' fill='%23a5b4fc' text-anchor='middle'>مركز صيانة معتمد 🔧</text></svg>";
+    
+    const DEFAULT_PART_IMG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><rect width='800' height='500' fill='%23064e3b'/><circle cx='400' cy='250' r='100' fill='%23047857' stroke='%2334d399' stroke-width='8'/><text x='400' y='260' font-family='sans-serif' font-size='28' font-weight='bold' fill='%23a7f3d0' text-anchor='middle'>قطعة غيار أصلية ⚙️</text></svg>";
 
     function sanitizeHTML(str) {
       if (!str) return '';
       return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
     }
 
-    // ROBUST DATABASES WITH LOCALSTORAGE SYNC & STABLE IMAGE URLS
+    // Databases Syncing
     let approvedCarsForSale = JSON.parse(localStorage.getItem('approved_cars_for_sale')) || [
-      { id: 101, title: "كيا سيراتو 2009 خالية العلام برة جوة", price: "88,000,000 ل.س", city: "حلب - الفرقان", km: "135,000 كم", phone: "0944123456", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800", desc: "كاملة المواصفات فتحة سقف، بصمة، محرك 1600 بحالة الوكالة." }
+      { id: 101, title: "كيا سيراتو 2009 خالية العلام برة جوة", price: "88,000,000 ل.س", city: "حلب - الفرقان", km: "135,000 كم", phone: "0944123456", image: DEFAULT_CAR_IMG, desc: "كاملة المواصفات فتحة سقف، بصمة، محرك 1600 بحالة الوكالة." }
     ];
 
     let forumPosts = JSON.parse(localStorage.getItem('forum_posts')) || [
@@ -513,15 +503,15 @@
     ];
 
     let spareParts = JSON.parse(localStorage.getItem('spare_parts')) || [
-      { id: 301, title: "طقم بواجي كيا وهيونداي أصلي NGK", price: "180,000 ل.س", location: "حلب - الجميلية", phone: "0944221100", image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500", desc: "طقم 4 بواجي ليوم الكوري والياباني." }
+      { id: 301, title: "طقم بواجي كيا وهيونداي أصلي NGK", price: "180,000 ل.س", location: "حلب - الجميلية", phone: "0944221100", image: DEFAULT_PART_IMG, desc: "طقم 4 بواجي ليوم الكوري والياباني." }
     ];
 
     let approvedShops = JSON.parse(localStorage.getItem('approved_shops')) || [
-      { id: 401, name: "مركز الأمل لفحص الكمبيوتر", spec: "فحص كمبيوتر + برمجة", city: "حلب - شارع النيل", phone: "0911223344", rating: "4.9", image: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500", desc: "فحص جهاز Launch أحدث إصدار، قراءة أكواد الأعطال." }
+      { id: 401, name: "مركز الأمل لفحص الكمبيوتر", spec: "فحص كمبيوتر + برمجة", city: "حلب - شارع النيل", phone: "0911223344", rating: "4.9", image: DEFAULT_SHOP_IMG, desc: "فحص جهاز Launch أحدث إصدار، قراءة أكواد الأعطال." }
     ];
 
     let approvedShowrooms = JSON.parse(localStorage.getItem('approved_showrooms')) || [
-      { id: 701, name: "معرض الشهباء الحديث", city: "حلب - الأوتوستراد", phone: "0911223344", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=500", desc: "متخصصون بسيارات الكوري والياباني.", verified: true, rating: 4.9, ratingCount: 12 }
+      { id: 701, name: "معرض الشهباء الحديث", city: "حلب - الأوتوستراد", phone: "0911223344", image: DEFAULT_SHOP_IMG, desc: "متخصصون بسيارات الكوري والياباني.", verified: true }
     ];
 
     let pendingShowrooms = JSON.parse(localStorage.getItem('pending_showrooms')) || [];
@@ -529,11 +519,11 @@
     let adminSuggestions = JSON.parse(localStorage.getItem('admin_suggestions')) || [];
 
     let carEncyclopedia = [
-      { id: 1, brand: "كيا", model: "كيا سيراتو (Kia Cerato)", year: "2004 - 2024", engine: "1.6L MPI / 128 حصان", fuelEco: "14.2 كم/لتر", summary: "السيارة الأكثر انتشاراً وطلباً في حلب وسوريا.", images: ["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800"], syriaVerdict: "خيار ذهبي في سوريا؛ توفر قطع غيار وسهولة صيانة." },
-      { id: 2, brand: "هيونداي", model: "هيونداي أكسنت (Hyundai Accent)", year: "2006 - 2023", engine: "1.4L / 107 حصان", fuelEco: "15.8 كم/لتر", summary: "ملكة التوفير والاعتمادية في سوريا.", images: ["https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800"], syriaVerdict: "صيانة رخيصة للغاية وسهولة إعادة بيع." },
-      { id: 3, brand: "تويوتا", model: "تويوتا كورولا (Toyota Corolla)", year: "2003 - 2025", engine: "1.6L VVT-i / 121 حصان", fuelEco: "16.5 كم/لتر", summary: "السيارة الأسطورية التي لا تعطل.", images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800"], syriaVerdict: "الاستثمار الأضمن في السوق السوري." },
-      { id: 4, brand: "مرسيدس", model: "مرسيدس بنز الفئة C (C-Class)", year: "2008 - 2014", engine: "1.8L Turbo / 156 حصان", fuelEco: "12.2 كم/لتر", summary: "قمة الفخامة والأمان الألماني.", images: ["https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800"], syriaVerdict: "فخامة وثبات مطلق؛ تتطلب صيانة متخصصة." },
-      { id: 5, brand: "بي إم دبليو", model: "بي إم دبليو الفئة الثالثة (3 Series)", year: "2006 - 2018", engine: "2.0L / 150 حصان", fuelEco: "12.8 كم/لتر", summary: "رمز المتعة والقيادة الرياضية.", images: ["https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800"], syriaVerdict: "أداء رياضي عالٍ وعناية دورية بالزيوت." }
+      { id: 1, brand: "كيا", model: "كيا سيراتو (Kia Cerato)", year: "2004 - 2024", summary: "السيارة الأكثر انتشاراً وطلباً في حلب وسوريا.", images: [DEFAULT_CAR_IMG], syriaVerdict: "خيار ذهبي في سوريا؛ توفر قطع غيار وسهولة صيانة." },
+      { id: 2, brand: "هيونداي", model: "هيونداي أكسنت (Hyundai Accent)", year: "2006 - 2023", summary: "ملكة التوفير والاعتمادية في سوريا.", images: [DEFAULT_CAR_IMG], syriaVerdict: "صيانة رخيصة للغاية وسهولة إعادة بيع." },
+      { id: 3, brand: "تويوتا", model: "تويوتا كورولا (Toyota Corolla)", year: "2003 - 2025", summary: "السيارة الأسطورية التي لا تعطل.", images: [DEFAULT_CAR_IMG], syriaVerdict: "الاستثمار الأضمن في السوق السوري." },
+      { id: 4, brand: "مرسيدس", model: "مرسيدس بنز الفئة C (C-Class)", year: "2008 - 2014", summary: "قمة الفخامة والأمان الألماني.", images: [DEFAULT_CAR_IMG], syriaVerdict: "فخامة وثبات مطلق؛ تتطلب صيانة متخصصة." },
+      { id: 5, brand: "بي إم دبليو", model: "بي إم دبليو الفئة الثالثة (3 Series)", year: "2006 - 2018", summary: "رمز المتعة والقيادة الرياضية.", images: [DEFAULT_CAR_IMG], syriaVerdict: "أداء رياضي عالٍ وعناية دورية بالزيوت." }
     ];
 
     let dashboardErrors = [
@@ -579,7 +569,6 @@
       }
     }
 
-    // INTELLIGENT AI COMPARISON ENGINE (Clear, Specific, Names Included)
     function runFreeAiComparison() {
       const car1 = sanitizeHTML(document.getElementById('compare-car-1-input').value);
       const car2 = sanitizeHTML(document.getElementById('compare-car-2-input').value);
@@ -593,15 +582,14 @@
       resultBox.innerHTML = `
         <h4 class="font-black text-slate-900 text-sm border-b pb-2">📊 تقرير المقارنة الفنية المتقدمة: (${car1} ضد ${car2})</h4>
         <div class="space-y-2.5 pt-2 text-slate-700 leading-relaxed">
-          <p><strong>1. مقارنة قطع الغيار والصيانة في حلب وسوريا:</strong> سيارة <strong>${car1}</strong> تتميز بتوفر قطع غيار استهلاكية واسعة النطاق في السوق المحلي، بينما قد تتطلب <strong>${car2}</strong> بحثاً أدق عن القطع الأصلية.</p>
-          <p><strong>2. استهلاك الوقود والاقتصادية:</strong> في ظروف الازدحام المروري، تظهر النتائج تفوق إحداهما في كفاءة حرق الوقود وخفض المصروف اليومي مقارنة بالأخرى.</p>
-          <p><strong>3. الخيار الأفضل والقرار النهائي للسائق:</strong> بناءً على واقع الطرق وصيانة الورش المحلية، تعتبر سيارة <strong>${car1}</strong> هي الخيار الأفضل من حيث الاعتمادية وسهولة إعادة البيع، بينما <strong>${car2}</strong> تمنحك تفوقاً في الراحة أو الفخامة.</p>
+          <p><strong>1. صيانة وقطع غيار حلب وسوريا:</strong> تتميز سيارة <strong>${car1}</strong> بتوفر واسع لقطع غيارها وسهولة صيانتها في الورشات المحلية، مقارنة بسيارة <strong>${car2}</strong> التي تحتاج عناية متخصصة.</p>
+          <p><strong>2. استهلاك الوقود:</strong> كفاءة حرق الوقود متقاربة، لكن الكفة تميل لصالح السيارة ذات المحرك الأكثر ملاءمة للازحام المروري.</p>
+          <p><strong>3. الخيار الأفضل والقرار النهائي:</strong> نوصي بسيارة <strong>${car1}</strong> كخيار أول للاستخدام اليومي وإعادة البيع بسعر ممتاز، بينما توفر <strong>${car2}</strong> راحة إضافية وثبات أكبر على الطرقات السريعة.</p>
         </div>
       `;
       resultBox.classList.remove('hidden');
     }
 
-    // FORUM POSTS & REPLIES HANDLER
     function renderForumPosts() {
       const container = document.getElementById('forum-posts-container');
       if (!container) return;
@@ -617,16 +605,14 @@
             </div>
           </div>
           <p class="text-xs text-slate-700 leading-relaxed">${p.content}</p>
-          
           <div class="bg-slate-50 p-3 rounded-2xl border space-y-2 mt-2">
             <h5 class="text-[11px] font-bold text-slate-800"><i class="fa-solid fa-reply ml-1"></i> ردود الأعضاء (${p.replies.length}):</h5>
             ${p.replies.length === 0 ? '<p class="text-[10px] text-slate-400">لا توجد ردود بعد. كن أول من يرد!</p>' : p.replies.map(r => `
-              <div class="bg-white p-2.5 rounded-xl border text-[11px] space-y-0.5">
+              <div class="bg-white p-2.5 rounded-xl border text-[11px]">
                 <strong class="text-indigo-700">${r.author}:</strong> <span class="text-slate-600">${r.text}</span>
               </div>`).join('')}
-            
             <div class="flex gap-2 pt-2">
-              <input type="text" id="reply-input-${pIndex}" placeholder="اكتب ردك هنا..." class="w-full p-2 bg-white border rounded-xl text-xs">
+              <input type="text" id="reply-input-${pIndex}" placeholder="اكتب ردك..." class="w-full p-2 bg-white border rounded-xl text-xs">
               <button onclick="addReply(${pIndex})" class="px-4 py-2 bg-indigo-600 text-white font-bold rounded-xl text-xs shrink-0">إرسال</button>
             </div>
           </div>
@@ -644,7 +630,7 @@
       closeModal('add-post-modal');
       e.target.reset();
       renderForumPosts();
-      alert('تم نشر منشورك في المنتدى بنجاح!');
+      alert('تم نشر منشورك بنجاح!');
     }
 
     function addReply(pIndex) {
@@ -659,7 +645,6 @@
       renderForumPosts();
     }
 
-    // SHOWROOMS HANDLER (FIXED)
     function renderShowrooms() {
       const container = document.getElementById('showrooms-container');
       if (!container) return;
@@ -667,7 +652,7 @@
         <div class="bg-white rounded-3xl border overflow-hidden card-hover flex flex-col justify-between shadow-sm">
           <div>
             <div class="relative h-48 bg-slate-900">
-              <img src="${s.image || 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=500'}" class="w-full h-full object-cover">
+              <img src="${s.image}" onerror="this.src='${DEFAULT_SHOP_IMG}'" class="w-full h-full object-cover">
               ${s.verified ? '<span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow"><i class="fa-solid fa-circle-check"></i> موثوق (علامة زرقاء)</span>' : ''}
             </div>
             <div class="p-5 space-y-2">
@@ -689,17 +674,16 @@
       const name = sanitizeHTML(document.getElementById('sr-name').value);
       const city = sanitizeHTML(document.getElementById('sr-city').value);
       const phone = sanitizeHTML(document.getElementById('sr-phone').value);
-      const image = sanitizeHTML(document.getElementById('sr-image').value);
+      const image = sanitizeHTML(document.getElementById('sr-image').value) || DEFAULT_SHOP_IMG;
       const desc = sanitizeHTML(document.getElementById('sr-desc').value);
 
-      pendingShowrooms.unshift({ id: Date.now(), name, city, phone, image: image || 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=500', desc });
+      pendingShowrooms.unshift({ id: Date.now(), name, city, phone, image, desc });
       localStorage.setItem('pending_showrooms', JSON.stringify(pendingShowrooms));
       closeModal('add-showroom-modal');
       e.target.reset();
-      alert('تم إرسال طلب الاعتماد بنجاح إلى الإدارة!');
+      alert('تم إرسال طلب الاعتماد بنجاح للإدارة!');
     }
 
-    // CARS FOR SALE HANDLER
     function renderCarsForSale() {
       const search = document.getElementById('cars-sale-search')?.value.toLowerCase() || '';
       const container = document.getElementById('cars-for-sale-container');
@@ -709,7 +693,7 @@
         <div class="bg-white rounded-3xl border overflow-hidden card-hover flex flex-col justify-between shadow-sm">
           <div>
             <div class="relative h-48 bg-slate-900">
-              <img src="${c.image || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800'}" class="w-full h-full object-cover">
+              <img src="${c.image}" onerror="this.src='${DEFAULT_CAR_IMG}'" class="w-full h-full object-cover">
               <span class="absolute top-3 right-3 bg-amber-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow">${c.price}</span>
               <span class="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-xl">${c.city}</span>
             </div>
@@ -734,19 +718,18 @@
       const city = sanitizeHTML(document.getElementById('cs-city').value);
       const km = sanitizeHTML(document.getElementById('cs-km').value);
       const phone = sanitizeHTML(document.getElementById('cs-phone').value);
-      const image = sanitizeHTML(document.getElementById('cs-image').value);
+      const image = sanitizeHTML(document.getElementById('cs-image').value) || DEFAULT_CAR_IMG;
       const desc = sanitizeHTML(document.getElementById('cs-desc').value);
 
-      approvedCarsForSale.unshift({ id: Date.now(), title, price, city, km, phone, image: image || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800', desc });
+      approvedCarsForSale.unshift({ id: Date.now(), title, price, city, km, phone, image, desc });
       localStorage.setItem('approved_cars_for_sale', JSON.stringify(approvedCarsForSale));
       closeModal('add-car-sale-modal');
       e.target.reset();
       renderCarsForSale();
       updateTicker();
-      alert('تم إضافة إعلان السيارة بنجاح!');
+      alert('تم نشر الإعلان بنجاح!');
     }
 
-    // SPARE PARTS HANDLER
     function renderSpareParts() {
       const container = document.getElementById('parts-container');
       if (!container) return;
@@ -754,7 +737,7 @@
         <div class="bg-white p-4 rounded-3xl border shadow-sm card-hover flex flex-col justify-between space-y-3">
           <div class="space-y-2">
             <div class="relative h-36 bg-slate-900 rounded-2xl overflow-hidden mb-2">
-              <img src="${p.image || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500'}" class="w-full h-full object-cover">
+              <img src="${p.image}" onerror="this.src='${DEFAULT_PART_IMG}'" class="w-full h-full object-cover">
             </div>
             <div class="flex justify-between items-start">
               <h3 class="font-black text-xs text-slate-900">${p.title}</h3>
@@ -773,10 +756,10 @@
       const price = sanitizeHTML(document.getElementById('part-price').value);
       const location = sanitizeHTML(document.getElementById('part-location').value);
       const phone = sanitizeHTML(document.getElementById('part-phone').value);
-      const image = sanitizeHTML(document.getElementById('part-image').value);
+      const image = sanitizeHTML(document.getElementById('part-image').value) || DEFAULT_PART_IMG;
       const desc = sanitizeHTML(document.getElementById('part-desc').value);
 
-      spareParts.unshift({ id: Date.now(), title, price, location, phone, desc, image: image || 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500' });
+      spareParts.unshift({ id: Date.now(), title, price, location, phone, desc, image });
       localStorage.setItem('spare_parts', JSON.stringify(spareParts));
       closeModal('add-part-modal');
       e.target.reset();
@@ -784,14 +767,13 @@
       alert('تم نشر القطعة بنجاح!');
     }
 
-    // SHOPS HANDLER
     function renderShops() {
       const container = document.getElementById('approved-shops-container');
       if (!container) return;
       container.innerHTML = approvedShops.map(s => `
         <div class="bg-white p-5 rounded-3xl border shadow-sm card-hover space-y-3">
           <div class="relative h-36 bg-slate-900 rounded-2xl overflow-hidden mb-2">
-            <img src="${s.image || 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500'}" class="w-full h-full object-cover">
+            <img src="${s.image}" onerror="this.src='${DEFAULT_SHOP_IMG}'" class="w-full h-full object-cover">
           </div>
           <div class="flex justify-between items-start">
             <div>
@@ -812,10 +794,10 @@
       const spec = sanitizeHTML(document.getElementById('shop-spec').value);
       const city = sanitizeHTML(document.getElementById('shop-city').value);
       const phone = sanitizeHTML(document.getElementById('shop-phone').value);
-      const image = sanitizeHTML(document.getElementById('shop-image').value);
+      const image = sanitizeHTML(document.getElementById('shop-image').value) || DEFAULT_SHOP_IMG;
       const desc = sanitizeHTML(document.getElementById('shop-desc').value);
 
-      approvedShops.unshift({ id: Date.now(), name, spec, city, phone, rating: "5.0", image: image || 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500', desc });
+      approvedShops.unshift({ id: Date.now(), name, spec, city, phone, rating: "5.0", image, desc });
       localStorage.setItem('approved_shops', JSON.stringify(approvedShops));
       closeModal('add-shop-modal');
       e.target.reset();
@@ -824,7 +806,6 @@
       alert('تم تسجيل الورشة بنجاح!');
     }
 
-    // MAINTENANCE MEMO
     function renderMaintenanceRecords() {
       const container = document.getElementById('maintenance-records-container');
       if (!container) return;
@@ -852,7 +833,6 @@
       alert('تم حفظ سجل الصيانة!');
     }
 
-    // ENCYCLOPEDIA & CATALOG
     function filterEncyclopedia(brand) {
       currentBrandFilter = brand;
       document.querySelectorAll('.enc-brand-btn').forEach(btn => {
@@ -873,7 +853,7 @@
         <div class="bg-white rounded-3xl border overflow-hidden card-hover flex flex-col justify-between shadow-sm">
           <div>
             <div class="relative h-48 bg-slate-900">
-              <img src="${c.images[0]}" class="w-full h-full object-cover">
+              <img src="${c.images[0]}" onerror="this.src='${DEFAULT_CAR_IMG}'" class="w-full h-full object-cover">
               <span class="absolute top-3 right-3 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full">${c.brand}</span>
             </div>
             <div class="p-5 space-y-2">
@@ -893,14 +873,13 @@
       document.getElementById('catalog-modal-content').innerHTML = `
         <div class="space-y-4">
           <h2 class="text-xl font-black">${c.model}</h2>
-          <img src="${c.images[0]}" class="w-full h-64 object-cover rounded-2xl shadow">
+          <img src="${c.images[0]}" onerror="this.src='${DEFAULT_CAR_IMG}'" class="w-full h-64 object-cover rounded-2xl shadow">
           <p class="text-xs text-slate-700 leading-relaxed">${c.summary}</p>
           <div class="bg-blue-50 p-4 rounded-2xl border text-xs text-blue-900 leading-relaxed"><strong>رأي الخبير والذكاء الاصطناعي:</strong> ${c.syriaVerdict}</div>
         </div>`;
       openModal('catalog-modal');
     }
 
-    // AI DIAGNOSTICS & CALCULATOR
     function handleAiDiagnose(e) {
       e.preventDefault();
       const car = sanitizeHTML(document.getElementById('car-model').value);
@@ -949,6 +928,7 @@
       logoClickCounter++;
       if (logoClickCounter >= 5) { logoClickCounter = 0; openAdminSecretPassModal(); }
     }
+
     function openAdminSecretPassModal() {
       const pass = prompt("كلمة السر للإدارة:");
       if (pass === "123456" || pass === "admin") {
@@ -957,6 +937,7 @@
         renderAdminDashboard();
       }
     }
+
     function renderAdminDashboard() {
       const container = document.getElementById('pending-showrooms-container');
       if (container) {
@@ -967,6 +948,7 @@
           </div>`).join('');
       }
     }
+
     function approveShowroom(idx) {
       const item = pendingShowrooms.splice(idx, 1)[0];
       item.verified = true;
@@ -978,6 +960,7 @@
       updateTicker();
       alert('تم اعتماد المعرض بنجاح!');
     }
+
     function handleAddSuggestion(e) {
       e.preventDefault();
       alert('تم إرسال الاقتراح بنجاح.');
