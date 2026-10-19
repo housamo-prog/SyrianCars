@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مرآب وسوق السيارات العربي | حلب وسوريا</title>
   <meta name="description" content="الموسوعة الحية لأعطال وسوق السيارات في حلب وسوريا">
+  <meta name="theme-color" content="#0f172a">
 
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,6 +32,7 @@
     .modal-backdrop.hidden { display: none; }
     .spinner { border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; width: 18px; height: 18px; animation: spin 0.8s linear infinite; display: inline-block; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    img { background: #e2e8f0; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen antialiased selection:bg-blue-500 selection:text-white">
@@ -43,8 +45,11 @@
           <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 text-white rounded-2xl flex items-center justify-center text-xl font-black shadow-lg shadow-blue-500/30"><i class="fa-solid fa-car-side"></i></div>
           <div>
             <h1 class="text-lg font-black tracking-tight bg-gradient-to-r from-white via-slate-100 to-blue-300 bg-clip-text text-transparent">مرآب وسوق السيارات</h1>
-            <p class="text-[11px] text-slate-400 font-medium">الموسوعة الحية لأعطال وسوق السيارات</p>
+            <p class="text-[11px] text-slate-400 font-medium">الموسوعة الحية لأعطال وسوق السيارات في حلب وسوريا</p>
           </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openModal('add-suggestion-modal')" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1.5 rounded-xl border border-amber-500/35 transition flex items-center gap-1.5 shadow-md"><i class="fa-solid fa-lightbulb"></i> اقتراح</button>
         </div>
       </div>
       <nav class="flex items-center gap-2 overflow-x-auto nav-scrollbar py-1 text-xs font-bold">
@@ -54,29 +59,40 @@
         <button onclick="switchTab('market-tab')" id="btn-market-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-1.5"><i class="fa-solid fa-boxes-packing"></i> القطع</button>
         <button onclick="switchTab('shops-tab')" id="btn-shops-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-1.5"><i class="fa-solid fa-wrench"></i> الورش</button>
         <button onclick="switchTab('showrooms-tab')" id="btn-showrooms-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-1.5"><i class="fa-solid fa-shop"></i> المعارض</button>
+        <button onclick="switchTab('maintenance-tab')" id="btn-maintenance-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-1.5"><i class="fa-solid fa-clipboard-list"></i> الصيانة</button>
+        <button onclick="switchTab('calculator-tab')" id="btn-calculator-tab" class="tab-btn shrink-0 px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-1.5"><i class="fa-solid fa-calculator"></i> الحاسبة</button>
         <button onclick="switchTab('admin-tab')" id="btn-admin-tab" class="tab-btn hidden shrink-0 px-4 py-2 rounded-xl transition bg-rose-600 text-white flex items-center gap-1.5 border border-rose-500/50"><i class="fa-solid fa-shield-halved"></i> الإدارة</button>
       </nav>
     </div>
   </header>
 
+  <div class="ticker-wrapper flex items-center px-4 shadow-inner">
+    <span class="bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg text-[10px] font-black shrink-0 ml-3 z-10"><i class="fa-solid fa-bolt"></i> صفقات حية:</span>
+    <div class="overflow-hidden w-full"><div class="ticker-content cursor-pointer" id="ticker-container">أهلاً بكم في مرآب وسوق السيارات العربي الحر — أضف إعلانك الآن مجاناً</div></div>
+  </div>
+
   <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+    <!-- 1. Encyclopedia -->
     <section id="encyclopedia-tab" class="tab-content space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
-        <h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-book-open text-blue-600"></i> موسوعة السيارات</h2>
-        <p class="text-xs text-slate-500 mt-1">كتالوجات وتحليلات فنية للسيارات الأكثر انتشاراً</p>
+        <div class="flex flex-wrap justify-between items-center gap-4">
+          <div><h2 class="text-xl font-black text-slate-900"><i class="fa-solid fa-book-open text-blue-600"></i> موسوعة السيارات</h2><p class="text-xs text-slate-500">كتالوجات وتحليلات فنية للسيارات الأكثر انتشاراً</p></div>
+          <button onclick="openModal('compare-modal')" class="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl text-xs shadow-md flex items-center gap-2"><i class="fa-solid fa-scale-balanced"></i> مقارنة ذكية</button>
+        </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-white rounded-3xl border overflow-hidden shadow-sm flex flex-col justify-between">
+        <div class="bg-white rounded-3xl border overflow-hidden card-hover shadow-sm flex flex-col justify-between">
           <div class="h-48 bg-slate-900"><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800" class="w-full h-full object-cover"></div>
           <div class="p-5 space-y-2"><h3 class="font-black text-sm text-slate-900">كيا سيراتو (Kia Cerato)</h3><p class="text-xs text-slate-600">السيارة الأكثر انتشاراً في سوريا.</p></div>
         </div>
-        <div class="bg-white rounded-3xl border overflow-hidden shadow-sm flex flex-col justify-between">
+        <div class="bg-white rounded-3xl border overflow-hidden card-hover shadow-sm flex flex-col justify-between">
           <div class="h-48 bg-slate-900"><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800" class="w-full h-full object-cover"></div>
           <div class="p-5 space-y-2"><h3 class="font-black text-sm text-slate-900">هيونداي أكسنت</h3><p class="text-xs text-slate-600">ملكة التوفير والاعتمادية.</p></div>
         </div>
       </div>
     </section>
 
+    <!-- 2. Cars for Sale -->
     <section id="cars-sale-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex justify-between items-center">
@@ -87,6 +103,7 @@
       <div id="cars-for-sale-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
+    <!-- 3. Forum -->
     <section id="forum-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-slate-200/80 space-y-4">
         <div class="flex justify-between items-center">
@@ -97,6 +114,7 @@
       <div id="forum-posts-container" class="space-y-6"></div>
     </section>
 
+    <!-- 4. Parts -->
     <section id="market-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border flex justify-between items-center">
         <h2 class="text-xl font-black"><i class="fa-solid fa-boxes-packing text-emerald-500"></i> قطع الغيار</h2>
@@ -105,6 +123,7 @@
       <div id="parts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
+    <!-- 5. Shops -->
     <section id="shops-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border flex justify-between items-center">
         <h2 class="text-xl font-black"><i class="fa-solid fa-wrench text-rose-500"></i> الورش</h2>
@@ -113,6 +132,7 @@
       <div id="approved-shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
+    <!-- 6. Showrooms -->
     <section id="showrooms-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border flex justify-between items-center">
         <h2 class="text-xl font-black"><i class="fa-solid fa-shop text-blue-500"></i> المعارض</h2>
@@ -121,6 +141,29 @@
       <div id="showrooms-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
+    <!-- 7. Maintenance -->
+    <section id="maintenance-tab" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-3xl border flex justify-between items-center">
+        <h2 class="text-xl font-black"><i class="fa-solid fa-clipboard-list text-purple-600"></i> مفكرة الصيانة</h2>
+        <button onclick="openModal('add-maintenance-modal')" class="px-5 py-3 bg-purple-600 text-white font-bold rounded-2xl text-xs">تسجيل صيانة</button>
+      </div>
+      <div id="maintenance-records-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- 8. Calculator -->
+    <section id="calculator-tab" class="tab-content hidden space-y-6">
+      <div class="bg-white p-6 rounded-3xl border max-w-xl mx-auto space-y-4">
+        <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-calculator text-cyan-600"></i> حاسبة المصروف</h2>
+        <form onsubmit="calculateTankFuel(event)" class="space-y-3">
+          <input type="number" id="calc-km" required placeholder="المسافة (كم)" class="w-full p-3 border rounded-2xl text-xs">
+          <input type="number" id="calc-liters" required placeholder="اللترات" class="w-full p-3 border rounded-2xl text-xs">
+          <button type="submit" class="w-full py-3 bg-cyan-600 text-white font-black rounded-2xl text-xs">احسب</button>
+        </form>
+        <div id="calc-result" class="hidden bg-cyan-50 border p-4 rounded-2xl text-xs text-cyan-900"></div>
+      </div>
+    </section>
+
+    <!-- 9. Admin -->
     <section id="admin-tab" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-3xl border border-rose-200 space-y-6">
         <div class="flex justify-between items-center border-b pb-4">
@@ -147,21 +190,24 @@
 
   <div id="add-showroom-modal" class="modal-backdrop hidden"><div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative"><button onclick="closeModal('add-showroom-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button><h3 class="text-base font-black mb-3">طلب اعتماد معرض</h3><form onsubmit="handleAddShowroom(event)" class="space-y-3"><input type="text" id="sr-name" required placeholder="اسم المعرض *" class="w-full p-3 border rounded-2xl text-xs"><input type="text" id="sr-city" required placeholder="المدينة *" class="w-full p-3 border rounded-2xl text-xs"><input type="tel" id="sr-phone" required placeholder="رقم الواتساب *" class="w-full p-3 border rounded-2xl text-xs"><input type="file" id="sr-file" accept="image/*" class="w-full text-xs p-2 bg-slate-50 border rounded-2xl"><textarea id="sr-desc" rows="2" required placeholder="نبذة عن المعرض..." class="w-full p-3 border rounded-2xl text-xs"></textarea><button type="submit" id="sr-btn" class="w-full py-3 bg-blue-600 text-white font-black rounded-2xl text-xs">إرسال الطلب</button></form></div></div>
 
-  <!-- ADMIN LOGIN MODAL (مُحدث) -->
+  <div id="add-maintenance-modal" class="modal-backdrop hidden"><div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative"><button onclick="closeModal('add-maintenance-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button><h3 class="text-base font-black mb-3">تسجيل صيانة</h3><form onsubmit="handleAddMaintenance(event)" class="space-y-3"><input type="text" id="maint-car" required placeholder="اسم السيارة *" class="w-full p-3 border rounded-2xl text-xs"><input type="text" id="maint-part" required placeholder="الخدمة *" class="w-full p-3 border rounded-2xl text-xs"><input type="number" id="maint-km" required placeholder="العداد (كم) *" class="w-full p-3 border rounded-2xl text-xs"><input type="date" id="maint-date" required class="w-full p-3 border rounded-2xl text-xs"><button type="submit" class="w-full py-3 bg-purple-600 text-white font-black rounded-2xl text-xs">حفظ</button></form></div></div>
+
+  <div id="add-suggestion-modal" class="modal-backdrop hidden"><div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-xl relative"><button onclick="closeModal('add-suggestion-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button><h3 class="text-base font-black mb-3">اقتراح للتطوير</h3><form onsubmit="handleAddSuggestion(event)" class="space-y-3"><input type="text" id="sug-name" required placeholder="الاسم *" class="w-full p-3 border rounded-2xl text-xs"><textarea id="sug-content" rows="3" required placeholder="اكتب اقتراحك..." class="w-full p-3 border rounded-2xl text-xs"></textarea><button type="submit" class="w-full py-3 bg-amber-500 font-black rounded-2xl text-xs text-slate-950">إرسال</button></form></div></div>
+
+  <!-- ADMIN LOGIN MODAL -->
   <div id="login-modal" class="modal-backdrop hidden">
     <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-xl relative">
       <button onclick="closeModal('login-modal')" class="absolute top-4 left-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="text-base font-black mb-4 text-center text-rose-700"><i class="fa-solid fa-lock"></i> دخول الإدارة</h3>
       
-      <!-- صندوق الخطأ (مخفي افتراضياً) -->
-      <div id="login-error-box" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl mb-3 leading-relaxed"></div>
+      <div id="login-error-box" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl mb-3 leading-relaxed font-bold"></div>
 
       <form onsubmit="handleAdminLogin(event)" class="space-y-3">
         <input type="email" id="login-email" required placeholder="البريد الإلكتروني" class="w-full p-3 border rounded-2xl text-xs bg-slate-50">
         <input type="password" id="login-pass" required placeholder="كلمة المرور" class="w-full p-3 border rounded-2xl text-xs bg-slate-50">
         <div class="flex gap-2">
           <button type="submit" id="login-btn" class="flex-1 py-3 bg-slate-900 text-white font-black rounded-2xl text-xs shadow-md transition">تسجيل الدخول</button>
-          <button type="button" onclick="closeModal('login-modal')" class="px-4 bg-slate-100 text-slate-600 font-bold rounded-2xl text-xs hover:bg-slate-200">إلغاء</button>
+          <button type="button" onclick="closeModal('login-modal')" class="px-4 bg-slate-100 text-slate-600 font-bold rounded-2xl text-xs">إلغاء</button>
         </div>
       </form>
     </div>
@@ -179,18 +225,13 @@
       db = firebase.database();
       auth = firebase.auth();
       
-      // Anonymous sign-in for normal visitors
       auth.onAuthStateChanged(user => {
         if (user) { checkAdminStatus(user); } 
         else { auth.signInAnonymously().catch(e => console.error("Auth Error:", e)); }
       });
     } catch (e) { console.warn("Firebase init failed", e); }
 
-    function sanitizeHTML(str) {
-      if (!str) return '';
-      return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag));
-    }
-
+    function sanitizeHTML(str) { return str ? str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag] || tag)) : ''; }
     function openModal(id) { document.getElementById(id)?.classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); document.getElementById('login-error-box')?.classList.add('hidden'); }
     function openAdminLoginModal() { openModal('login-modal'); }
@@ -204,19 +245,15 @@
     }
 
     // ==========================================
-    // 2. Real-time Data Fetching
+    // 2. Data Fetching
     // ==========================================
     db.ref('cars_for_sale').on('value', snapshot => {
       const container = document.getElementById('cars-for-sale-container');
       if (!container) return;
-      if(!snapshot.exists()) { container.innerHTML = '<div class="col-span-full text-center text-slate-400 py-10">لا توجد سيارات معروضة.</div>'; return; }
-      const data = snapshot.val();
-      container.innerHTML = Object.values(data).reverse().map(c => `
-        <div class="bg-white rounded-3xl border overflow-hidden shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="h-48 bg-slate-900 relative"><img src="${c.image || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800'}" class="w-full h-full object-cover"><span class="absolute top-3 right-3 bg-amber-500 font-black text-xs px-3 py-1 rounded-full">${sanitizeHTML(c.price)}</span></div>
-            <div class="p-5 space-y-2"><h3 class="font-black text-sm">${sanitizeHTML(c.title)}</h3><p class="text-xs text-slate-500">${sanitizeHTML(c.city)} • ${sanitizeHTML(c.km)}</p><p class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-2xl border">${sanitizeHTML(c.desc)}</p></div>
-          </div>
+      if(!snapshot.exists()) { container.innerHTML = '<div class="col-span-full text-center text-slate-400 py-10">لا توجد سيارات.</div>'; return; }
+      container.innerHTML = Object.values(snapshot.val()).reverse().map(c => `
+        <div class="bg-white rounded-3xl border overflow-hidden shadow-sm">
+          <div class="p-5 space-y-2"><h3 class="font-black text-sm">${sanitizeHTML(c.title)}</h3><p class="text-xs text-slate-500">${sanitizeHTML(c.city)} • ${sanitizeHTML(c.km)}</p><p class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-2xl border">${sanitizeHTML(c.desc)}</p></div>
           <div class="p-5 pt-0"><a href="https://wa.me/${c.phone}" target="_blank" class="w-full py-2.5 bg-emerald-600 text-white font-black text-xs rounded-2xl text-center block">تواصل واتساب</a></div>
         </div>`).join('');
     });
@@ -225,24 +262,11 @@
       const container = document.getElementById('forum-posts-container');
       if (!container) return;
       if(!snapshot.exists()) { container.innerHTML = '<div class="text-center text-slate-400 py-10">لا توجد منشورات.</div>'; return; }
-      const data = snapshot.val();
-      container.innerHTML = Object.values(data).reverse().map(p => {
-        const comments = p.comments || {};
-        return `
+      container.innerHTML = Object.values(snapshot.val()).reverse().map(p => `
         <div class="bg-white p-5 rounded-3xl border shadow-sm space-y-4">
           <div class="flex items-center gap-2.5 border-b pb-3"><div class="w-9 h-9 bg-indigo-100 text-indigo-700 font-black rounded-full flex items-center justify-center text-xs">${p.author ? p.author[0] : 'U'}</div><div><h4 class="font-black text-xs">${sanitizeHTML(p.author)}</h4><span class="text-[10px] text-slate-400">${sanitizeHTML(p.car)}</span></div></div>
           <p class="text-xs text-slate-700">${sanitizeHTML(p.content)}</p>
-          <div class="border-t pt-3 space-y-3">
-            <h5 class="text-[11px] font-black text-slate-600"><i class="fa-solid fa-comments"></i> الردود (${Object.keys(comments).length})</h5>
-            <div class="space-y-2">${Object.values(comments).map(cm => `<div class="bg-slate-50 p-2.5 rounded-2xl border text-xs"><span class="font-bold text-indigo-900">${sanitizeHTML(cm.author)}: </span><span class="text-slate-700">${sanitizeHTML(cm.text)}</span></div>`).join('')}</div>
-            <form onsubmit="handleAddComment(event, '${p.id}')" class="flex gap-2 pt-1">
-              <input type="text" id="comment-author-${p.id}" required placeholder="اسمك..." class="w-1/3 p-2 bg-slate-50 border rounded-xl text-xs">
-              <input type="text" id="comment-text-${p.id}" required placeholder="ردك..." class="w-2/3 p-2 bg-slate-50 border rounded-xl text-xs">
-              <button type="submit" class="px-4 py-2 bg-indigo-600 text-white font-bold text-xs rounded-xl shrink-0">إرسال</button>
-            </form>
-          </div>
-        </div>`;
-      }).join('');
+        </div>`).join('');
     });
 
     // ==========================================
@@ -250,13 +274,33 @@
     // ==========================================
     function handleAddCarSale(e) { e.preventDefault(); const item = { id: Date.now(), title: sanitizeHTML(e.target.querySelector('#cs-title').value), price: sanitizeHTML(e.target.querySelector('#cs-price').value), city: sanitizeHTML(e.target.querySelector('#cs-city').value), km: sanitizeHTML(e.target.querySelector('#cs-km').value), phone: sanitizeHTML(e.target.querySelector('#cs-phone').value), desc: sanitizeHTML(e.target.querySelector('#cs-desc').value) }; db.ref('cars_for_sale').push(item).then(() => { closeModal('add-car-sale-modal'); e.target.reset(); alert('تم النشر!'); }); }
     function handleAddForumPost(e) { e.preventDefault(); const item = { id: Date.now(), author: sanitizeHTML(e.target.querySelector('#fp-author').value), car: sanitizeHTML(e.target.querySelector('#fp-car').value), content: sanitizeHTML(e.target.querySelector('#fp-content').value), comments: {} }; db.ref('forum_posts').push(item).then(() => { closeModal('add-post-modal'); e.target.reset(); }); }
-    function handleAddComment(e, postId) { e.preventDefault(); const author = document.getElementById(`comment-author-${postId}`).value; const text = document.getElementById(`comment-text-${postId}`).value; db.ref('forum_posts').once('value', snap => { if (snap.exists()) { const posts = snap.val(); const postKey = Object.keys(posts).find(key => posts[key].id == postId); if (postKey) { db.ref(`forum_posts/${postKey}/comments`).push({ author: sanitizeHTML(author), text: sanitizeHTML(text) }); e.target.reset(); } } }); }
     function handleAddPart(e) { e.preventDefault(); const item = { id: Date.now(), title: sanitizeHTML(e.target.querySelector('#part-title').value), price: sanitizeHTML(e.target.querySelector('#part-price').value), location: sanitizeHTML(e.target.querySelector('#part-location').value), phone: sanitizeHTML(e.target.querySelector('#part-phone').value), desc: sanitizeHTML(e.target.querySelector('#part-desc').value) }; db.ref('spare_parts').push(item).then(() => { closeModal('add-part-modal'); e.target.reset(); }); }
     function handleAddShop(e) { e.preventDefault(); const item = { id: Date.now(), name: sanitizeHTML(e.target.querySelector('#shop-name').value), spec: sanitizeHTML(e.target.querySelector('#shop-spec').value), city: sanitizeHTML(e.target.querySelector('#shop-city').value), phone: sanitizeHTML(e.target.querySelector('#shop-phone').value), desc: sanitizeHTML(e.target.querySelector('#shop-desc').value) }; db.ref('approved_shops').push(item).then(() => { closeModal('add-shop-modal'); e.target.reset(); }); }
     function handleAddShowroom(e) { e.preventDefault(); const item = { id: Date.now(), name: sanitizeHTML(e.target.querySelector('#sr-name').value), city: sanitizeHTML(e.target.querySelector('#sr-city').value), phone: sanitizeHTML(e.target.querySelector('#sr-phone').value), desc: sanitizeHTML(e.target.querySelector('#sr-desc').value) }; db.ref('pending_showrooms').push(item).then(() => { closeModal('add-showroom-modal'); e.target.reset(); }); }
+    
+    function handleAddMaintenance(e) {
+      e.preventDefault();
+      const item = { id: Date.now(), car: sanitizeHTML(document.getElementById('maint-car').value), part: sanitizeHTML(document.getElementById('maint-part').value), km: document.getElementById('maint-km').value, date: document.getElementById('maint-date').value };
+      let maintenanceRecords = JSON.parse(localStorage.getItem('maintenance_records')) || [];
+      maintenanceRecords.unshift(item); localStorage.setItem('maintenance_records', JSON.stringify(maintenanceRecords));
+      closeModal('add-maintenance-modal'); e.target.reset(); alert('تم الحفظ!');
+    }
+
+    function calculateTankFuel(e) {
+      e.preventDefault();
+      const km = parseFloat(document.getElementById('calc-km').value);
+      const liters = parseFloat(document.getElementById('calc-liters').value);
+      if (liters <= 0) return alert('يجب أن تكون اللترات أكبر من صفر');
+      const res = (km / liters);
+      const box = document.getElementById('calc-result');
+      box.innerHTML = `السيارة تقطع <strong>${res.toFixed(1)} كم</strong> لكل لتر.`;
+      box.classList.remove('hidden');
+    }
+    
+    function handleAddSuggestion(e) { e.preventDefault(); alert('تم إرسال اقتراحك!'); closeModal('add-suggestion-modal'); }
 
     // ==========================================
-    // 4. Admin Logic & Error Handling
+    // 4. Admin Login & Logic
     // ==========================================
     function handleAdminLogin(e) {
       e.preventDefault();
@@ -269,8 +313,18 @@
       btn.innerHTML = '<div class="spinner"></div>'; 
       btn.disabled = true;
 
+      const timeoutId = setTimeout(() => {
+        if(btn.disabled) {
+          btn.innerHTML = 'تسجيل الدخول';
+          btn.disabled = false;
+          errBox.textContent = 'فشل الاتصال. تحقق من كلمة المرور، أو من اتصال الإنترنت، أو من إعدادات الحماية في Firebase.';
+          errBox.classList.remove('hidden');
+        }
+      }, 7000);
+
       auth.signInWithEmailAndPassword(email, pass)
         .then(() => { 
+          clearTimeout(timeoutId); 
           closeModal('login-modal'); 
           btn.innerHTML = 'تسجيل الدخول'; 
           btn.disabled = false; 
@@ -278,7 +332,7 @@
           alert('تم تسجيل الدخول بنجاح!');
         })
         .catch(err => { 
-          console.error("Login Error:", err); 
+          clearTimeout(timeoutId); 
           errBox.textContent = 'خطأ: ' + err.code + ' - ' + err.message;
           errBox.classList.remove('hidden');
           btn.innerHTML = 'تسجيل الدخول'; 
@@ -315,7 +369,6 @@
     function deleteItem(node, key) {
       if(confirm('هل أنت متأكد من الحذف؟')) { db.ref(node + '/' + key).remove().then(() => { alert('تم الحذف!'); }); }
     }
-
   </script>
 </body>
-</html>
+</html>o
